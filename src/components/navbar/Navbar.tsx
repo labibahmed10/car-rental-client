@@ -69,8 +69,8 @@ const Navbar = () => {
   };
 
   return (
-    <Layout>
-      <Header className="p-0 bg-[#223e51]">
+    <Layout className="bg-[#223e51]">
+      <Header className="p-0 bg-[#223e51] w-full max-w-screen-xl mx-auto">
         {/* visible for desktop */}
         <Row justify="space-between" align="top">
           <Col xs={20} sm={20} md={5} className="ps-4">
