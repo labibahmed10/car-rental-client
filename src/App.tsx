@@ -1,13 +1,11 @@
-import Banner from "./components/Banner/Banner";
-import CarBookingForm from "./components/Banner/CarBookingForm";
 import Navbar from "./components/navbar/Navbar";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Banner />
-      <CarBookingForm />
+      <Home />
     </>
   );
 }

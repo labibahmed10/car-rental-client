@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import GalleryImage from "../../assets/images/mazda-red.png";
+import GalleryImage from "../../../assets/images/mazda-red.png";
 
 export default function Banner() {
   return (
