@@ -1,6 +1,7 @@
 import Banner from "./Banner/Banner";
 import CarBookingForm from "./Banner/CarBookingForm";
 import FeaturedCars from "./Featured/FeaturedCars";
+import Testimonials from "./Testimonials/Testimonials";
 import WhyUsPart from "./WhyUsPart/WhyUsPart";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <CarBookingForm />
       <FeaturedCars />
       <WhyUsPart />
+      <Testimonials />
     </>
   );
 }
