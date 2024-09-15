@@ -69,7 +69,7 @@ const Navbar = () => {
   };
 
   return (
-    <Layout className="bg-[#223e51] px-4">
+    <Layout className="bg-[#223e51] px-4 max-h-16">
       <Header className="p-0 bg-[#223e51] w-full max-w-screen-xl mx-auto">
         {/* visible for desktop */}
         <Row justify="space-between" align="top">
