@@ -19,7 +19,7 @@ const CarBookingForm: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#223e51] rounded-xl text-white w-11/12 mx-auto sm:max-w-screen-md sm:mx-auto px-0 sm:px-10 ">
+    <section className="bg-[#223e51] rounded-xl text-white w-11/12 mx-auto sm:max-w-screen-md sm:mx-auto px-0 sm:px-10 my-10 sm:my-16">
       <Form
         layout={"vertical"}
         onFinish={onFinish}
