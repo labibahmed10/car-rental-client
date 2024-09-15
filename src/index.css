@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 body {
+  background-color: #f2f3e6;
   font-family: "Plus Jakarta Sans";
   font-weight: 600;
 }

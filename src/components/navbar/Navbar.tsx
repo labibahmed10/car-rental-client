@@ -69,11 +69,11 @@ const Navbar = () => {
   };
 
   return (
-    <Layout className="bg-[#223e51]">
+    <Layout className="bg-[#223e51] px-4">
       <Header className="p-0 bg-[#223e51] w-full max-w-screen-xl mx-auto">
         {/* visible for desktop */}
         <Row justify="space-between" align="top">
-          <Col xs={20} sm={20} md={5} className="ps-4">
+          <Col xs={20} sm={20} md={5}>
             <div className="size-16">
               <Image src={logo} alt="logo" className="object-fill" preview={false} />
             </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
             <Menu className="bg-[#223e51] text-white" mode="horizontal" theme="dark" items={menuItem} />
           </Col>
           <Col xs={4} sm={4} md={0}>
-            <Button type="primary" className="text-white bg-[#0f1a22ce] " onClick={showDrawer}>
+            <Button type="primary" className="text-white bg-[#0f1a22ce]" onClick={showDrawer}>
               <MenuOutlined />
             </Button>
           </Col>
