@@ -11,14 +11,11 @@ export default function CarCards() {
         <h3 className="text-2xl font-semibold">Car Name</h3>
 
         <p className="text-lg font-semibold text-slate-600mc"> $100/day</p>
-        <p className="text-slate-100 text-sm mt-2">
-          Description of the car goes here...{" "}
-          <NavLink to="/cars/1" className="text-slate-100 text-sm cursor-pointer no-underline">
-            Show more
-          </NavLink>
-        </p>
+        <p className="text-slate-100 text-sm mt-2">Description of the car goes here...</p>
         <div className="flex justify-end items-center mt-5">
-          <Button className="bg-[#223e51] text-white text-xl h-11 sm:h-12 w-40 sm:w-48">Book Now</Button>
+          <NavLink to={`/cars/${"audi-luxury"}`}>
+            <Button className="bg-[#223e51] text-white text-xl h-11 sm:h-12 w-40 sm:w-48">See Details</Button>
+          </NavLink>
         </div>
       </div>
     </div>
