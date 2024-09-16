@@ -4,6 +4,7 @@ import Login from "../pages/Auth/Login";
 import Home from "../pages/home/Home";
 import AllCars from "../pages/AllCars/AllCars";
 import CarDetails from "../pages/CarDetails/CarDetails";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const routers = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const routers = createBrowserRouter([
       {
         path: "cars/:name",
         element: <CarDetails />,
+      },
+      {
+        path: "about",
+        element: <AboutUs />,
       },
     ],
   },
