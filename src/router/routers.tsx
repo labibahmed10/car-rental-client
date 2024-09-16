@@ -5,8 +5,13 @@ import Home from "../pages/home/Home";
 import AllCars from "../pages/AllCars/AllCars";
 import CarDetails from "../pages/CarDetails/CarDetails";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import NotFound from "../pages/NotFound/NotFound";
 
 const routers = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFound />,
+  },
   {
     path: "/",
     element: <App />,
