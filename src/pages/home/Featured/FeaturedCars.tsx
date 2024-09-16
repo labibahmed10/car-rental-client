@@ -4,6 +4,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { NavLink } from "react-router-dom";
 
 const settings = {
   dots: false,
@@ -54,7 +55,9 @@ export default function FeaturedCars() {
           <h2 className="text-3xl sm:text-6xl font-semibold">Our Featured Cars</h2>
         </div>
 
-        <Button className="bg-[#223e51] text-white text-xl h-10 sm:h-12 w-40 sm:w-48">See All Cars</Button>
+        <NavLink to="/cars">
+          <Button className="bg-[#223e51] text-white text-xl h-10 sm:h-12 w-40 sm:w-48">See All Cars</Button>
+        </NavLink>
       </div>
 
       {/* bottom part */}
