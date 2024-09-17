@@ -5,12 +5,15 @@ export default function BreadCrumbs() {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
-  const items = pathnames.map((_, index) => {
-    return {
-      title: <span className="text-slate-900"> {pathnames[index]}</span>,
-    };
-  });
-
+  const items = pathnames
+    .map((_, index) => {
+      return {
+        title: <span className="text-slate-900"> {pathnames[index]}</span>,
+      };
+    })
+    .filter((item) => {
+      return item.title.props.children[1] !== "login" && item.title.props.children[1] !== "signup";
+    });
   return (
     <>
       {items.length > 0 && (
