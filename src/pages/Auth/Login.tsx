@@ -4,13 +4,14 @@ import partialLoginImg from "../../assets/images/gallery-3.jpg";
 import { NavLink } from "react-router-dom";
 
 const Login = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (value: any) => {
     console.log(value);
   };
   return (
-    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center h-screen px-4 sm:px-0 my-7">
+    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center px-4 sm:px-0 my-8 sm:my-24">
       <div className="w-full order-1">
-        <Form name="login" initialValues={{ remember: true }} onFinish={onFinish} className="w-full sm:w-3/4 mx-auto">
+        <Form name="login" onFinish={onFinish} className="w-full sm:w-3/4 mx-auto">
           <Form.Item
             name="email"
             rules={[
@@ -42,7 +43,9 @@ const Login = () => {
             <Button block type="primary" htmlType="submit">
               Log in
             </Button>
-            or <NavLink to="/signup">Register now!</NavLink>
+            <p className="mt-2">
+              or <NavLink to="/signup">Register now!</NavLink>
+            </p>
           </Form.Item>
         </Form>
       </div>
