@@ -1,5 +1,5 @@
-import { Button } from "antd";
 import GalleryImage from "../../../assets/images/mazda-red.png";
+import MyButton from "../../../components/common/MyButton";
 
 export default function Banner() {
   return (
@@ -12,19 +12,7 @@ export default function Banner() {
           More than 40,000 private car rentals and bareboat near your location to get best ride experience.
         </p>
 
-        <Button
-          type="primary"
-          size="large"
-          className="bg-[#223e51] text-xl text-white w-40 sm:w-48 h-12 sm:h-16 mt-3 sm:mt-6"
-          style={{
-            transition: "background-color 0.2s",
-            backgroundColor: "#223e51",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1a2a36")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#223e51")}
-        >
-          Book Now
-        </Button>
+        <MyButton text="Book Now" extraStyle="w-40 sm:w-48 h-12 sm:h-16 mt-3 sm:mt-7" />
       </div>
       <img src={GalleryImage} alt="Gallery Image" className="w-full sm:w-1/2 h-full object-cover" />
     </section>

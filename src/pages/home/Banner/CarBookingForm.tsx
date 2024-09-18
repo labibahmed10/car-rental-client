@@ -1,6 +1,7 @@
 import React from "react";
-import { Form, Input, Button, DatePicker, message, FormInstance } from "antd";
+import { Form, Input, DatePicker, message, FormInstance } from "antd";
 import { ExclamationCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import MyButton from "../../../components/common/MyButton";
 
 const CarBookingForm: React.FC = () => {
   const onFinish = (values: FormInstance) => {
@@ -19,7 +20,7 @@ const CarBookingForm: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#223e51] rounded-xl text-white w-11/12 mx-auto sm:max-w-screen-md sm:mx-auto px-0 sm:px-10 my-10 sm:my-16">
+    <section className="bg-[#2a5979] rounded-xl text-white w-11/12 mx-auto sm:max-w-screen-md sm:mx-auto px-0 sm:px-10 my-10 sm:my-16">
       <Form
         layout={"vertical"}
         onFinish={onFinish}
@@ -46,9 +47,7 @@ const CarBookingForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="bg-[#12212B] text-xl text-white w-36 sm:w-40 h-10  sm:h-12 rounded-md mt-0 sm:mt-7">
-            Check
-          </Button>
+          <MyButton text="Check" extraStyle="text-white w-36 sm:w-40 h-10 sm:h-12 mt-0 sm:mt-8" />
         </Form.Item>
       </Form>
     </section>

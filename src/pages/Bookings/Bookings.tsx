@@ -8,6 +8,7 @@ import PersonalInfo from "./components/PersonalInfo";
 import PaymentInfo from "./components/PaymentInfo";
 import CarSearchForm from "../../components/common/CarSearchForm";
 import BookingConfirmationModal from "../../components/modal/BookingConfirmationModal";
+import MyButton from "../../components/common/MyButton";
 
 const { Title } = Typography;
 
@@ -28,8 +29,8 @@ const Bookings: React.FC = () => {
   };
 
   return (
-    <div className="min-w-[1280px] mx-auto px-4 sm:px-0 py-8">
-      <Title level={2}>Book Your Car</Title>
+    <div className="sm:max-w-[1280px] sm:min-w-[1280px] mx-auto px-4 sm:px-0 py-8">
+      <h1 className="text-center font-semibold text-3xl sm:text-5xl mb-5">Book Your Car</h1>
 
       <CarSearchForm />
 
@@ -42,9 +43,7 @@ const Bookings: React.FC = () => {
         <PaymentInfo />
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" size="large">
-            Book Now
-          </Button>
+          <MyButton text="Book Now" type="submit" />
         </Form.Item>
       </Form>
 

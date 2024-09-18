@@ -6,6 +6,14 @@ export interface IBookingConfirmModal {
 }
 
 export interface ISelectCarFunc {
-  handleCarSelect?: (car: any) => void;
-  car?: any;
+  handleCarSelect?: (car: ICarDetails | undefined) => void;
+  car?: ICarDetails;
+}
+
+export interface ICarDetails {
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+  type: string;
 }

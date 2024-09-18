@@ -8,7 +8,7 @@ export default function AllCars() {
       <CarSearchForm />
 
       {/* all cars */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 w-full sm:w-[80rem]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 w-full sm:w-[80rem] ">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
           <CarCards key={item} />
         ))}

@@ -1,4 +1,4 @@
-import { Button, Rate } from "antd";
+import { Rate } from "antd";
 import img from "../../assets/images/audi-luxury.png";
 import CarReviewForm from "./CarReviewForm";
 import CarDescription from "./CarDescription";
@@ -6,6 +6,7 @@ import CarAttributes from "./CarAttributes";
 import CarExtra from "./CarExtra";
 import { additionalOpt, insuranceOpt } from "./carConstValues";
 import { NavLink } from "react-router-dom";
+import MyButton from "../../components/common/MyButton";
 
 const carDetails = {
   _id: "66df16832b3ca37eb11b0cb1",
@@ -74,9 +75,11 @@ export default function CarDetails() {
           {/* clicking here would take to booking page */}
           <div className="mt-10">
             <NavLink to="/cars/booking">
-              <Button className="bg-[#223e51] text-white text-xl h-11 sm:h-12 w-full" disabled={carDetails.status === "unavailable"}>
+              {/* <Button className="bg-[#223e51] text-white text-xl h-11 sm:h-12 w-full" disabled={carDetails.status === "unavailable"}>
                 {carDetails.status === "unavailable" ? "Unavailable" : "Book Now"}
-              </Button>
+              </Button> */}
+
+              <MyButton text={carDetails.status === "unavailable" ? "Unavailable" : "Book Now"} extraStyle="text-xl h-11 sm:h-12 w-full" />
             </NavLink>
           </div>
 

@@ -4,6 +4,7 @@ import { CarOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, Form, Row, Select, Slider } from "antd";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import MyButton from "./MyButton";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -27,7 +28,7 @@ export default function CarSearchForm() {
   };
 
   return (
-    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="w-full">
+    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="w-full mb-5">
       <Row gutter={20}>
         <Col xs={24} sm={12} md={8}>
           <Form.Item name="carType" label="Car Type">
@@ -94,11 +95,9 @@ export default function CarSearchForm() {
         )}
       </Row>
 
-      <Form.Item className="flex justify-end">
-        <Button type="primary" icon={<CarOutlined />} htmlType="submit" size="large">
-          Search Cars
-        </Button>
-      </Form.Item>
+      <div className="flex justify-end">
+        <MyButton text="Search Cars" icon={<CarOutlined />} />
+      </div>
     </Form>
   );
 }

@@ -1,5 +1,6 @@
-import { Button, Form, Input, Rate } from "antd";
+import { Form, Input, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import MyButton from "../../components/common/MyButton";
 
 export default function CarReviewForm() {
   return (
@@ -25,9 +26,7 @@ export default function CarReviewForm() {
             <Rate allowHalf={false} />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" className="bg-[#223E51] text-white" htmlType="submit">
-              Submit Review
-            </Button>
+            <MyButton text="Submit Review" type="submit" />
           </Form.Item>
         </Form>
       </div>

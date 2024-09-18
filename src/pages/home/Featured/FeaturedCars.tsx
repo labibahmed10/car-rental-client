@@ -1,10 +1,10 @@
-import { Button } from "antd";
 import CarCards from "../../../components/common/CarCards";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NavLink } from "react-router-dom";
+import MyButton from "../../../components/common/MyButton";
 
 const settings = {
   dots: false,
@@ -56,7 +56,7 @@ export default function FeaturedCars() {
         </div>
 
         <NavLink to="/cars">
-          <Button className="bg-[#223e51] text-white text-xl h-10 sm:h-12 w-40 sm:w-48">See All Cars</Button>
+          <MyButton text="See All Cars" extraStyle="h-10 sm:h-12 w-40 sm:w-48" />
         </NavLink>
       </div>
 

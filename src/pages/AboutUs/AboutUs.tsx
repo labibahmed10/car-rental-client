@@ -77,7 +77,7 @@ export default function AboutUs() {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 640 512"
               className="text-4xl text-[#223E51]"
               height="1em"
@@ -93,7 +93,7 @@ export default function AboutUs() {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 640 512"
               className="text-4xl text-[#223E51]"
               height="1em"
@@ -109,7 +109,7 @@ export default function AboutUs() {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 576 512"
               className="text-4xl text-[#223E51]"
               height="1em"
