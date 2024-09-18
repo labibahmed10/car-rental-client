@@ -27,7 +27,7 @@ const items: MenuProps["items"] = [
   {
     key: "3",
     label: (
-      <NavLink to="/booking">
+      <NavLink to="/cars/booking">
         <span className="text-white">Booking</span>
       </NavLink>
     ),

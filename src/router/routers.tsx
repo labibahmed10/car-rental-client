@@ -7,6 +7,7 @@ import CarDetails from "../pages/CarDetails/CarDetails";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import NotFound from "../pages/NotFound/NotFound";
 import SignUp from "../pages/Auth/SignUp";
+import Bookings from "../pages/Bookings/Bookings";
 
 const routers = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const routers = createBrowserRouter([
       {
         path: "about",
         element: <AboutUs />,
+      },
+      {
+        path: "cars/booking",
+        element: <Bookings />,
       },
       {
         path: "login",
