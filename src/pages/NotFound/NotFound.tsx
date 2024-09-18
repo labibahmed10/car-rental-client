@@ -1,5 +1,6 @@
-import { Button, Result } from "antd";
+import { Result } from "antd";
 import { NavLink } from "react-router-dom";
+import MyButton from "../../components/common/MyButton";
 
 export default function NotFound() {
   return (
@@ -10,9 +11,7 @@ export default function NotFound() {
         subTitle="Sorry, the page you visited does not exist."
         extra={
           <NavLink to="/">
-            <Button type="primary" className="bg-[#223E51]">
-              Back Home
-            </Button>
+            <MyButton text="Back Home" />
           </NavLink>
         }
       />

@@ -1,6 +1,6 @@
 import img from "../../assets/images/audi-luxury.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { ISelectCarFunc } from "../../types/booking";
+import { ISelectCarFunc } from "../../types/booking.type";
 import MyButton from "./MyButton";
 
 export default function CarCards({ handleCarSelect, car }: ISelectCarFunc) {

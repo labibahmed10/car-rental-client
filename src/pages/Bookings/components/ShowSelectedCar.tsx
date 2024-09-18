@@ -1,5 +1,5 @@
 import { Card, Checkbox, Col, Divider, Row, Typography } from "antd";
-import { ICarDetails } from "../../../types/booking";
+import { ICarDetails } from "../../../types/booking.type";
 
 const { Title, Text } = Typography;
 

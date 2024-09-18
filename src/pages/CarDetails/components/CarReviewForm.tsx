@@ -1,6 +1,6 @@
 import { Form, Input, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import MyButton from "../../components/common/MyButton";
+import MyButton from "../../../components/common/MyButton";
 
 export default function CarReviewForm() {
   return (

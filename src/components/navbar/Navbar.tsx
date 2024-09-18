@@ -3,6 +3,7 @@ import { Layout, Menu, Button, Drawer, Row, Col, MenuProps, Image } from "antd";
 import { HomeOutlined, UserOutlined, MenuOutlined, ContainerOutlined, CalendarOutlined } from "@ant-design/icons";
 import logo from "../../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
+import MyButton from "../common/MyButton";
 const { Header } = Layout;
 
 const items: MenuProps["items"] = [
@@ -49,9 +50,7 @@ const menuItem: MenuProps["items"] = [
     key: "",
     label: (
       <NavLink to="/login">
-        <Button type="primary" className="text-white bg-[#0f1a22ce]">
-          Log in
-        </Button>
+        <MyButton text="Log In" extraStyle="bg-[#0f1a22ce]" />
       </NavLink>
     ),
   },
@@ -69,8 +68,8 @@ const Navbar = () => {
   };
 
   return (
-    <Layout className="bg-[#223e51] px-4 max-h-16">
-      <Header className="p-0 bg-[#223e51] w-full max-w-screen-xl mx-auto">
+    <Layout className="bg-[#2A5979] px-4 max-h-16">
+      <Header className="p-0 bg-[#2A5979] w-full max-w-screen-xl mx-auto">
         {/* visible for desktop */}
         <Row justify="space-between" align="top">
           <Col xs={20} sm={20} md={5}>
@@ -79,10 +78,10 @@ const Navbar = () => {
             </div>
           </Col>
           <Col xs={0} sm={0} md={10}>
-            <Menu mode="horizontal" className="bg-[#223e51] text-white" theme="dark" defaultSelectedKeys={["1"]} items={items} />
+            <Menu mode="horizontal" className="bg-[#2A5979] text-white" theme="dark" defaultSelectedKeys={["1"]} items={items} />
           </Col>
           <Col xs={0} sm={0} md={5}>
-            <Menu className="bg-[#223e51] text-white" mode="horizontal" theme="dark" items={menuItem} />
+            <Menu className="bg-[#2A5979] text-white" mode="horizontal" theme="dark" items={menuItem} />
           </Col>
           <Col xs={4} sm={4} md={0}>
             <Button type="primary" className="text-white bg-[#0f1a22ce]" onClick={showDrawer}>
@@ -95,11 +94,11 @@ const Navbar = () => {
         <Drawer
           styles={{
             header: {
-              backgroundColor: "#223e51",
+              backgroundColor: "#2A5979",
               color: "white",
             },
             body: {
-              backgroundColor: "#223e51",
+              backgroundColor: "#2A5979",
               color: "white",
             },
           }}
@@ -110,8 +109,8 @@ const Navbar = () => {
           onClose={onClose}
           open={visible}
         >
-          <Menu mode="vertical" className="bg-[#223e51]" theme="dark" defaultSelectedKeys={["1"]} items={items} />
-          <Menu mode="horizontal" className="bg-[#223e51]" theme="dark" items={menuItem} />
+          <Menu mode="vertical" className="bg-[#2A5979]" theme="dark" defaultSelectedKeys={["1"]} items={items} />
+          <Menu mode="horizontal" className="bg-[#2A5979]" theme="dark" items={menuItem} />
         </Drawer>
       </Header>
     </Layout>

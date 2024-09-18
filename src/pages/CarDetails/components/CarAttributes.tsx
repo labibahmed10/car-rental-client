@@ -1,7 +1,7 @@
-import seatSVG from "../../assets/images/abs.svg";
-import airConditionSVG from "../../assets/images/air-condition.svg";
-import audioSVG from "../../assets/images/audio.svg";
-import audioInputSVG from "../../assets/images/audio-input.svg";
+import seatSVG from "../../../assets/images/abs.svg";
+import airConditionSVG from "../../../assets/images/air-condition.svg";
+import audioSVG from "../../../assets/images/audio.svg";
+import audioInputSVG from "../../../assets/images/audio-input.svg";
 
 export default function CarAttributes() {
   return (

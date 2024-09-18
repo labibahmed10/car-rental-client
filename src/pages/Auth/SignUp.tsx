@@ -1,7 +1,8 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Flex, Form, Image, Input } from "antd";
+import { Checkbox, Form, Image, Input } from "antd";
 import { NavLink } from "react-router-dom";
 import partialSignupImg from "../../assets/images/gallery-2.jpg";
+import MyButton from "../../components/common/MyButton";
 
 export default function SignUp() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,7 +10,7 @@ export default function SignUp() {
     console.log(value);
   };
   return (
-    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center h-screen px-4 sm:px-0 my-7">
+    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center gap-8 sm:gap-2 px-4 sm:px-0 my-8 sm:my-24">
       <div className="w-full order-1">
         <Form name="login" onFinish={onFinish} className="w-full sm:w-3/4 mx-auto">
           <Form.Item name="name" rules={[{ required: true, message: "Please input your Name!" }]}>
@@ -72,9 +73,7 @@ export default function SignUp() {
           </Form.Item>
 
           <Form.Item>
-            <Button block type="primary" htmlType="submit">
-              Sign Up
-            </Button>
+            <MyButton text="Sign Up" extraStyle="w-full" type="submit" />
             <p className="mt-2">
               Already have an account! <NavLink to="/login">Login now!</NavLink>
             </p>

@@ -1,9 +1,9 @@
 import { Rate } from "antd";
 import img from "../../assets/images/audi-luxury.png";
-import CarReviewForm from "./CarReviewForm";
-import CarDescription from "./CarDescription";
-import CarAttributes from "./CarAttributes";
-import CarExtra from "./CarExtra";
+import CarReviewForm from "./components/CarReviewForm";
+import CarDescription from "./components/CarDescription";
+import CarAttributes from "./components/CarAttributes";
+import CarExtra from "./components/CarExtra";
 import { additionalOpt, insuranceOpt } from "./carConstValues";
 import { NavLink } from "react-router-dom";
 import MyButton from "../../components/common/MyButton";

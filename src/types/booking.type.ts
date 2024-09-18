@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IBookingConfirmModal {
-  isModalVisible: anye;
+  isModalVisible: any;
   setIsModalVisible: any;
   bookingDetails: any;
   selectedCar: any;

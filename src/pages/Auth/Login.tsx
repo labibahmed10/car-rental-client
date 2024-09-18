@@ -1,7 +1,8 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Flex, Image } from "antd";
+import { Checkbox, Form, Input, Flex, Image } from "antd";
 import partialLoginImg from "../../assets/images/gallery-3.jpg";
 import { NavLink } from "react-router-dom";
+import MyButton from "../../components/common/MyButton";
 
 const Login = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,7 +10,7 @@ const Login = () => {
     console.log(value);
   };
   return (
-    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center px-4 sm:px-0 my-8 sm:my-24">
+    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center gap-8 sm:gap-2 px-4 sm:px-0 my-8 sm:my-24">
       <div className="w-full order-1">
         <Form name="login" onFinish={onFinish} className="w-full sm:w-3/4 mx-auto">
           <Form.Item
@@ -40,9 +41,7 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button block type="primary" htmlType="submit">
-              Log in
-            </Button>
+            <MyButton text="Log In" extraStyle="w-full" type="submit" />
             <p className="mt-2">
               or <NavLink to="/signup">Register now!</NavLink>
             </p>

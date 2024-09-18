@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import CarCards from "../../../components/common/CarCards";
-import { ISelectCarFunc } from "../../../types/booking";
+import { ISelectCarFunc } from "../../../types/booking.type";
 
 import carImg from "../../../assets/images/fortuner.webp";
 
