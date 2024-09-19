@@ -1,9 +1,10 @@
-import { IUserInfo, IUserSingIn } from "../../../types/auth.types";
+import { IUserInfo, IUserSingIn } from "../../../types/auth.type";
+import { IResponseType } from "../../../types/index.type";
 import baseApi from "../../api/baseApi";
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<IUserSingIn, IUserInfo>({
+    signIn: builder.mutation<IResponseType<IUserInfo>, IUserSingIn>({
       query: (credentials) => ({
         url: "/auth/signin",
         method: "POST",
@@ -13,4 +14,4 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useSignInMutation } = authApi;

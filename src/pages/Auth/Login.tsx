@@ -1,14 +1,47 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Checkbox, Form, Input, Flex, Image } from "antd";
 import partialLoginImg from "../../assets/images/gallery-3.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import MyButton from "../../components/common/MyButton";
+import { IUserSingIn } from "../../types/auth.type";
+import { useSignInMutation } from "../../redux/feature/auth/authApi";
+import { useAppDispatch } from "../../redux/store/hooks";
+import { toast } from "sonner";
+// import { useEffect } from "react";
+import { signIn } from "../../redux/feature/auth/authSlice";
 
 const Login = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (value: any) => {
-    console.log(value);
+  const [signInUser, { isLoading, isError }] = useSignInMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const toastId: number | string | boolean = (isLoading || isError) && toast.loading("Waiting for login..");
+
+  const onFinish = async (value: IUserSingIn) => {
+    try {
+      const userInfo = await signInUser(value).unwrap();
+      if (userInfo?.success) {
+        dispatch(signIn({ user: userInfo?.data, token: userInfo?.token }));
+        toast.success("Logged in successfully", {
+          id: toastId as number,
+          duration: 2000,
+        });
+        navigate("/");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log(error.data.message);
+      if (error.data) {
+        toast.error(error.data.message, {
+          id: toastId as number,
+          duration: 2000,
+        });
+      }
+    } finally {
+      toast.dismiss(toastId as number);
+    }
   };
+
   return (
     <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center gap-8 sm:gap-2 px-4 sm:px-0 my-8 sm:my-24">
       <div className="w-full order-1">
@@ -29,13 +62,13 @@ const Login = () => {
             <Input prefix={<UserOutlined />} placeholder="Email" className="w-full" />
           </Form.Item>
           <Form.Item name="password" rules={[{ required: true, message: "Please input your Password!" }]}>
-            <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
+            <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
           </Form.Item>
+
           <Form.Item>
             <Flex justify="space-between" align="center">
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
+              <Checkbox>Remember me</Checkbox>
+
               <NavLink to="">Forgot password</NavLink>
             </Flex>
           </Form.Item>
