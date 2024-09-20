@@ -1,7 +1,12 @@
+import type { MenuProps } from "antd";
 export interface IResponseType<T> {
   data: T;
   statusCode: number;
   success: boolean;
   message: string;
   token: string;
+}
+
+export interface IDashboardLayout {
+  items: MenuProps["items"];
 }

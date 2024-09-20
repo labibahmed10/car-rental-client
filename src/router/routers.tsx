@@ -8,6 +8,8 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import NotFound from "../pages/NotFound/NotFound";
 import SignUp from "../pages/Auth/SignUp";
 import Bookings from "../pages/Bookings/Bookings";
+import DashboardLayout from "../components/layout/dashboard/DashboardLayout";
+import { userRoutes, userSidebarRoutesmc } from "./userRoutes";
 
 const routers = createBrowserRouter([
   {
@@ -47,6 +49,11 @@ const routers = createBrowserRouter([
         element: <SignUp />,
       },
     ],
+  },
+  {
+    path: "/user",
+    element: <DashboardLayout items={userSidebarRoutesmc} />,
+    children: userRoutes,
   },
 ]);
 
