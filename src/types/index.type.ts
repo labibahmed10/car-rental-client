@@ -1,4 +1,6 @@
 import type { MenuProps } from "antd";
+import { ReactNode } from "react";
+
 export interface IResponseType<T> {
   data: T;
   statusCode: number;
@@ -9,4 +11,9 @@ export interface IResponseType<T> {
 
 export interface IDashboardLayout {
   items: MenuProps["items"];
+}
+
+export interface IProtectedRoute {
+  allowedRole: "user" | "admin";
+  children: ReactNode;
 }

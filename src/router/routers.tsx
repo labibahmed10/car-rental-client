@@ -8,9 +8,10 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import NotFound from "../pages/NotFound/NotFound";
 import SignUp from "../pages/Auth/SignUp";
 import Bookings from "../pages/Bookings/Bookings";
-import DashboardLayout from "../components/layout/dashboard/DashboardLayout";
+import DashboardLayout from "../components/layout/Dashboard/DashboardLayout";
 import { userRoutes, userSidebarRoutes } from "./userRoutes";
 import { adminRoutes, adminSidebarRoutes } from "./adminRoutes";
+import ProtectedRoute from "../components/layout/Protected/ProtectedRoute";
 
 const routers = createBrowserRouter([
   {
@@ -53,12 +54,20 @@ const routers = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <DashboardLayout items={userSidebarRoutes} />,
+    element: (
+      <ProtectedRoute allowedRole={"user"}>
+        <DashboardLayout items={userSidebarRoutes} />
+      </ProtectedRoute>
+    ),
     children: userRoutes,
   },
   {
     path: "/admin",
-    element: <DashboardLayout items={adminSidebarRoutes} />,
+    element: (
+      <ProtectedRoute allowedRole="admin">
+        <DashboardLayout items={adminSidebarRoutes} />
+      </ProtectedRoute>
+    ),
     children: adminRoutes,
   },
 ]);

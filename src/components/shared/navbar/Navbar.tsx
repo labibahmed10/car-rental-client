@@ -18,8 +18,6 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useAppDispatch();
 
-  console.log({ user });
-
   const items: MenuProps["items"] = [
     {
       key: 1,

@@ -66,7 +66,7 @@ export const adminSidebarRoutes: MenuProps["items"] = [
   },
   {
     key: "Update Car",
-    label: <NavLink to="/admin/update-car">Update Car</NavLink>,
+    label: <NavLink to="/admin/update-car/:id">Update Car</NavLink>,
     icon: <FaCarCrash />,
   },
   {
