@@ -14,7 +14,23 @@ export interface IUserSingIn {
   password: string;
 }
 
+export interface IUserSignUp extends IUserSingIn {
+  name: string;
+  confirmPassword: string;
+  agreement?: boolean;
+  role: string;
+  phone: string;
+  address: string;
+}
+
 export interface IAuthState {
   user: string | null;
   token: string | null;
+}
+
+export interface IUserToken {
+  exp: number;
+  iat: number;
+  role: "user" | "admin";
+  userId: string;
 }

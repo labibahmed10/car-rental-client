@@ -16,10 +16,15 @@ const authSlice = createSlice({
       state.user = user;
       state.token = token;
     },
+
+    signOut: (state) => {
+      state.token = null;
+      state.user = null;
+    },
   },
 });
 
-export const { signIn } = authSlice.actions;
+export const { signIn, signOut } = authSlice.actions;
 export const selectCurrentToken = (state: RootState) => state.auth.token;
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 

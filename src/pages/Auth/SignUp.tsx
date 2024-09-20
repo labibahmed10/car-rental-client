@@ -1,16 +1,45 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined, LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { Checkbox, Form, Image, Input } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import partialSignupImg from "../../assets/images/gallery-2.jpg";
 import MyButton from "../../components/common/MyButton";
+import { IUserSignUp } from "../../types/auth.type";
+import { useSignUpMutation } from "../../redux/feature/auth/authApi";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function SignUp() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (value: any) => {
-    console.log(value);
+  const [signUpUser, { isError, isLoading, isSuccess, error }] = useSignUpMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const toastId: number | string | boolean = (isLoading || isError) && toast.loading("Waiting for sign up..");
+
+    if (isSuccess) {
+      toast.success("User registration successfully", {
+        id: toastId as number,
+      });
+    }
+
+    if (isError) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      toast.error((error as any)?.data?.errorMessages[0]?.message, {
+        id: toastId as number,
+      });
+    }
+
+    return () => {
+      toast.dismiss(toastId as number);
+    };
+  }, [isError, error, isSuccess, isLoading]);
+
+  const onFinish = async (value: IUserSignUp) => {
+    const userInfo = await signUpUser({ ...value, role: "user" }).unwrap();
+    console.log(userInfo);
+    navigate("/login");
   };
   return (
-    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center gap-8 sm:gap-2 px-4 sm:px-0 my-8 sm:my-24">
+    <section className="sm:max-w-screen-xl mx-auto grid sm:grid-cols-2 place-items-center gap-8 sm:gap-2 px-4 sm:px-0 my-8 sm:my-32">
       <div className="w-full order-1">
         <Form name="login" onFinish={onFinish} className="w-full sm:w-3/4 mx-auto">
           <Form.Item name="name" rules={[{ required: true, message: "Please input your Name!" }]}>
@@ -58,6 +87,14 @@ export default function SignUp() {
             <Input.Password prefix={<LockOutlined />} placeholder="Confirm Password" />
           </Form.Item>
 
+          <Form.Item name="address" rules={[{ required: true, message: "Please input your Address!" }]}>
+            <Input prefix={<HomeOutlined />} placeholder="Enter Address" />
+          </Form.Item>
+
+          <Form.Item name="phone" rules={[{ required: true, message: "Please input your phone number!" }]}>
+            <Input addonBefore="+880" prefix={<PhoneOutlined />} placeholder="Input your phone number" />
+          </Form.Item>
+
           <Form.Item
             name="agreement"
             valuePropName="checked"
@@ -73,7 +110,7 @@ export default function SignUp() {
           </Form.Item>
 
           <Form.Item>
-            <MyButton text="Sign Up" extraStyle="w-full" type="submit" />
+            <MyButton text="Sign Up" extraStyle="w-full mt-2" type="submit" />
             <p className="mt-2">
               Already have an account! <NavLink to="/login">Login now!</NavLink>
             </p>

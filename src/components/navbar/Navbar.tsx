@@ -4,60 +4,73 @@ import { HomeOutlined, UserOutlined, MenuOutlined, ContainerOutlined, CalendarOu
 import logo from "../../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 import MyButton from "../common/MyButton";
+import { useAppDispatch, useAppSelector } from "../../redux/store/hooks";
+import { selectCurrentToken, signOut } from "../../redux/feature/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
+import { IUserToken } from "../../types/auth.type";
+
 const { Header } = Layout;
 
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    icon: <HomeOutlined className="text-white" />,
-    label: (
-      <NavLink to="/">
-        <span className="text-white">Home</span>
-      </NavLink>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <NavLink to="/about">
-        <span className="text-white">About Us</span>
-      </NavLink>
-    ),
-    icon: <UserOutlined className="text-white" />,
-  },
-  {
-    key: "3",
-    label: (
-      <NavLink to="/cars/booking">
-        <span className="text-white">Booking</span>
-      </NavLink>
-    ),
-    icon: <CalendarOutlined className="text-white" />,
-  },
-  {
-    key: "4",
-    label: (
-      <NavLink to="/contact">
-        <span className="text-white">Contact</span>
-      </NavLink>
-    ),
-    icon: <ContainerOutlined className="text-white" />,
-  },
-];
-
-const menuItem: MenuProps["items"] = [
-  {
-    key: "",
-    label: (
-      <NavLink to="/login">
-        <MyButton text="Log In" extraStyle="bg-[#0f1a22ce]" />
-      </NavLink>
-    ),
-  },
-];
-
 const Navbar = () => {
+  const token = useAppSelector(selectCurrentToken);
+  const user = token && verifyToken(token as string);
   const [visible, setVisible] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      icon: <HomeOutlined className="text-white" />,
+      label: (
+        <NavLink to="/">
+          <span className="text-white">Home</span>
+        </NavLink>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <NavLink to="/about">
+          <span className="text-white">About Us</span>
+        </NavLink>
+      ),
+      icon: <UserOutlined className="text-white" />,
+    },
+    {
+      key: "3",
+      label: (
+        <NavLink to="/cars/booking">
+          <span className="text-white">Booking</span>
+        </NavLink>
+      ),
+      icon: <CalendarOutlined className="text-white" />,
+    },
+    {
+      key: "4",
+      label: (
+        <NavLink to="/contact">
+          <span className="text-white">Contact</span>
+        </NavLink>
+      ),
+      icon: <ContainerOutlined className="text-white" />,
+    },
+  ];
+
+  const menuItem: MenuProps["items"] = [
+    {
+      key: "5",
+      label: !(user as IUserToken)?.userId ? (
+        <NavLink to="/login">
+          <MyButton text="Log In" extraStyle="bg-[#0f1a22ce]" />
+        </NavLink>
+      ) : (
+        <MyButton text="Log Out" onClick={() => dispatch(signOut())} extraStyle="bg-[#0f1a22ce]" />
+      ),
+      style: {
+        background: "transparent",
+      },
+    },
+  ];
 
   const showDrawer = () => {
     setVisible(true);
@@ -68,19 +81,19 @@ const Navbar = () => {
   };
 
   return (
-    <Layout className="bg-[#2A5979] px-4 max-h-16">
-      <Header className="p-0 bg-[#2A5979] w-full max-w-screen-xl mx-auto">
+    <Layout className="bg-[#2A5979] px-4 max-h-16 ">
+      <Header className="p-0 bg-[#2A5979] w-full max-w-screen-xl mx-auto ">
         {/* visible for desktop */}
         <Row justify="space-between" align="top">
-          <Col xs={20} sm={20} md={5}>
+          <Col xs={20} sm={20} md={2}>
             <div className="size-16">
               <Image src={logo} alt="logo" className="object-fill" preview={false} />
             </div>
           </Col>
-          <Col xs={0} sm={0} md={10}>
-            <Menu mode="horizontal" className="bg-[#2A5979] text-white" theme="dark" defaultSelectedKeys={["1"]} items={items} />
+          <Col xs={0} sm={0} md={19}>
+            <Menu mode="horizontal" className="bg-[#2A5979] text-white flex items-center justify-center w-full" theme="dark" items={items} />
           </Col>
-          <Col xs={0} sm={0} md={5}>
+          <Col xs={0} sm={0} md={3}>
             <Menu className="bg-[#2A5979] text-white" mode="horizontal" theme="dark" items={menuItem} />
           </Col>
           <Col xs={4} sm={4} md={0}>
@@ -109,7 +122,7 @@ const Navbar = () => {
           onClose={onClose}
           open={visible}
         >
-          <Menu mode="vertical" className="bg-[#2A5979]" theme="dark" defaultSelectedKeys={["1"]} items={items} />
+          <Menu mode="vertical" className="bg-[#2A5979]" theme="dark" items={items} />
           <Menu mode="horizontal" className="bg-[#2A5979]" theme="dark" items={menuItem} />
         </Drawer>
       </Header>
