@@ -24,7 +24,7 @@ export interface IUserSignUp extends IUserSingIn {
 }
 
 export interface IAuthState {
-  user: string | null;
+  user: IUserInfo | null;
   token: string | null;
 }
 

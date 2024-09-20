@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { selectCurrentToken, signOut } from "../../../redux/feature/auth/authSlice";
 import { verifyToken } from "../../../utils/verifyToken";
 import { IUserToken } from "../../../types/auth.type";
+import { MdSpaceDashboard } from "react-icons/md";
 
 const { Header } = Layout;
 
@@ -17,9 +18,11 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useAppDispatch();
 
+  console.log({ user });
+
   const items: MenuProps["items"] = [
     {
-      key: "1",
+      key: 1,
       icon: <HomeOutlined className="text-white" />,
       label: (
         <NavLink to="/">
@@ -28,7 +31,7 @@ const Navbar = () => {
       ),
     },
     {
-      key: "2",
+      key: 2,
       label: (
         <NavLink to="/about">
           <span className="text-white">About Us</span>
@@ -37,7 +40,7 @@ const Navbar = () => {
       icon: <UserOutlined className="text-white" />,
     },
     {
-      key: "3",
+      key: 3,
       label: (
         <NavLink to="/cars/booking">
           <span className="text-white">Booking</span>
@@ -46,7 +49,7 @@ const Navbar = () => {
       icon: <CalendarOutlined className="text-white" />,
     },
     {
-      key: "4",
+      key: 4,
       label: (
         <NavLink to="/contact">
           <span className="text-white">Contact</span>
@@ -54,11 +57,28 @@ const Navbar = () => {
       ),
       icon: <ContainerOutlined className="text-white" />,
     },
+
+    {
+      key: 5,
+      label:
+        (user as IUserToken)?.role === "user" ? (
+          <NavLink to={`/${(user as IUserToken)?.role}/dashboard`}>
+            <span className="text-white">Dashboard</span>
+          </NavLink>
+        ) : (
+          (user as IUserToken)?.role === "admin" && (
+            <NavLink to={`/${(user as IUserToken)?.role}/dashboard`}>
+              <span className="text-white">Dashboard</span>
+            </NavLink>
+          )
+        ),
+      icon: (user as IUserToken)?.role ? <MdSpaceDashboard className="text-center" /> : null,
+    },
   ];
 
   const menuItem: MenuProps["items"] = [
     {
-      key: "5",
+      key: "6",
       label: !(user as IUserToken)?.userId ? (
         <NavLink to="/login">
           <MyButton text="Log In" extraStyle="bg-[#0f1a22ce]" />

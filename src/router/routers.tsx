@@ -9,7 +9,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import SignUp from "../pages/Auth/SignUp";
 import Bookings from "../pages/Bookings/Bookings";
 import DashboardLayout from "../components/layout/dashboard/DashboardLayout";
-import { userRoutes, userSidebarRoutesmc } from "./userRoutes";
+import { userRoutes, userSidebarRoutes } from "./userRoutes";
+import { adminRoutes, adminSidebarRoutes } from "./adminRoutes";
 
 const routers = createBrowserRouter([
   {
@@ -52,8 +53,13 @@ const routers = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <DashboardLayout items={userSidebarRoutesmc} />,
+    element: <DashboardLayout items={userSidebarRoutes} />,
     children: userRoutes,
+  },
+  {
+    path: "/admin",
+    element: <DashboardLayout items={adminSidebarRoutes} />,
+    children: adminRoutes,
   },
 ]);
 

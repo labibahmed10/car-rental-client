@@ -1,32 +1,54 @@
-import { Image, Layout, Menu } from "antd";
+import { Divider, Image, Layout, Menu } from "antd";
 import { IDashboardLayout } from "../../../types/index.type";
 import { NavLink, Outlet } from "react-router-dom";
 const { Content, Sider } = Layout;
 import img from "../../../assets/images/logo.png";
 import MyButton from "../../common/MyButton";
 import { HomeOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../../../redux/store/hooks";
+import { selectCurrentUser } from "../../../redux/feature/auth/authSlice";
 
 const DashboardLayout = ({ items }: IDashboardLayout) => {
+  const user = useAppSelector(selectCurrentUser);
+  const profileText = user?.name?.slice(0, 1).toUpperCase();
+
   return (
     <Layout>
       <Sider
         breakpoint="sm"
         collapsedWidth="0"
-        width={240}
+        width={280}
         style={{
           backgroundColor: "#2A5979",
         }}
       >
-        <div className=" flex flex-col justify-between h-full p-3">
+        <section className=" flex flex-col justify-between h-full p-3">
           <div className="space-y-5">
             <Image preview={false} src={img} alt="" className="w-full" />
-            <Menu theme="dark" mode="vertical" defaultSelectedKeys={["1"]} items={items} className="bg-[#2A5979] space-y-4" />
+            <Divider variant="dashed" className="text-white bg-white/30" />
+            <Menu theme="dark" mode="vertical" defaultSelectedKeys={["1"]} items={items} className="bg-[#2A5979] space-y-4 text-lg" />
           </div>
 
-          <NavLink to="/">
-            <MyButton text="Home" icon={<HomeOutlined />} extraStyle="w-full " />
-          </NavLink>
-        </div>
+          <aside className="flex flex-col gap-4">
+            <Divider variant="dashed" className="text-white bg-white/30 p-0 m-0" />
+            <div className="flex gap-3 items-center">
+              <h2 className="p-2 rounded-full bg-cyan-500 border text-2xl font-semibold size-12 text-center text-white">{profileText}</h2>
+              <div className="">
+                <p className="text-gray-100 font-medium" title={user?.name}>
+                  {user?.name?.slice(0, 15)}
+                  {(user?.name?.length ?? 0) > 15 && "..."}
+                </p>
+                <p className="text-gray-300 text-sm" title={user?.email}>
+                  {user?.email.slice(0, 20)}
+                  {(user?.email?.length ?? 0) > 20 && "..."}
+                </p>
+              </div>
+            </div>
+            <NavLink to="/">
+              <MyButton text="Home" icon={<HomeOutlined />} extraStyle="w-full " />
+            </NavLink>
+          </aside>
+        </section>
       </Sider>
 
       <Layout>

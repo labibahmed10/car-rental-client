@@ -21,7 +21,7 @@ export const userRoutes: RouteObject[] | undefined = [
   },
 ];
 
-export const userSidebarRoutesmc: MenuProps["items"] = [
+export const userSidebarRoutes: MenuProps["items"] = [
   {
     key: "dashboard",
     label: <NavLink to="/user/dashboard">User Dashboard</NavLink>,
