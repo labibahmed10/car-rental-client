@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/react";
 import { IAuthState } from "../../../types/auth.type";
+import { RootState } from "../../store/store";
 
 const initialState: IAuthState = {
   user: null,
@@ -19,5 +20,7 @@ const authSlice = createSlice({
 });
 
 export const { signIn } = authSlice.actions;
+export const selectCurrentToken = (state: RootState) => state.auth.token;
+export const selectCurrentUser = (state: RootState) => state.auth.user;
 
 export default authSlice.reducer;

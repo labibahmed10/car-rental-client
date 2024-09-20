@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Checkbox, Form, Input, Flex, Image } from "antd";
 import partialLoginImg from "../../assets/images/gallery-3.jpg";
@@ -7,39 +8,39 @@ import { IUserSingIn } from "../../types/auth.type";
 import { useSignInMutation } from "../../redux/feature/auth/authApi";
 import { useAppDispatch } from "../../redux/store/hooks";
 import { toast } from "sonner";
-// import { useEffect } from "react";
 import { signIn } from "../../redux/feature/auth/authSlice";
+import { useEffect } from "react";
 
 const Login = () => {
-  const [signInUser, { isLoading, isError }] = useSignInMutation();
+  const [signInUser, { isSuccess, isError, error, isLoading }] = useSignInMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const toastId: number | string | boolean = (isLoading || isError) && toast.loading("Waiting for login..");
+  useEffect(() => {
+    const toastId: number | string | boolean = (isLoading || isError) && toast.loading("Waiting for login..");
+
+    if (isSuccess) {
+      toast.success("Logged in successfully", {
+        id: toastId as number,
+      });
+    }
+
+    if (isError) {
+      toast.error((error as any)?.data?.message, {
+        id: toastId as number,
+      });
+    }
+
+    return () => {
+      toast.dismiss(toastId as number);
+    };
+  }, [isError, error, isSuccess, isLoading]);
 
   const onFinish = async (value: IUserSingIn) => {
-    try {
-      const userInfo = await signInUser(value).unwrap();
-      if (userInfo?.success) {
-        dispatch(signIn({ user: userInfo?.data, token: userInfo?.token }));
-        toast.success("Logged in successfully", {
-          id: toastId as number,
-          duration: 2000,
-        });
-        navigate("/");
-      }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error.data.message);
-      if (error.data) {
-        toast.error(error.data.message, {
-          id: toastId as number,
-          duration: 2000,
-        });
-      }
-    } finally {
-      toast.dismiss(toastId as number);
-    }
+    const userInfo = await signInUser(value).unwrap();
+
+    dispatch(signIn({ user: userInfo?.data, token: userInfo?.token }));
+    navigate("/");
   };
 
   return (
