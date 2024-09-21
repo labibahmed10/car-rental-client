@@ -53,10 +53,13 @@ const carApi = baseApi.injectEndpoints({
     }),
 
     getCar: builder.query<IResponseType<ICarData>, { carId: string }>({
-      query: (carId) => ({
-        url: `/cars/${carId}`,
-        method: "GET",
-      }),
+      query: ({ carId }) => {
+        console.log(carId);
+        return {
+          url: `/cars/${carId}`,
+          method: "GET",
+        };
+      },
       providesTags: ["cars"],
     }),
 
@@ -70,7 +73,7 @@ const carApi = baseApi.injectEndpoints({
     }),
 
     deleteCar: builder.mutation<IResponseType<null>, { carId: string }>({
-      query: (carId) => ({
+      query: ({ carId }) => ({
         url: `/cars/${carId}`,
         method: "DELETE",
       }),

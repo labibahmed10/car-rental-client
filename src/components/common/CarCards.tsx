@@ -1,4 +1,3 @@
-import img from "../../assets/images/audi-luxury.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { ISelectCarFunc } from "../../types/booking.type";
 import MyButton from "./MyButton";
@@ -14,11 +13,11 @@ export default function CarCards({ handleCarSelect, car }: ISelectCarFunc) {
     }
   };
 
-  const { name, pricePerHour, description } = car as ICarData;
+  const { name, pricePerHour, description, image, _id } = car as ICarData;
 
   return (
     <div className="bg-[#f2f7e8] rounded-xl shadow-md mx-2 sm:mx-4 text-white">
-      <img src={img} alt="Car" className="w-full h-64 object-fill rounded-md p-1" />
+      <img src={image} alt="Car" className="w-full h-64 object-fill rounded-md p-1" />
 
       <div className="bg-[#245372] rounded-b-xl p-4 sm:p-4">
         <h3 className="text-2xl font-semibold">{name}</h3>
@@ -29,7 +28,7 @@ export default function CarCards({ handleCarSelect, car }: ISelectCarFunc) {
           {isBookingPage ? (
             <MyButton text="Book Now" onClick={handleCar} />
           ) : (
-            <NavLink to={`/cars/${"audi-luxury"}`}>
+            <NavLink to={`/cars/${_id}`}>
               <MyButton text="See Details" />
             </NavLink>
           )}
