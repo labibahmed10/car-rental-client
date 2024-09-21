@@ -1,3 +1,5 @@
+import { ICarData } from "./car.types";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IBookingConfirmModal {
   isModalVisible: any;
@@ -7,8 +9,8 @@ export interface IBookingConfirmModal {
 }
 
 export interface ISelectCarFunc {
-  handleCarSelect?: (car: ICarDetails | undefined) => void;
-  car?: ICarDetails;
+  handleCarSelect?: (car: ICarData | undefined) => void;
+  car?: ICarData;
 }
 
 export interface ICarDetails {

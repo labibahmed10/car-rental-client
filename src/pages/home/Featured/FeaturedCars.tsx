@@ -1,10 +1,11 @@
 import CarCards from "../../../components/common/CarCards";
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NavLink } from "react-router-dom";
 import MyButton from "../../../components/common/MyButton";
+import { useGetAllCarsQuery } from "../../../redux/feature/car/carApi";
+import { Spin } from "antd";
 
 const settings = {
   dots: false,
@@ -46,6 +47,21 @@ const settings = {
 };
 
 export default function FeaturedCars() {
+  const { data: allCars, isLoading } = useGetAllCarsQuery(undefined);
+  let render;
+
+  if (isLoading) {
+    render = <Spin tip="Loading..." size="large" className="h-96 flex justify-center items-center"></Spin>;
+  } else {
+    render = (
+      <Slider {...settings}>
+        {allCars?.data.map((car) => (
+          <CarCards key={car?._id} car={car} />
+        ))}
+      </Slider>
+    );
+  }
+
   return (
     <section className="max-w-screen-xl mx-auto my-10 sm:my-16 w-full px-4 sm:px-0">
       {/* top part */}
@@ -61,15 +77,7 @@ export default function FeaturedCars() {
       </div>
 
       {/* bottom part */}
-      <div className="mt-10">
-        <Slider {...settings}>
-          <CarCards />
-          <CarCards />
-          <CarCards />
-          <CarCards />
-          <CarCards />
-        </Slider>
-      </div>
+      <div className="mt-10">{render}</div>
     </section>
   );
 }

@@ -6,7 +6,7 @@ export interface IResponseType<T> {
   statusCode: number;
   success: boolean;
   message: string;
-  token: string;
+  token?: string;
 }
 
 export interface IDashboardLayout {
