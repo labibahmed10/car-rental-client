@@ -35,7 +35,9 @@ const carApi = baseApi.injectEndpoints({
           params.append("maxPrice", query.maxPrice);
         }
         if (query?.location) {
-          params.append("location", query.location);
+          const finalQuery = query.location?.split(" ")?.join(" ");
+          console.log(finalQuery);
+          // params.append("location", finalQuery);
         }
         if (query?.isElectric) {
           params.append("isElectric", query.isElectric);

@@ -36,4 +36,6 @@ type Queries = { [key: string]: string };
 export interface ISelectCar {
   selectedCar: ICarData | null;
   carSearchValue?: Queries;
+  // additionalFeatures: string[] | undefined;
+  // addInsurances: string[] | undefined;
 }

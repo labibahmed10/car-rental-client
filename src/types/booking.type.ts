@@ -14,11 +14,3 @@ export interface ISelectCarFunc {
   car?: ICarData;
   availableCars?: IResponseType<ICarData[]> | undefined;
 }
-
-export interface ICarDetails {
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  type: string;
-}

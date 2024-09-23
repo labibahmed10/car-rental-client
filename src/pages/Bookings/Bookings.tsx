@@ -4,7 +4,6 @@ import { Form } from "antd";
 import AvailableCars from "./components/AvailableCars";
 import ShowSelectedCar from "./components/ShowSelectedCar";
 import PersonalInfo from "./components/PersonalInfo";
-import PaymentInfo from "./components/PaymentInfo";
 import CarSearchForm from "../../components/common/CarSearchForm";
 import BookingConfirmationModal from "../../components/modal/BookingConfirmationModal";
 import MyButton from "../../components/common/MyButton";
@@ -19,12 +18,14 @@ const Bookings: React.FC = () => {
   const [skip, setSkip] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bookingDetails, setBookingDetails] = useState<any>(null);
-
   const location = useLocation();
+  const [selectedCar, setSelectedCar] = useState<ICarData | undefined>(location.state);
   const searchValues = useAppSelector(selectSearchValue);
+  console.log(searchValues);
   const { data: availableCars } = useGetAllCarsQuery(searchValues, { skip: skip });
 
-  const selectedCar = location.state as ICarData | undefined;
+  // const selectedCar = location.state as ICarData | undefined;
+  console.log(form.getFieldsValue());
 
   const onFinish = (values: any) => {
     setBookingDetails(values);
@@ -32,8 +33,8 @@ const Bookings: React.FC = () => {
   };
 
   const handleCarSelect = (car: any) => {
-    // setSelectedCar(car);
-    form.setFieldsValue({ carId: car.id });
+    setSelectedCar(car);
+    // form.setFieldsValue({ carId: car.id });
   };
 
   return (
@@ -48,7 +49,9 @@ const Bookings: React.FC = () => {
 
       <Form layout="vertical" name="confirmBooking" form={form} onFinish={onFinish} className="space-y-6 w-full">
         <PersonalInfo />
-        <PaymentInfo />
+
+        {/* will work with payment later*/}
+        {/* <PaymentInfo /> */}
 
         <Form.Item>
           <MyButton text="Book Now" type="submit" />

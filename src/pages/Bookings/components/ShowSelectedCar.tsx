@@ -1,9 +1,11 @@
-import { Card, Checkbox, Col, Divider, Row, Typography } from "antd";
-import { ICarDetails } from "../../../types/booking.type";
+import { Card, Col, Divider, Row, Typography } from "antd";
+import { ICarData } from "../../../types/car.types";
+import CarExtra from "../../CarDetails/components/CarExtra";
+import { additionalOpt, insuranceOpt } from "../../CarDetails/carConstValues";
 
 const { Title, Text } = Typography;
 
-export default function ShowSelectedCar({ selectedCar }: { selectedCar: ICarDetails }) {
+export default function ShowSelectedCar({ selectedCar }: { selectedCar: ICarData }) {
   return (
     <Card title="Selected Car Details" className="mb-8">
       <Row gutter={16}>
@@ -15,22 +17,24 @@ export default function ShowSelectedCar({ selectedCar }: { selectedCar: ICarDeta
           <Title level={4}>{selectedCar.name}</Title>
           <Text>Type: {selectedCar.type}</Text>
           <br />
-          <Text>Price: ${selectedCar.price}/day</Text>
+          <Text>Price: ${selectedCar.pricePerHour} / day</Text>
           <Divider />
 
           <Text strong>Features:</Text>
           <ul className="list-disc list-inside">
-            <li>Air Conditioning</li>
-            <li>Bluetooth</li>
-            <li>Backup Camera</li>
+            {selectedCar.features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
           </ul>
+
+          <p className="text-gray-700 mt-4 font-bold">ADDITIONAL FEATURES:</p>
+          <CarExtra options={additionalOpt} />
+
+          <p className="text-gray-700 mt-4 font-bold">INSURANCE OPTIONS:</p>
+          <CarExtra options={insuranceOpt} />
 
           <Divider />
 
-          <div className="flex flex-col mb-2">
-            <Text strong>Insurance Options:</Text>
-            <Checkbox>Add comprehensive insurance (+$15/day)</Checkbox>
-          </div>
           <div>
             <Text strong>Cancellation Policy:</Text>
             <p>Free cancellation up to 24 hours before pickup</p>
