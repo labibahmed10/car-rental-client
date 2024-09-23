@@ -12,7 +12,6 @@ import { ICarData } from "../../types/car.types";
 export default function CarDetails() {
   const { id } = useParams();
   const { data: singleCar, isLoading } = useGetCarQuery({ carId: id as string });
-  console.log(singleCar);
 
   if (isLoading) {
     return <Spin tip="Loading..." size="large" className="flex justify-center items-center h-96" />;
@@ -73,7 +72,7 @@ export default function CarDetails() {
 
           {/* clicking here would take to booking page */}
           <div className="mt-10">
-            <NavLink to="/cars/booking">
+            <NavLink to="/cars/booking" state={singleCar?.data}>
               <MyButton text={status === "unavailable" ? "Unavailable" : "Book Now"} extraStyle="text-xl h-11 sm:h-12 w-full" />
             </NavLink>
           </div>

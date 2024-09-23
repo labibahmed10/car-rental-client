@@ -1,4 +1,5 @@
 import { ICarData } from "./car.types";
+import { IResponseType } from "./index.type";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IBookingConfirmModal {
@@ -11,6 +12,7 @@ export interface IBookingConfirmModal {
 export interface ISelectCarFunc {
   handleCarSelect?: (car: ICarData | undefined) => void;
   car?: ICarData;
+  availableCars?: IResponseType<ICarData[]> | undefined;
 }
 
 export interface ICarDetails {

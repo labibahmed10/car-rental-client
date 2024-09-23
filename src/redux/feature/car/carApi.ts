@@ -26,7 +26,7 @@ const carApi = baseApi.injectEndpoints({
           params.append("searchValue", query.searchValue);
         }
         if (query?.carType) {
-          params.append("carType", query.carType);
+          params.append("type", query.carType);
         }
         if (query?.minPrice) {
           params.append("minPrice", query.minPrice);
@@ -41,7 +41,7 @@ const carApi = baseApi.injectEndpoints({
           params.append("isElectric", query.isElectric);
         }
         if (query?.features) {
-          params.append("isElectric", query.features);
+          params.append("features", query.features);
         }
 
         return {

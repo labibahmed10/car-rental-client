@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CarOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Form, Row, Select, Slider } from "antd";
-import { useState } from "react";
+import { Col, DatePicker, Form, Row, Select, Slider } from "antd";
 import { useLocation } from "react-router-dom";
 import MyButton from "./MyButton";
+import { setSearchValues } from "../../redux/feature/car/carSlice";
+import { useAppDispatch } from "../../redux/store/hooks";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -12,19 +11,17 @@ const carTypes = ["Sedan", "SUV", "Hatchback", "Luxury"];
 const locations = ["New York", "Los Angeles", "Chicago", "Houston"];
 const features = ["Sunroof", " Leather Seats", "Navigation", "Bluetooth"];
 
-export default function CarSearchForm() {
+export default function CarSearchForm({ setSkip }: { setSkip: (val: boolean) => void }) {
   const { pathname } = useLocation();
   const isBookingPage = pathname.split("/").includes("booking");
-
   const [form] = Form.useForm();
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [bookingDetails, setBookingDetails] = useState(null);
+  const dispatch = useAppDispatch();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    console.log(values);
-    setBookingDetails(values);
-    setIsModalVisible(true);
+    dispatch(setSearchValues(values));
+    setSkip(false);
   };
 
   return (
@@ -96,7 +93,7 @@ export default function CarSearchForm() {
       </Row>
 
       <div className="flex justify-end">
-        <MyButton text="Search Cars" icon={<CarOutlined />} />
+        <MyButton text="Search Cars" type="submit" icon={<CarOutlined />} />
       </div>
     </Form>
   );

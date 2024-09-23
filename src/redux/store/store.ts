@@ -3,6 +3,7 @@ import baseApi from "../api/baseApi";
 import authSlice from "../feature/auth/authSlice";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import carSlice from "../feature/car/carSlice";
 
 const persistConfig = {
   key: "auth",
@@ -15,6 +16,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
+    car: carSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
