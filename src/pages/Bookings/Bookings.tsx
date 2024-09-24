@@ -12,6 +12,7 @@ import { ICarData } from "../../types/car.types";
 import { useLocation } from "react-router-dom";
 import { useAppSelector } from "../../redux/store/hooks";
 import { selectSearchValue } from "../../redux/feature/car/carSlice";
+import PaymentInfo from "./components/PaymentInfo";
 
 const Bookings: React.FC = () => {
   const [form] = Form.useForm();
@@ -51,10 +52,10 @@ const Bookings: React.FC = () => {
         <PersonalInfo />
 
         {/* will work with payment later*/}
-        {/* <PaymentInfo /> */}
+        <PaymentInfo />
 
         <Form.Item>
-          <MyButton text="Book Now" type="submit" />
+          <MyButton text="Book Now" type="submit" disable={!selectedCar} />
         </Form.Item>
       </Form>
 

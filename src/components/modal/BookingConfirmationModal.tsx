@@ -27,7 +27,7 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
     toast.error(error?.data?.message);
     reset();
   }
-
+  console.log(selectedCar);
   return (
     <Modal
       title="Booking Confirmation"
@@ -65,6 +65,9 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
             </Col>
             <Col span={12}>
               <Text strong>NID/Passport:</Text> {bookingDetails.nidPassport}
+            </Col>
+            <Col span={12}>
+              <Text strong>Card Number:</Text> {bookingDetails.cardNumber}
             </Col>
             {/* <Col span={24}>
               <Text strong>Additional Options:</Text>

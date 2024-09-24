@@ -17,3 +17,12 @@ export interface IProtectedRoute {
   allowedRole: "user" | "admin";
   children: ReactNode;
 }
+
+export interface IButtonProps {
+  text: string;
+  disable?: boolean;
+  icon?: ReactNode;
+  extraStyle?: string;
+  type?: "button" | "submit" | "reset" | undefined;
+  onClick?: (param?: unknown) => void;
+}

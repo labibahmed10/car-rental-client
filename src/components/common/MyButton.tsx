@@ -1,32 +1,19 @@
 import { Button } from "antd";
-import { ReactNode } from "react";
+import { IButtonProps } from "../../types/index.type";
 
-export default function MyButton({
-  text,
-  icon,
-  type,
-  extraStyle,
-  onClick,
-}: {
-  text: string;
-  icon?: ReactNode;
-  extraStyle?: string;
-  type?: "button" | "submit" | "reset" | undefined;
-  onClick?: (param?: unknown) => void;
-}) {
+export default function MyButton({ text, icon, type, extraStyle, disable = false, onClick }: IButtonProps) {
   return (
     <Button
       type="primary"
       size="large"
+      disabled={disable}
       htmlType={type}
       icon={icon}
-      className={` bg-[#223e51] text-lg text-white ${extraStyle}`}
+      className={`bg-[#2A5979] text-lg text-white hover:!bg-[#213545] disabled:bg-gray-500 disabled:text-gray-300 ${extraStyle}`}
       style={{
         transition: "background-color 0.2s",
       }}
       onClick={onClick}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1a2a36")}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#223e51")}
     >
       {text}
     </Button>
