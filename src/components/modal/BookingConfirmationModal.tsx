@@ -1,15 +1,41 @@
 import { Modal, Row, Col, Divider, Typography } from "antd";
+import { IBookingCar, IBookingConfirmModal, IBookingDetails } from "../../types/booking.type";
+import { ICarData } from "../../types/car.types";
+import { useCreateBookingMutation } from "../../redux/feature/booking/bookingApi";
+import { toast } from "sonner";
 const { Title, Text } = Typography;
 
+export default function BookingConfirmationModal({ isModalVisible, setIsModalVisible, bookingDetails, selectedCar }: IBookingConfirmModal) {
+  const [bookCar, { isSuccess, isError, error, isLoading, data, reset }] = useCreateBookingMutation();
 
-export default function BookingConfirmationModal({ isModalVisible, setIsModalVisible, bookingDetails, selectedCar }) {
+  const onConfirmation = () => {
+    const confirmationData: IBookingCar = {
+      carId: selectedCar?._id as string,
+      date: bookingDetails.date?.format("YYYY-MM-DD"),
+      startTime: bookingDetails.date?.format("HH:MM"),
+    };
+    bookCar(confirmationData);
+  };
+
+  if (isSuccess) {
+    setIsModalVisible(false);
+    toast.success(data?.message);
+    reset();
+  }
+
+  if (isError) {
+    toast.error(error?.data?.message);
+    reset();
+  }
+
   return (
     <Modal
       title="Booking Confirmation"
       open={isModalVisible}
-      onOk={() => setIsModalVisible(false)}
+      onOk={onConfirmation}
       onCancel={() => setIsModalVisible(false)}
       width={700}
+      loading={isLoading}
     >
       {bookingDetails && (
         <div>
@@ -22,11 +48,12 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
               <Text strong>Type:</Text> {selectedCar?.type}
             </Col>
             <Col span={12}>
-              <Text strong>Pick-up Date:</Text> {bookingDetails.dates?.[0]?.format("YYYY-MM-DD")}
+              <Text strong>Pick-up Date:</Text> {bookingDetails.date?.format("YYYY-MM-DD")}
             </Col>
             <Col span={12}>
-              <Text strong>Drop-off Date:</Text> {bookingDetails.dates?.[1]?.format("YYYY-MM-DD")}
+              <Text strong>Pick-up Time:</Text> {bookingDetails.date?.format("HH:MM")}
             </Col>
+
             <Col span={12}>
               <Text strong>Location:</Text> {bookingDetails.location}
             </Col>
@@ -39,14 +66,14 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
             <Col span={12}>
               <Text strong>NID/Passport:</Text> {bookingDetails.nidPassport}
             </Col>
-            <Col span={24}>
+            {/* <Col span={24}>
               <Text strong>Additional Options:</Text>
               <ul>
                 {bookingDetails.gps && <li>GPS Navigation</li>}
                 {bookingDetails.childSeat && <li>Child Seat</li>}
                 {bookingDetails.insurance && <li>Comprehensive Insurance</li>}
               </ul>
-            </Col>
+            </Col> */}
           </Row>
           <Divider />
           <Row>
@@ -60,12 +87,14 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
   );
 }
 
-const calculateTotalPrice = (car: any, details: any) => {
+const calculateTotalPrice = (car: ICarData | undefined, details: IBookingDetails) => {
   if (!car || !details) return 0;
-  const days = details.dates?.[1]?.diff(details.dates?.[0], "days") || 1;
-  let total = car.price * days;
-  if (details.gps) total += 5 * days;
-  if (details.childSeat) total += 3 * days;
-  if (details.insurance) total += 15 * days;
+  const day = 1;
+  const total = car.pricePerHour * day;
+
+  //! will enhance this later
+  // if (details.gps) total += 5 * day;
+  // if (details.childSeat) total += 3 * day;
+  // if (details.insurance) total += 15 * day;
   return total;
 };

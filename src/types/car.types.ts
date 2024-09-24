@@ -16,6 +16,8 @@ export interface ICarData {
   pricePerHour: number;
   status: TCarStatus;
   type: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type TCarStatus = "available" | "unavailable";
