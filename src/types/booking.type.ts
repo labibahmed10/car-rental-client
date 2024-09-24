@@ -2,7 +2,6 @@ import { IUserInfo } from "./auth.type";
 import { ICarData } from "./car.types";
 import { IResponseType } from "./index.type";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IBookingConfirmModal {
   isModalVisible: boolean;
   setIsModalVisible: (val: boolean) => void;

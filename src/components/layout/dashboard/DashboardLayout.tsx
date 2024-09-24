@@ -53,7 +53,7 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
 
       <Layout>
         <Content style={{ margin: "24px 16px 0" }}>
-          <div className="min-h-[calc(100vh-24px)] p-10 bg-gray-200 rounded-md">
+          <div className="min-h-[calc(100vh-24px)] p-10 bg-zinc-100 rounded-md">
             <Outlet />
           </div>
         </Content>
