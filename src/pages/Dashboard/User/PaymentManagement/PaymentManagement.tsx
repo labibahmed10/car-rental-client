@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Table, Button, Modal, Input, message } from "antd";
+import { Table, Button, Modal, Form, Input, message, Card } from "antd";
 import { ColumnsType } from "antd/es/table";
+import Title from "antd/es/typography/Title";
 
 interface Payment {
   id: string;
@@ -10,12 +11,36 @@ interface Payment {
 }
 
 export default function PaymentManagement() {
-  const [payments, setPayments] = useState<Payment[]>([]); // Replace with actual data fetching
+  const [payments, setPayments] = useState<Payment[]>([
+    { id: "1", carName: "Toyota", amount: 100, status: "pending" },
+    { id: "2", carName: "Honda", amount: 200, status: "pending" },
+    { id: "3", carName: "Ford", amount: 300, status: "pending" },
+  ]); // Replace with actual data fetching
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
 
   const columns: ColumnsType<Payment> = [
-    // ... column definitions ...
+    {
+      title: "Car Name",
+      dataIndex: "carName",
+      key: "carName",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+      render: (amount: number) => `$${amount}`,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text: string, record: Payment) => <Button onClick={() => handlePay(record)}>Pay</Button>,
+    },
   ];
 
   const handlePay = (payment: Payment) => {
@@ -40,17 +65,28 @@ export default function PaymentManagement() {
 
   return (
     <div>
-      <h1>Payment Management</h1>
-      <Table columns={columns} dataSource={payments} rowKey="id" />
+      
+      <Card style={{ marginTop: 16 }}>
+        <Title level={4}>Payment Management</Title>
+        <Table columns={columns} dataSource={payments} rowKey="id" scroll={{ x: 500 }} />
+      </Card>
       <Modal title="Make Payment" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         {selectedPayment && (
-          <div>
+          <>
             <p>Car: {selectedPayment.carName}</p>
-            <p>Amount: ${selectedPayment.amount}</p>
-            <Input placeholder="Enter card number" />
-            <Input placeholder="Enter expiration date" />
-            <Input placeholder="Enter CVV" />
-          </div>
+            <p>Amoun: ${selectedPayment.amount}</p>
+            <Form layout="vertical" className="mt-3">
+              <Form.Item label="Card Number">
+                <Input placeholder="Enter card number" />
+              </Form.Item>
+              <Form.Item label="Expiration Date">
+                <Input placeholder="Enter expiration date" />
+              </Form.Item>
+              <Form.Item label="CVV">
+                <Input placeholder="Enter CVV" />
+              </Form.Item>
+            </Form>
+          </>
         )}
       </Modal>
     </div>

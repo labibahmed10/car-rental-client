@@ -52,8 +52,8 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
       </Sider>
 
       <Layout>
-        <Content style={{ margin: "24px 16px 0" }}>
-          <div className="min-h-[calc(100vh-24px)] p-10 bg-zinc-100 rounded-md">
+        <Content className="">
+          <div className="min-h-[calc(100vh-0px)] p-4 sm:p-10 bg-zinc-100 rounded-md">
             <Outlet />
           </div>
         </Content>

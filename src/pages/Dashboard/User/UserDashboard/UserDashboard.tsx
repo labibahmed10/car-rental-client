@@ -33,7 +33,6 @@ const UserDashboard = () => {
       title: "Booking ID",
       dataIndex: "_id",
       key: "_id",
-      fixed: "left",
     },
     {
       title: "Date",
@@ -97,7 +96,7 @@ const UserDashboard = () => {
 
       <Card style={{ marginTop: 16 }}>
         <Title level={4}>Booking History</Title>
-        <Table scroll={{ x: 1500 }} size="middle" columns={columns} dataSource={bookingData?.data} loading={isLoading} />
+        <Table scroll={{ x: 1000 }} size="middle" columns={columns} dataSource={bookingData?.data} loading={isLoading} />
       </Card>
 
       <Modal title="Update Profile" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

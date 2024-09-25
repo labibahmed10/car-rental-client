@@ -1,8 +1,10 @@
-import { SetStateAction, useState } from "react";
-import { Table, Tag, Button, Modal, Image, Form, Input, DatePicker, Select } from "antd";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { Table, Button, Modal, Form, Input, DatePicker, Select, Popconfirm, Image, Tag, Card } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { IBookingResponse } from "../../../../types/booking.type";
 import { useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
+import { IBookingResponse } from "../../../../types/booking.type";
+import Title from "antd/es/typography/Title";
 
 export default function BookingManagement() {
   const { data: bookingData, isLoading } = useGetIndividualBookingQuery(undefined);
@@ -25,6 +27,8 @@ export default function BookingManagement() {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
+      defaultSortOrder: "descend",
+      sorter: (a: any, b: any) => a.startTime - b.startTime,
     },
     {
       title: "End Time",
@@ -58,16 +62,27 @@ export default function BookingManagement() {
     {
       title: "Actions",
       dataIndex: "",
-      key: "totalCost",
-      render: (booking) => {
-        return <Button onClick={() => handleModify(booking)}>Update</Button>;
-      },
+      key: "actions",
+      align: "center",
+      render: (_: string, record: IBookingResponse) => (
+        <div className="gap-3 flex sm:flex-row flex-col justify-center items-center">
+          <Button onClick={() => handleModify(record)}>Update</Button>
+          <Popconfirm title="Are you sure you want to cancel this booking?" onConfirm={() => handleCancel(record)} okText="Yes" cancelText="No">
+            <Button danger>Cancel</Button>
+          </Popconfirm>
+        </div>
+      ),
     },
   ];
 
-  const handleModify = (booking: SetStateAction<IBookingResponse | undefined>) => {
+  const handleModify = (booking: IBookingResponse) => {
     setSelectedBooking(booking);
     setIsModalVisible(true);
+  };
+
+  const handleCancel = (booking: IBookingResponse) => {
+    // Implement cancellation logic
+    console.log(`Cancelled booking ${booking._id}`);
   };
 
   const handleModalOk = () => {
@@ -79,37 +94,34 @@ export default function BookingManagement() {
     setIsModalVisible(false);
   };
 
-  const [form] = Form.useForm();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
-
   return (
     <div>
-      <h1>Booking Management</h1>
+      <Card style={{ marginTop: 16 }}>
+        <Title level={4}>Booking Management</Title>
+        <Table columns={columns} dataSource={bookingData?.data} loading={isLoading} scroll={{ x: "auto" }} />
+      </Card>
 
-      <Table columns={columns} dataSource={bookingData?.data} loading={isLoading} rowKey="id" />
       <Modal title="Modify Booking" open={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
-        <Form form={form} onFinish={onFinish} initialValues={selectedBooking}>
-          <Form.Item name="carName" label="Car Name">
-            <Input disabled />
-          </Form.Item>
-          <Form.Item name="startDate" label="Start Date">
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item name="endDate" label="End Date">
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item name="status" label="Status">
-            <Select>
-              <Select.Option value="upcoming">Upcoming</Select.Option>
-              <Select.Option value="past">Past</Select.Option>
-              <Select.Option value="approved">Approved</Select.Option>
-            </Select>
-          </Form.Item>
-        </Form>
+        {selectedBooking && (
+          <Form layout="vertical">
+            <Form.Item label="Car Name">
+              <Input value={selectedBooking.car.name} disabled />
+            </Form.Item>
+            <Form.Item label="Start Date">
+              <DatePicker format="YYYY-MM-DD" />
+            </Form.Item>
+            <Form.Item label="End Date">
+              <DatePicker format="YYYY-MM-DD" />
+            </Form.Item>
+            <Form.Item label="Status">
+              <Select>
+                <Select.Option value="upcoming">Upcoming</Select.Option>
+                <Select.Option value="past">Past</Select.Option>
+                <Select.Option value="approved">Approved</Select.Option>
+              </Select>
+            </Form.Item>
+          </Form>
+        )}
       </Modal>
     </div>
   );
