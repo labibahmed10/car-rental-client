@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { MenuProps } from "antd";
-import { ReactNode } from "react";
+import { UploadFile } from "antd/lib";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ICarData } from "./car.types";
 
 export interface IResponseType<T> {
   data: T;
@@ -25,4 +28,26 @@ export interface IButtonProps {
   extraStyle?: string;
   type?: "button" | "submit" | "reset" | undefined;
   onClick?: (param?: unknown) => void;
+  size?: "large" | "middle" | "small";
+  loading?: boolean;
+}
+
+export interface IImageUpload {
+  fileList: UploadFile[];
+  setFileList: (fileList: UploadFile[]) => void;
+  imageUrl: string | undefined;
+}
+
+export interface IFormProps {
+  form: any;
+  onFinish: (values: any) => void;
+  loading: boolean;
+  record?: ICarData;
+  fileList: UploadFile[];
+  setFileList: (fileList: UploadFile[]) => void;
+}
+
+export interface IModalProps {
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }

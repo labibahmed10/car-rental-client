@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { UploadFile } from "antd";
+
 export interface ICarData {
   _id: string;
   availabilityDates: string[];
   childSeat: boolean;
   color: string;
+  year: string;
   description: string;
   features: string[];
   gps: boolean;
-  image: string;
+  image: UploadFile<any>[] | undefined | string;
   isDeleted: boolean;
   isElectric: boolean;
   isFeatured: boolean;
