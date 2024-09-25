@@ -8,7 +8,7 @@ import { ICarData } from "../../../../../../types/car.types";
 import uploadImage from "../../../../../../utils/uploadImage";
 import { toast } from "sonner";
 
-const CarModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => {
+const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [addCar, { isLoading, isSuccess, isError, error }] = useCreateCarMutation();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -60,4 +60,4 @@ const CarModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   );
 };
 
-export default CarModal;
+export default CarAddModal;
