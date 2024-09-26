@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Modal, Form, UploadFile } from "antd";
+import { Form, UploadFile } from "antd";
 import CarForm from "../form/CarForm";
 import { useEffect, useState } from "react";
 import { IModalProps } from "../../../../../../types/index.type";
@@ -7,6 +7,7 @@ import { useCreateCarMutation } from "../../../../../../redux/feature/car/carApi
 import { ICarData } from "../../../../../../types/car.types";
 import uploadImage from "../../../../../../utils/uploadImage";
 import { toast } from "sonner";
+import CarCommonModal from "../../../../../../components/modal/CarCommonModal";
 
 const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [addCar, { isLoading, isSuccess, isError, error }] = useCreateCarMutation();
@@ -47,16 +48,9 @@ const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => 
   }, [error, isError, isSuccess]);
 
   return (
-    <Modal
-      centered
-      title="Add New Car"
-      open={isModalOpen}
-      footer={false}
-      onCancel={() => setIsModalOpen(false)}
-      className="max-w-[30rem] w-full max-h-[40rem] overflow-y-auto"
-    >
+    <CarCommonModal title="Add a New Car" isModalOpen={isModalOpen} onCancel={() => setIsModalOpen(false)}>
       <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} />
-    </Modal>
+    </CarCommonModal>
   );
 };
 

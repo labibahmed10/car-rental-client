@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Modal, Form, UploadFile } from "antd";
+import { Form, UploadFile } from "antd";
 import CarForm from "../form/CarForm";
 import { useEffect, useState } from "react";
 import { useUpdateCarMutation } from "../../../../../../redux/feature/car/carApi";
@@ -8,6 +8,7 @@ import uploadImage from "../../../../../../utils/uploadImage";
 import { toast } from "sonner";
 import MyButton from "../../../../../../components/common/MyButton";
 import { FaRegEdit } from "react-icons/fa";
+import CarCommonModal from "../../../../../../components/modal/CarCommonModal";
 
 const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,7 @@ const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
     if (isSuccess) {
       form.resetFields();
       setIsModalOpen(false);
-      toast.success("Car Created Succefully");
+      toast.success("Car Updated Succefully");
     }
 
     if (isError) {
@@ -58,16 +59,9 @@ const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
   return (
     <>
       <MyButton text="Edit" size="middle" icon={<FaRegEdit />} extraStyle="text-sm" onClick={() => setIsModalOpen(true)} />
-      <Modal
-        centered
-        title="Add New Car"
-        open={isModalOpen}
-        footer={false}
-        onCancel={() => setIsModalOpen(false)}
-        className="max-w-[30rem] w-full max-h-[40rem] overflow-y-auto"
-      >
+      <CarCommonModal title="Update the Car" isModalOpen={isModalOpen} onCancel={() => setIsModalOpen(false)}>
         <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} record={record} />
-      </Modal>
+      </CarCommonModal>
     </>
   );
 };
