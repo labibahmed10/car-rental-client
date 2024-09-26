@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Modal, Row, Col, Divider, Typography } from "antd";
 import { IBookingCar, IBookingConfirmModal, IBookingDetails } from "../../types/booking.type";
 import { ICarData } from "../../types/car.types";
@@ -10,9 +11,9 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
 
   const onConfirmation = () => {
     const confirmationData: IBookingCar = {
-      carId: selectedCar?._id as string,
-      date: bookingDetails.date?.format("YYYY-MM-DD"),
-      startTime: bookingDetails.date?.format("HH:MM"),
+      id: selectedCar?._id as string,
+      date: (bookingDetails.date as any)?.format("YYYY-MM-DD"),
+      startTime: (bookingDetails.date as any)?.format("HH:MM"),
     };
     bookCar(confirmationData);
   };
@@ -24,7 +25,7 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
   }
 
   if (isError) {
-    toast.error(error?.data?.message);
+    toast.error((error as any)?.data?.message);
     reset();
   }
   console.log(selectedCar);
@@ -48,10 +49,10 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
               <Text strong>Type:</Text> {selectedCar?.type}
             </Col>
             <Col span={12}>
-              <Text strong>Pick-up Date:</Text> {bookingDetails.date?.format("YYYY-MM-DD")}
+              <Text strong>Pick-up Date:</Text> {(bookingDetails.date as any)?.format("YYYY-MM-DD")}
             </Col>
             <Col span={12}>
-              <Text strong>Pick-up Time:</Text> {bookingDetails.date?.format("HH:MM")}
+              <Text strong>Pick-up Time:</Text> {(bookingDetails.date as any)?.format("HH:MM")}
             </Col>
 
             <Col span={12}>

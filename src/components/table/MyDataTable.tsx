@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { FC, Fragment, useRef } from "react";
+import { FC, Fragment } from "react";
 
 type TProps<T, X> = {
   columns: ColumnsType<T>;
@@ -10,16 +10,13 @@ type TProps<T, X> = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MyDataTable: FC<TProps<any, any>> = ({ columns, data, loading }) => {
-  const tableRef = useRef(null);
-
   return (
     <Fragment>
       <Table
         showHeader={true}
-        ref={tableRef}
         loading={loading}
         columns={columns}
-        rowKey={(record) => record?._id || record?.key || Math.random().toString(36).slice(2, 9)}
+        rowKey={(record) => record?._id}
         dataSource={data || []}
         scroll={{ x: "calc(700px + 30%)" }}
       />

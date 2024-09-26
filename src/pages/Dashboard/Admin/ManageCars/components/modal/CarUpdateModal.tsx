@@ -26,13 +26,13 @@ const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
       };
 
       await updateCar({
-        carId: record._id as string,
+        id: record._id as string,
         data,
       });
     } else {
       values.image = record.image;
       await updateCar({
-        carId: record._id as string,
+        id: record._id as string,
         data: {
           ...values,
           pricePerHour: Number(values.pricePerHour),

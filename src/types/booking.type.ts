@@ -16,7 +16,7 @@ export interface ISelectCarFunc {
 }
 
 export interface IBookingCar {
-  carId: string;
+  id: string;
   date: Date;
   startTime: string;
 }
@@ -40,4 +40,5 @@ export interface IBookingDetails {
   email: string;
   fullName: string;
   nidPassport: string;
+  cardNumber?: string;
 }

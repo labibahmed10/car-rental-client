@@ -34,7 +34,6 @@ const Bookings: React.FC = () => {
 
   const handleCarSelect = (car: any) => {
     setSelectedCar(car);
-    // form.setFieldsValue({ carId: car.id });
   };
 
   return (

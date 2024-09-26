@@ -7,7 +7,7 @@ interface Queries {
   [key: string]: any;
 }
 
-const carApi = baseApi.injectEndpoints({
+export const carApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createCar: builder.mutation<IResponseType<ICarData>, ICarCreate>({
       query: (data) => ({
@@ -51,35 +51,50 @@ const carApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["cars"],
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.data.map(({ _id }) => ({
+                type: "cars" as const,
+                id: _id,
+              })),
+              {
+                type: "cars" as const,
+                id: "LIST",
+              },
+            ]
+          : [{ type: "cars" as const, id: "LIST" }],
     }),
 
-    getCar: builder.query<IResponseType<ICarData>, { carId: string }>({
-      query: ({ carId }) => {
-        console.log(carId);
+    getCar: builder.query<IResponseType<ICarData>, { id: string }>({
+      query: ({ id }) => {
         return {
-          url: `/cars/${carId}`,
+          url: `/cars/${id}`,
           method: "GET",
         };
       },
       providesTags: ["cars"],
     }),
 
-    updateCar: builder.mutation<IResponseType<ICarData>, { carId: string; data: Partial<ICarData> }>({
-      query: ({ carId, ...body }) => ({
-        url: `/cars/${carId}`,
+    updateCar: builder.mutation<IResponseType<ICarData>, { id: string; data: Partial<ICarData> }>({
+      query: ({ id, ...body }) => ({
+        url: `/cars/${id}`,
         method: "PUT",
         body,
       }),
       invalidatesTags: ["cars", "booking"],
     }),
 
-    deleteCar: builder.mutation<IResponseType<null>, { carId: string }>({
-      query: ({ carId }) => ({
-        url: `/cars/${carId}`,
+    deleteCar: builder.mutation<IResponseType<null>, { id: string }>({
+      query: ({ id }) => ({
+        url: `/cars/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["cars"],
+
+      invalidatesTags: (result, error, arg) => {
+        return [{ type: "cars", _id: arg.id }];
+      },
     }),
 
     returnCar: builder.mutation({

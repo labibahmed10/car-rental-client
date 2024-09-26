@@ -1,18 +1,20 @@
-import { useState } from "react";
-import { Image, Popconfirm } from "antd";
+import { useEffect, useState } from "react";
+import { Image } from "antd";
 import MyDataTable from "../../../../components/table/MyDataTable";
 import { ColumnsType } from "antd/es/table";
 import PageHeader from "../../../../components/table/PageHeader";
 import MyButton from "../../../../components/common/MyButton";
 import CarAddModal from "./components/modal/CarAddModal";
-import { useGetAllCarsQuery } from "../../../../redux/feature/car/carApi";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import { useDeleteCarMutation, useGetAllCarsQuery } from "../../../../redux/feature/car/carApi";
 import { GrFormAdd } from "react-icons/gr";
 import { ICarData } from "../../../../types/car.types";
 import CarUpdateModal from "./components/modal/CarUpdateModal";
+import DeleteModal from "../../../../components/modal/DeleteModal";
+import { toast } from "sonner";
 
 const ManageCars = () => {
-  const { data: carData, isLoading, isFetching, refetch } = useGetAllCarsQuery(undefined);
+  const { data: carData, isLoading, isFetching, error, refetch } = useGetAllCarsQuery(undefined);
+  const [deleteCarMutation, { isLoading: isDeleting }] = useDeleteCarMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns: ColumnsType<ICarData> = [
@@ -60,25 +62,29 @@ const ManageCars = () => {
         <span className="flex gap-2 items-center justify-center">
           <CarUpdateModal record={record} />
 
-          <Popconfirm title="Are you sure you want to delete the car" okText="Yes" cancelText="No">
-            <MyButton text="Delete" size="middle" icon={<RiDeleteBin5Line />} extraStyle="text-sm bg-red-500 hover:bg-red:6" />
-          </Popconfirm>
+          <DeleteModal deleteMutationFuntion={deleteCarMutation} id={record._id} isLoading={isDeleting} />
         </span>
       ),
     },
   ];
 
+  useEffect(() => {
+    if (error?.status === 404) {
+      toast.error(error?.data.message);
+    }
+  }, [error]);
+
   return (
     <div>
       <PageHeader
-        title="Manage Car"
+        title="Manage Cars"
         refetch={refetch}
         loading={isLoading || isFetching}
         extra={<MyButton type="button" text="Add Car" size="middle" icon={<GrFormAdd />} onClick={() => setIsModalOpen(true)} />}
       />
 
       {isModalOpen && <CarAddModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
-      <MyDataTable columns={columns} data={carData?.data} loading={isLoading} />
+      <MyDataTable columns={columns} data={carData?.data || []} loading={isLoading || isFetching} />
     </div>
   );
 };

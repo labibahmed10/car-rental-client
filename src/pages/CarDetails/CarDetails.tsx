@@ -11,7 +11,7 @@ import { ICarData } from "../../types/car.types";
 
 export default function CarDetails() {
   const { id } = useParams();
-  const { data: singleCar, isLoading } = useGetCarQuery({ carId: id as string });
+  const { data: singleCar, isLoading } = useGetCarQuery({ id: id as string });
 
   if (isLoading) {
     return <Spin tip="Loading..." size="large" className="flex justify-center items-center h-96" />;
@@ -23,7 +23,11 @@ export default function CarDetails() {
       <div className="grid grid-cols-1 sm:grid-cols-2 place-items-start gap-10">
         {/* left part image and description part */}
         <div>
-          <img src={image} alt={name} className="min-w-full w-full h-full p-10 bg-[#F2F7E8] rounded-lg border-2 border-gray-300 border-solid" />
+          <img
+            src={image as string}
+            alt={name}
+            className="min-w-full w-full h-full p-10 bg-[#F2F7E8] rounded-lg border-2 border-gray-300 border-solid"
+          />
           <CarDescription description={description} />
         </div>
 
