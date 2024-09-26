@@ -45,3 +45,7 @@ export interface ISelectCar {
   // additionalFeatures: string[] | undefined;
   // addInsurances: string[] | undefined;
 }
+
+export interface IUpdateProps {
+  record: ICarData;
+}

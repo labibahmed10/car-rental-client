@@ -1,29 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Modal, Form, UploadFile } from "antd";
-import MyForm from "../form/MyForm";
+import CarForm from "../form/CarForm";
 import { useEffect, useState } from "react";
-import { useCreateCarMutation, useUpdateCarMutation } from "../../../../../../redux/feature/car/carApi";
-import { ICarData } from "../../../../../../types/car.types";
+import { useUpdateCarMutation } from "../../../../../../redux/feature/car/carApi";
+import { ICarData, IUpdateProps } from "../../../../../../types/car.types";
 import uploadImage from "../../../../../../utils/uploadImage";
 import { toast } from "sonner";
 import MyButton from "../../../../../../components/common/MyButton";
 import { FaRegEdit } from "react-icons/fa";
 
-type TProps = {
-  record: any;
-};
-
-const CarUpdateModal: React.FC<TProps> = ({ record }) => {
+const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCar, { isLoading, isSuccess, isError, error }] = useUpdateCarMutation();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onFinish = async (values: Partial<ICarData>) => {
-    console.log(values);
-    const imgUrl = await uploadImage(fileList);
-    console.log(imgUrl);
-
+    const imgUrl = fileList.length > 0 && (await uploadImage(fileList));
     if (imgUrl) {
       const data = {
         ...values,
@@ -32,13 +25,20 @@ const CarUpdateModal: React.FC<TProps> = ({ record }) => {
       };
 
       await updateCar({
-        carId: record._id,
+        carId: record._id as string,
         data,
+      });
+    } else {
+      values.image = record.image;
+      await updateCar({
+        carId: record._id as string,
+        data: {
+          ...values,
+          pricePerHour: Number(values.pricePerHour),
+        },
       });
     }
   };
-
-  console.log(error);
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,7 +53,7 @@ const CarUpdateModal: React.FC<TProps> = ({ record }) => {
       }
       toast.error((error as any)?.data?.message);
     }
-  }, [error, isError, isSuccess]);
+  }, [error, form, isError, isSuccess]);
 
   return (
     <>
@@ -66,7 +66,7 @@ const CarUpdateModal: React.FC<TProps> = ({ record }) => {
         onCancel={() => setIsModalOpen(false)}
         className="max-w-[30rem] w-full max-h-[40rem] overflow-y-auto"
       >
-        <MyForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} />
+        <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} record={record} />
       </Modal>
     </>
   );

@@ -66,10 +66,10 @@ const carApi = baseApi.injectEndpoints({
     }),
 
     updateCar: builder.mutation<IResponseType<ICarData>, { carId: string; data: Partial<ICarData> }>({
-      query: ({ carId, ...data }) => ({
+      query: ({ carId, ...body }) => ({
         url: `/cars/${carId}`,
         method: "PUT",
-        body: data,
+        body,
       }),
       invalidatesTags: ["cars", "booking"],
     }),

@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { Button, Dropdown, Image, Popconfirm, Space } from "antd";
+import { Image, Popconfirm } from "antd";
 import MyDataTable from "../../../../components/table/MyDataTable";
 import { ColumnsType } from "antd/es/table";
 import PageHeader from "../../../../components/table/PageHeader";
 import MyButton from "../../../../components/common/MyButton";
 import CarAddModal from "./components/modal/CarAddModal";
 import { useGetAllCarsQuery } from "../../../../redux/feature/car/carApi";
-import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GrFormAdd } from "react-icons/gr";
 import { ICarData } from "../../../../types/car.types";
-import { DownOutlined } from "@ant-design/icons";
 import CarUpdateModal from "./components/modal/CarUpdateModal";
 
 const ManageCars = () => {
@@ -37,6 +35,9 @@ const ManageCars = () => {
       title: "Features",
       dataIndex: "features",
       key: "features",
+      render: (value) => {
+        return value?.length > 0 ? value?.map((val: string) => <span>{val + ", "}</span>) : null;
+      },
     },
     {
       title: "Price Per Hour",
@@ -56,8 +57,7 @@ const ManageCars = () => {
       key: "_id",
       align: "center",
       render: (_, record) => (
-        <span className="flex justify-evenly">
-          {/* <MyButton text="Edit" size="middle" icon={<FaRegEdit />} extraStyle="text-sm" /> */}
+        <span className="flex gap-2 items-center justify-center">
           <CarUpdateModal record={record} />
 
           <Popconfirm title="Are you sure you want to delete the car" okText="Yes" cancelText="No">

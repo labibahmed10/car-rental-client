@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Modal, Form, UploadFile } from "antd";
-import MyForm from "../form/MyForm";
+import CarForm from "../form/CarForm";
 import { useEffect, useState } from "react";
 import { IModalProps } from "../../../../../../types/index.type";
 import { useCreateCarMutation } from "../../../../../../redux/feature/car/carApi";
@@ -55,7 +55,7 @@ const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => 
       onCancel={() => setIsModalOpen(false)}
       className="max-w-[30rem] w-full max-h-[40rem] overflow-y-auto"
     >
-      <MyForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} />
+      <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} />
     </Modal>
   );
 };

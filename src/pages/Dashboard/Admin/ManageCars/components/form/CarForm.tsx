@@ -3,7 +3,7 @@ import ImageUpload from "../../../../../../components/common/ImageUpload";
 import MyButton from "../../../../../../components/common/MyButton";
 import { IFormProps } from "../../../../../../types/index.type";
 
-export default function MyForm({ fileList, setFileList, onFinish, form, record, loading }: IFormProps) {
+export default function CarForm({ fileList, setFileList, onFinish, form, record, loading }: IFormProps) {
   return (
     <Form
       form={form}
