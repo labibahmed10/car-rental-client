@@ -92,7 +92,7 @@ export const carApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
 
-      invalidatesTags: (result, error, arg) => {
+      invalidatesTags: (_result, _error, arg) => {
         return [{ type: "cars", _id: arg.id }];
       },
     }),
