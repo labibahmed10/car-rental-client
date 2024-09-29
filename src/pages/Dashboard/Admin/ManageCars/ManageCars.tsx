@@ -9,7 +9,7 @@ import { useDeleteCarMutation, useGetAllCarsQuery } from "../../../../redux/feat
 import { GrFormAdd } from "react-icons/gr";
 import { ICarData } from "../../../../types/car.types";
 import CarUpdateModal from "./components/modal/CarUpdateModal";
-import DeleteModal from "../../../../components/modal/DeleteModal";
+import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
 import { toast } from "sonner";
 
 const ManageCars = () => {
@@ -50,8 +50,11 @@ const ManageCars = () => {
       title: "Photo",
       dataIndex: "image",
       key: "photo",
-      render: (url: string) => <Image src={url} alt="car photo" className="object-fill" />,
-      width: 100,
+      render: (url: string) => (
+        <div className="w-14 h-10">
+          <Image src={url} alt="car photo" className="w-full h-full object-contain" />
+        </div>
+      ),
     },
     {
       title: "Action",
@@ -62,14 +65,21 @@ const ManageCars = () => {
         <span className="flex gap-2 items-center justify-center">
           <CarUpdateModal record={record} />
 
-          <DeleteModal deleteMutationFuntion={deleteCarMutation} id={record._id} isLoading={isDeleting} />
+          <ConfirmationMutationModal
+            text="Delete"
+            title="Delete the item"
+            content="Are you sure to delete this item?"
+            mutationFuntion={deleteCarMutation}
+            id={record._id}
+            isLoading={isDeleting}
+          />
         </span>
       ),
     },
   ];
 
   useEffect(() => {
-    if (error?.status === 404) {
+    if (error?.statusCode === 404) {
       toast.error(error?.data.message);
     }
   }, [error]);

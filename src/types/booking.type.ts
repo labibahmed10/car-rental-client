@@ -25,10 +25,14 @@ export interface IBookingResponse {
   _id: string;
   date: string;
   startTime: string;
-  endTime: null;
+  endTime: null | string;
   user: IUserInfo;
   car: ICarData;
-  totalCost: 0;
+  totalCost: number;
+  drivingLicense: string;
+  nidOrPassport: string;
+  paymentMethod: string;
+  status: string;
   createdAt: string;
   updatedAt: string;
 }

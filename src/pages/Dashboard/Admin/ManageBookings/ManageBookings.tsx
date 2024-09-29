@@ -1,17 +1,18 @@
 import PageHeader from "../../../../components/table/PageHeader";
-import MyButton from "../../../../components/common/MyButton";
-import { GrFormAdd } from "react-icons/gr";
 import { ColumnType } from "antd/es/table";
-import { IBookingDetails, IBookingResponse } from "../../../../types/booking.type";
-import { Button, Image, Space } from "antd";
+import { IBookingResponse } from "../../../../types/booking.type";
+import { Image, Space, Tag } from "antd";
 import MyDataTable from "../../../../components/table/MyDataTable";
-import { useState } from "react";
-import { useGetAllBookingsQuery } from "../../../../redux/feature/booking/bookingApi";
+import { useCancelBookingMutation, useGetAllBookingsQuery, useUpdateStatusMutation } from "../../../../redux/feature/booking/bookingApi";
+import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
+import { useReturnCarMutation } from "../../../../redux/feature/car/carApi";
+import ReturnCarModal from "../../../../components/modal/ReturnCarModal";
 
 export default function ManageBookings() {
-  const { data: bookingsData, isLoading, isFetching, isError, error, refetch } = useGetAllBookingsQuery(undefined);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: bookingsData, isLoading, isFetching, refetch } = useGetAllBookingsQuery(undefined);
+  const [cancelBooking, { isLoading: isCanceling }] = useCancelBookingMutation();
+  const [returnCar, { isLoading: isReturning }] = useReturnCarMutation();
+  const [approveBooking, { isLoading: isApproving }] = useUpdateStatusMutation();
 
   const columns: ColumnType<IBookingResponse>[] = [
     {
@@ -35,14 +36,16 @@ export default function ManageBookings() {
       title: "Car Model",
       dataIndex: ["car", "model"],
       key: "car",
-      // render: (car) => car.name,
     },
     {
       title: "Car Image",
       dataIndex: ["car", "image"],
       key: "car",
-      render: (car) => <Image src={car} />,
-      width: 100,
+      render: (car) => (
+        <div className="w-14 h-10">
+          <Image src={car} alt="car photo" className="w-full h-full object-contain" />
+        </div>
+      ),
     },
     {
       title: "Rent Date",
@@ -67,40 +70,65 @@ export default function ManageBookings() {
       key: "totalCost",
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => {
+        console.log(status);
+        return (
+          <span>
+            {status === "confirmed" ? (
+              <Tag color="green">Confirmed</Tag>
+            ) : status === "pending" ? (
+              <Tag color="blue">Pending</Tag>
+            ) : status === "completed" ? (
+              <Tag color="orange">Completed</Tag>
+            ) : (
+              "N/A"
+            )}
+          </span>
+        );
+      },
+    },
+    {
       title: "Actions",
       key: "actions",
       align: "center",
-      render: (record) => (
-        <Space size="middle">
-          <Button type="primary" onClick={() => handleApprove(record)}>
-            Approve
-          </Button>
-          <Button type="primary" onClick={() => handleCancel(record)}>
-            Cancel
-          </Button>
-        </Space>
-      ),
+      render: (_, record) => {
+        console.log(record);
+        return (
+          <Space size="middle">
+            <ConfirmationMutationModal
+              text="Approve"
+              title="Approve Booking"
+              content="Are you sure want to approve the booking?"
+              mutationFunction={() => approveBooking({ id: record._id, status: "confirmed" })}
+              isLoading={isApproving}
+              disabled={record.status === "confirmed" || record.totalCost > 0}
+            />
+
+            <ReturnCarModal record={record} mutationFunction={returnCar} isLoading={isReturning} disabled={record.totalCost > 0} />
+
+            <ConfirmationMutationModal
+              text="Cancel"
+              title="Cancel Booking"
+              content="Are you sure wants to cancel the booking?"
+              mutationFunction={() =>
+                cancelBooking({
+                  id: record._id,
+                })
+              }
+              isLoading={isCanceling}
+            />
+          </Space>
+        );
+      },
     },
   ];
 
-  const handleApprove = (record) => {
-    // API call to approve the booking
-    console.log(`Approve booking ${record._id}`);
-  };
-
-  const handleCancel = (record) => {
-    // API call to cancel the booking
-    console.log(`Cancel booking ${record._id}`);
-  };
-
   return (
     <>
-      <PageHeader
-        title="Manage Bookings"
-        // refetch={refetch}
-        // loading={isLoading || isFetching}
-        extra={<MyButton type="button" text="Add Car" size="middle" icon={<GrFormAdd />} onClick={() => setIsModalOpen(true)} />}
-      />
+      <PageHeader title="Manage Bookings" refetch={refetch} loading={isLoading || isFetching} />
 
       <MyDataTable columns={columns} data={bookingsData?.data} loading={isLoading || isFetching} />
     </>

@@ -19,6 +19,7 @@ const MyDataTable: FC<TProps<any, any>> = ({ columns, data, loading }) => {
         rowKey={(record) => record?._id}
         dataSource={data || []}
         scroll={{ x: "calc(700px + 30%)" }}
+        bordered
       />
     </Fragment>
   );
