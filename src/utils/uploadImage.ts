@@ -20,7 +20,6 @@ const uploadImage = async (file: UploadFile[]): Promise<string | undefined> => {
     return await data?.data?.url;
   } catch (err) {
     if (err instanceof Error) {
-      console.log(err.message);
       toast.error(err.message);
     }
   }

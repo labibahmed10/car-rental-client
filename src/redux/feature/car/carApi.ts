@@ -36,8 +36,7 @@ export const carApi = baseApi.injectEndpoints({
         }
         if (query?.location) {
           const finalQuery = query.location?.split(" ")?.join(" ");
-          console.log(finalQuery);
-          // params.append("location", finalQuery);
+          params.append("location", (query.finalQuery = finalQuery));
         }
         if (query?.isElectric) {
           params.append("isElectric", query.isElectric);

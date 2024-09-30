@@ -21,11 +21,8 @@ const Bookings: React.FC = () => {
   const location = useLocation();
   const [selectedCar, setSelectedCar] = useState<ICarData | undefined>(location.state);
   const searchValues = useAppSelector(selectSearchValue);
-  console.log(searchValues);
-  const { data: availableCars } = useGetAllCarsQuery(searchValues, { skip: skip });
 
-  // const selectedCar = location.state as ICarData | undefined;
-  console.log(form.getFieldsValue());
+  const { data: availableCars } = useGetAllCarsQuery(searchValues, { skip: skip });
 
   const onFinish = (values: any) => {
     setBookingDetails(values);

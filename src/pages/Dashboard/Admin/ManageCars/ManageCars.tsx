@@ -69,8 +69,7 @@ const ManageCars = () => {
             text="Delete"
             title="Delete the item"
             content="Are you sure to delete this item?"
-            mutationFuntion={deleteCarMutation}
-            id={record._id}
+            mutationFunction={() => deleteCarMutation({ id: record._id })}
             isLoading={isDeleting}
           />
         </span>

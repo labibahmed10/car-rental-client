@@ -1,10 +1,6 @@
 import { Col, Form, Select, Slider } from "antd";
-import { useLocation } from "react-router-dom";
 
 export default function CarFiltering() {
-  const { pathname } = useLocation();
-  console.log(pathname.split("/").includes("booking"));
-
   return (
     <div className="mb-16">
       <h2 className="text-xl font-semibold mb-4">Search For Your Car</h2>
@@ -39,9 +35,6 @@ export default function CarFiltering() {
           </Form.Item>
         </Col>
 
-        {/* <div>
-          <h3 className="font-medium mb-2">Price Range</h3>
-        </div> */}
         <div>
           <h3 className="font-medium mb-2">Features</h3>
           <Select className="w-full" placeholder="Select features">

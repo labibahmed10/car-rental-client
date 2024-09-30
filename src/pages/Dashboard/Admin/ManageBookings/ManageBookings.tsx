@@ -74,7 +74,6 @@ export default function ManageBookings() {
       dataIndex: "status",
       key: "status",
       render: (status) => {
-        console.log(status);
         return (
           <span>
             {status === "confirmed" ? (
@@ -95,7 +94,6 @@ export default function ManageBookings() {
       key: "actions",
       align: "center",
       render: (_, record) => {
-        console.log(record);
         return (
           <Space size="middle">
             <ConfirmationMutationModal

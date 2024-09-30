@@ -15,9 +15,7 @@ const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onFinish = async (values: ICarData) => {
-    console.log(values);
     const imgUrl = await uploadImage(fileList);
-    console.log(imgUrl);
 
     if (imgUrl) {
       const data = {
@@ -29,8 +27,6 @@ const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => 
       await addCar(data);
     }
   };
-
-  console.log(error);
 
   useEffect(() => {
     if (isSuccess) {

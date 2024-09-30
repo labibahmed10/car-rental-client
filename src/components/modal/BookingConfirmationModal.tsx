@@ -28,7 +28,7 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
     toast.error((error as any)?.data?.message);
     reset();
   }
-  console.log(selectedCar);
+
   return (
     <Modal
       title="Booking Confirmation"

@@ -67,7 +67,7 @@ export default function BookingManagement() {
       render: (_: string, record: IBookingResponse) => (
         <div className="gap-3 flex sm:flex-row flex-col justify-center items-center">
           <Button onClick={() => handleModify(record)}>Update</Button>
-          <Popconfirm title="Are you sure you want to cancel this booking?" onConfirm={() => handleCancel(record)} okText="Yes" cancelText="No">
+          <Popconfirm title="Are you sure you want to cancel this booking?" okText="Yes" cancelText="No">
             <Button danger>Cancel</Button>
           </Popconfirm>
         </div>
@@ -78,11 +78,6 @@ export default function BookingManagement() {
   const handleModify = (booking: IBookingResponse) => {
     setSelectedBooking(booking);
     setIsModalVisible(true);
-  };
-
-  const handleCancel = (booking: IBookingResponse) => {
-    // Implement cancellation logic
-    console.log(`Cancelled booking ${booking._id}`);
   };
 
   const handleModalOk = () => {

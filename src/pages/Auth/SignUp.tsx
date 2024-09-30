@@ -34,8 +34,7 @@ export default function SignUp() {
   }, [isError, error, isSuccess, isLoading]);
 
   const onFinish = async (value: IUserSignUp) => {
-    const userInfo = await signUpUser({ ...value, role: "user" }).unwrap();
-    console.log(userInfo);
+    await signUpUser({ ...value, role: "user" }).unwrap();
     navigate("/login");
   };
   return (
