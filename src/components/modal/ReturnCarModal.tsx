@@ -38,7 +38,7 @@ export default function ReturnCarModal({ mutationFunction, isLoading, record, di
 
   return (
     <div>
-      <MyButton onClick={confirm} text="Return Car" loading={isLoading} icon={<GiReturnArrow />} disable={disabled} />
+      <MyButton onClick={confirm} text="Return Car" size="middle" loading={isLoading} icon={<GiReturnArrow />} disable={disabled} />
       {contextHolder}
     </div>
   );

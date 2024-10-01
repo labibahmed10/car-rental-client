@@ -36,7 +36,15 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+
+    updateUserToAdmin: builder.mutation<IResponseType<IUserInfo>, { id: string }>({
+      query: ({ id }) => ({
+        url: `/auth/user/${id}/admin`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation, useGetAllUsersQuery, useUpdateUserStatusMutation } = authApi;
+export const { useSignInMutation, useSignUpMutation, useGetAllUsersQuery, useUpdateUserStatusMutation, useUpdateUserToAdminMutation } = authApi;

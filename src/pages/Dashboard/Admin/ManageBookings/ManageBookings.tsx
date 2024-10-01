@@ -19,28 +19,33 @@ export default function ManageBookings() {
       title: "User",
       dataIndex: "user",
       key: "user",
+      align: "center",
       render: (user) => user.name,
     },
     {
       title: "Email",
       dataIndex: ["user", "email"],
       key: "user_email",
+      align: "center",
     },
     {
       title: "Car Name",
       dataIndex: "car",
       key: "car",
+      align: "center",
       render: (car) => car.name,
     },
     {
       title: "Car Model",
       dataIndex: ["car", "model"],
       key: "car",
+      align: "center",
     },
     {
       title: "Car Image",
       dataIndex: ["car", "image"],
       key: "car",
+      align: "center",
       render: (car) => (
         <div className="w-14 h-10">
           <Image src={car} alt="car photo" className="w-full h-full object-contain" />
@@ -51,16 +56,19 @@ export default function ManageBookings() {
       title: "Rent Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
     },
     {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
+      align: "center",
     },
     {
       title: "End Time",
       dataIndex: "endTime",
       key: "endTime",
+      align: "center",
       render: (text: string) => <span>{text ? text : "N/A"}</span>,
     },
 
@@ -68,11 +76,13 @@ export default function ManageBookings() {
       title: "Total Cost",
       dataIndex: "totalCost",
       key: "totalCost",
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align: "center",
       render: (status) => {
         return (
           <span>

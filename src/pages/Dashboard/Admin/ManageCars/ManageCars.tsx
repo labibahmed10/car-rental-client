@@ -22,21 +22,25 @@ const ManageCars = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      align: "center",
     },
     {
       title: "Model",
       dataIndex: "model",
       key: "model",
+      align: "center",
     },
     {
       title: "Year",
       dataIndex: "year",
       key: "year",
+      align: "center",
     },
     {
       title: "Features",
       dataIndex: "features",
       key: "features",
+      align: "center",
       render: (value) => {
         return value?.length > 0 ? value?.map((val: string) => <span>{val + ", "}</span>) : null;
       },
@@ -45,11 +49,13 @@ const ManageCars = () => {
       title: "Price Per Hour",
       dataIndex: "pricePerHour",
       key: "pricePerHour",
+      align: "center",
     },
     {
       title: "Photo",
       dataIndex: "image",
       key: "photo",
+      align: "center",
       render: (url: string) => (
         <div className="w-14 h-10">
           <Image src={url} alt="car photo" className="w-full h-full object-contain" />

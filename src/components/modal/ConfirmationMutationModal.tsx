@@ -37,7 +37,7 @@ export default function ConfirmationMutationModal({
 
   return (
     <div>
-      <MyButton disable={disabled} text={text} extraStyle={extraStyle} onClick={confirm} icon={Icon} />
+      <MyButton disable={disabled} text={text} size="middle" extraStyle={extraStyle} onClick={confirm} icon={Icon} />
       {contextHolder}
     </div>
   );
