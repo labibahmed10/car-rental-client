@@ -19,7 +19,22 @@ const authApi = baseApi.injectEndpoints({
         body: credentials,
       }),
     }),
+
+    getAllUsers: builder.query<IResponseType<IUserInfo[]>, void>({
+      query: () => ({
+        url: "/auth/users",
+        method: "GET",
+      }),
+    }),
+
+    updateUserStatus: builder.mutation<IResponseType<IUserInfo>, { id: number; status: string }>({
+      query: ({ id, status }) => ({
+        url: `/auth/user/${id}/status`,
+        method: "PATCH",
+        body: { status },
+      }),
+    }),
   }),
 });
 
-export const { useSignInMutation,useSignUpMutation } = authApi;
+export const { useSignInMutation, useSignUpMutation, useGetAllUsersQuery, useUpdateUserStatusMutation } = authApi;

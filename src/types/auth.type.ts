@@ -5,9 +5,12 @@ export interface IUserInfo {
   role: string;
   phone: string;
   address: string;
+  status: TUserStatus;
   createdAt: string;
   updatedAt: string;
 }
+
+export type TUserStatus = "active" | "block";
 
 export interface IUserSingIn {
   email: string;
