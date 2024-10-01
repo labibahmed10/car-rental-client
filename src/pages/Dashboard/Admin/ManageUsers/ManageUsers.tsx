@@ -1,16 +1,17 @@
-import { GrFormAdd } from "react-icons/gr";
 import PageHeader from "../../../../components/table/PageHeader";
-import MyButton from "../../../../components/common/MyButton";
-import { useGetAllUsersQuery } from "../../../../redux/feature/auth/authApi";
+import { useGetAllUsersQuery, useUpdateUserStatusMutation } from "../../../../redux/feature/auth/authApi";
 import MyDataTable from "../../../../components/table/MyDataTable";
 import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IUserInfo } from "../../../../types/auth.type";
 import { SecurityScanOutlined, UserOutlined } from "@ant-design/icons";
 import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
+import { FaUserCheck, FaUserClock, FaUserSlash } from "react-icons/fa";
 
 export default function ManageUsers() {
   const { data: manageAllUsers, isLoading, isFetching, isError, error, refetch } = useGetAllUsersQuery();
+
+  const [updateUserStatus, { isLoading: isUpdating }] = useUpdateUserStatusMutation();
 
   const columns: ColumnsType<IUserInfo> = [
     {
@@ -51,21 +52,33 @@ export default function ManageUsers() {
       },
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      align: "center",
+      render: (value) => {
+        return (
+          <Tag className="space-x-2" color={value === "active" ? "green" : "red"} icon={value === "active" ? <FaUserClock /> : <FaUserSlash />}>
+            {value === "active" ? "Active" : "Blocked"}
+          </Tag>
+        );
+      },
+    },
+    {
       title: "Action",
       dataIndex: "action",
       key: "action",
       align: "center",
       render: (_, record) => (
         <span className="flex gap-2 items-center justify-center">
-          {/* <CarUpdateModal record={record} /> */}
-
-          {/* <ConfirmationMutationModal
-            text="Delete"
-            title="Delete the item"
-            content="Are you sure to delete this item?"
-            mutationFunction={() => deleteCarMutation({ id: record._id })}
-            isLoading={isDeleting}
-          /> */}
+          <ConfirmationMutationModal
+            text="Update Status"
+            title="Update User"
+            content="Are you sure want to update user status?"
+            mutationFunction={() => updateUserStatus({ id: record._id, status: record.status === "active" ? "block" : "active" })}
+            isLoading={isUpdating}
+            Icon={<FaUserCheck />}
+          />
         </span>
       ),
     },
@@ -74,12 +87,7 @@ export default function ManageUsers() {
   console.log(manageAllUsers);
   return (
     <>
-      <PageHeader
-        title="Manage Cars"
-        refetch={refetch}
-        loading={isLoading || isFetching}
-        extra={<MyButton type="button" text="Add Car" size="middle" icon={<GrFormAdd />} onClick={() => setIsModalOpen(true)} />}
-      />
+      <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />
 
       <MyDataTable columns={columns} data={manageAllUsers?.data} loading={isLoading} />
     </>

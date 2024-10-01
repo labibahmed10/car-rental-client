@@ -11,8 +11,18 @@ interface IconfirmationModal {
   text: string;
   Icon?: ReactNode;
   disabled?: boolean;
+  extraStyle?: string;
 }
-export default function ConfirmationMutationModal({ mutationFunction, isLoading, title, content, text, Icon, disabled = false }: IconfirmationModal) {
+export default function ConfirmationMutationModal({
+  mutationFunction,
+  isLoading,
+  title,
+  content,
+  text,
+  Icon,
+  extraStyle,
+  disabled = false,
+}: IconfirmationModal) {
   const [modal, contextHolder] = Modal.useModal();
 
   const confirm = () => {
@@ -27,7 +37,7 @@ export default function ConfirmationMutationModal({ mutationFunction, isLoading,
 
   return (
     <div>
-      <MyButton disable={disabled} text={text} extraStyle="bg-red-500 hover:!bg-red-700 disabled:hover:!bg-gray-500" onClick={confirm} icon={Icon} />
+      <MyButton disable={disabled} text={text} extraStyle={extraStyle} onClick={confirm} icon={Icon} />
       {contextHolder}
     </div>
   );

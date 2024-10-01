@@ -25,14 +25,16 @@ const authApi = baseApi.injectEndpoints({
         url: "/auth/users",
         method: "GET",
       }),
+      providesTags: ["user"],
     }),
 
-    updateUserStatus: builder.mutation<IResponseType<IUserInfo>, { id: number; status: string }>({
+    updateUserStatus: builder.mutation<IResponseType<IUserInfo>, { id: string; status: string }>({
       query: ({ id, status }) => ({
         url: `/auth/user/${id}/status`,
         method: "PATCH",
         body: { status },
       }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
