@@ -11,6 +11,7 @@ import { ICarData } from "../../../../types/car.types";
 import CarUpdateModal from "./components/modal/CarUpdateModal";
 import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
 import { toast } from "sonner";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const ManageCars = () => {
   const { data: carData, isLoading, isFetching, error, refetch } = useGetAllCarsQuery(undefined);
@@ -77,6 +78,8 @@ const ManageCars = () => {
             content="Are you sure to delete this item?"
             mutationFunction={() => deleteCarMutation({ id: record._id })}
             isLoading={isDeleting}
+            extraStyle="bg-red-600  hover:!bg-red-800 text-white"
+            Icon={<DeleteOutlined />}
           />
         </span>
       ),

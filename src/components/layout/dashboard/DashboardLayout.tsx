@@ -1,28 +1,32 @@
-import { Divider, Image, Layout, Menu } from "antd";
+import { Button, Divider, Image, Layout, Menu } from "antd";
 import { IDashboardLayout } from "../../../types/index.type";
 import { NavLink, Outlet } from "react-router-dom";
 const { Content, Sider } = Layout;
 import img from "../../../assets/images/logo.png";
 import MyButton from "../../common/MyButton";
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useAppSelector } from "../../../redux/store/hooks";
 import { selectCurrentUser } from "../../../redux/feature/auth/authSlice";
+import { useState } from "react";
 
 const DashboardLayout = ({ items }: IDashboardLayout) => {
   const user = useAppSelector(selectCurrentUser);
   const profileText = user?.name?.slice(0, 1).toUpperCase();
-
+  const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
       <Sider
-        breakpoint="sm"
+        breakpoint="md"
         collapsedWidth="0"
         width={280}
         style={{
           backgroundColor: "#2A5979",
         }}
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
       >
-        <section className=" flex flex-col justify-between h-full p-3">
+        <section className="flex flex-col justify-between h-full p-3">
           <div className="space-y-5">
             <Image preview={false} src={img} alt="" className="w-full" />
             <Divider variant="dashed" className="text-white bg-white/30" />
@@ -52,8 +56,18 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
       </Sider>
 
       <Layout>
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            width: 45,
+            height: 45,
+          }}
+        />
+
         <Content className="">
-          <div className="min-h-[calc(100vh-0px)] p-4 sm:p-10 bg-zinc-100 rounded-md">
+          <div className="max-h-[calc(100vh-45px)] h-screen p-4 sm:p-10 bg-zinc-100 rounded-md">
             <Outlet />
           </div>
         </Content>

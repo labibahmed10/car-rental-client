@@ -90,7 +90,7 @@ export default function ManageUsers() {
             mutationFunction={() => updateUserStatus({ id: record._id, status: record.status === "active" ? "block" : "active" })}
             isLoading={isUpdating}
             Icon={<FaUserCheck />}
-            extraStyle="bg-violet-700  hover:!bg-violet-800 text-white"
+            extraStyle="bg-indigo-700  hover:!bg-indigo-800 text-white"
           />
 
           <ConfirmationMutationModal

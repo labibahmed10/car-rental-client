@@ -7,6 +7,8 @@ import { useCancelBookingMutation, useGetAllBookingsQuery, useUpdateStatusMutati
 import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
 import { useReturnCarMutation } from "../../../../redux/feature/car/carApi";
 import ReturnCarModal from "../../../../components/modal/ReturnCarModal";
+import { TiTickOutline } from "react-icons/ti";
+import { MdCancel } from "react-icons/md";
 
 export default function ManageBookings() {
   const { data: bookingsData, isLoading, isFetching, refetch } = useGetAllBookingsQuery(undefined);
@@ -113,6 +115,8 @@ export default function ManageBookings() {
               mutationFunction={() => approveBooking({ id: record._id, status: "confirmed" })}
               isLoading={isApproving}
               disabled={record.status === "confirmed" || record.totalCost > 0}
+              Icon={<TiTickOutline />}
+              extraStyle="bg-emerald-700  hover:!bg-emerald-800 text-white"
             />
 
             <ReturnCarModal record={record} mutationFunction={returnCar} isLoading={isReturning} disabled={record.totalCost > 0} />
@@ -127,6 +131,8 @@ export default function ManageBookings() {
                 })
               }
               isLoading={isCanceling}
+              Icon={<MdCancel />}
+              extraStyle="bg-red-700  hover:!bg-red-800 text-white"
             />
           </Space>
         );

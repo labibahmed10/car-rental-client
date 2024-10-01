@@ -58,7 +58,13 @@ const CarUpdateModal: React.FC<IUpdateProps> = ({ record }) => {
 
   return (
     <>
-      <MyButton text="Edit" size="middle" icon={<FaRegEdit />} extraStyle="text-sm" onClick={() => setIsModalOpen(true)} />
+      <MyButton
+        text="Edit"
+        size="middle"
+        icon={<FaRegEdit />}
+        onClick={() => setIsModalOpen(true)}
+        extraStyle="text-md bg-indigo-700  hover:!bg-indigo-800 text-white"
+      />
       <CarCommonModal title="Update the Car" isModalOpen={isModalOpen} onCancel={() => setIsModalOpen(false)}>
         <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} record={record} />
       </CarCommonModal>
