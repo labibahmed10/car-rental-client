@@ -88,12 +88,12 @@ export default function ManageBookings() {
       render: (status) => {
         return (
           <span>
-            {status === "confirmed" ? (
-              <Tag color="green">Confirmed</Tag>
+            {status === "approved" ? (
+              <Tag color="green">Approved</Tag>
             ) : status === "pending" ? (
-              <Tag color="blue">Pending</Tag>
-            ) : status === "completed" ? (
-              <Tag color="orange">Completed</Tag>
+              <Tag color="gold">Pending</Tag>
+            ) : status === "returned" ? (
+              <Tag color="geekblue">Returned</Tag>
             ) : (
               "N/A"
             )}

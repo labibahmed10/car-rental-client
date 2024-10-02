@@ -40,16 +40,16 @@ export default function ManageUsers() {
       key: "phone",
       align: "center",
     },
-    {
-      title: "Photo",
-      key: "photo",
-      align: "center",
-      render: (url: string) => (
-        <div className="w-14 h-10">
-          <Image src={url} alt="User's photo" className="w-full h-full object-contain" />
-        </div>
-      ),
-    },
+    // {
+    //   title: "Photo",
+    //   key: "photo",
+    //   align: "center",
+    //   render: (url: string) => (
+    //     <div className="w-14 h-10">
+    //       <Image src={url} alt="User's photo" className="w-full h-full object-contain" />
+    //     </div>
+    //   ),
+    // },
     {
       title: "Role",
       dataIndex: "role",
