@@ -12,7 +12,7 @@ interface IReuturnCarProps {
 
 export default function ReturnCarModal({ mutationFunction, isLoading, record, disabled = false }: IReuturnCarProps) {
   const [modal, contextHolder] = Modal.useModal();
-
+  console.log(record);
   const endTime = `${String(new Date().getHours()).padStart(2, "0")}:${String(new Date().getMinutes()).padStart(2, "0")}`;
 
   const confirm = () => {

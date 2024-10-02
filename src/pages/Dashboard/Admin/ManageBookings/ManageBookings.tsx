@@ -5,15 +5,12 @@ import { Image, Space, Tag } from "antd";
 import MyDataTable from "../../../../components/table/MyDataTable";
 import { useCancelBookingMutation, useGetAllBookingsQuery, useUpdateStatusMutation } from "../../../../redux/feature/booking/bookingApi";
 import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
-import { useReturnCarMutation } from "../../../../redux/feature/car/carApi";
-import ReturnCarModal from "../../../../components/modal/ReturnCarModal";
 import { TiTickOutline } from "react-icons/ti";
 import { MdCancel } from "react-icons/md";
 
 export default function ManageBookings() {
   const { data: bookingsData, isLoading, isFetching, refetch } = useGetAllBookingsQuery(undefined);
   const [cancelBooking, { isLoading: isCanceling }] = useCancelBookingMutation();
-  const [returnCar, { isLoading: isReturning }] = useReturnCarMutation();
   const [approveBooking, { isLoading: isApproving }] = useUpdateStatusMutation();
 
   const columns: ColumnType<IBookingResponse>[] = [
@@ -49,7 +46,7 @@ export default function ManageBookings() {
       key: "car",
       align: "center",
       render: (car) => (
-        <div className="w-14 h-10">
+        <div className="w-14 h-10 mx-auto">
           <Image src={car} alt="car photo" className="w-full h-full object-contain" />
         </div>
       ),
@@ -112,14 +109,12 @@ export default function ManageBookings() {
               text="Approve"
               title="Approve Booking"
               content="Are you sure want to approve the booking?"
-              mutationFunction={() => approveBooking({ id: record._id, status: "confirmed" })}
+              mutationFunction={() => approveBooking({ id: record._id, status: "approved" })}
               isLoading={isApproving}
-              disabled={record.status === "confirmed" || record.totalCost > 0}
+              disabled={record.status === "approved" || record.totalCost > 0}
               Icon={<TiTickOutline />}
               extraStyle="bg-emerald-700  hover:!bg-emerald-800 text-white"
             />
-
-            <ReturnCarModal record={record} mutationFunction={returnCar} isLoading={isReturning} disabled={record.totalCost > 0} />
 
             <ConfirmationMutationModal
               text="Cancel"

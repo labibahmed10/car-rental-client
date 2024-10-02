@@ -58,7 +58,7 @@ const ManageCars = () => {
       key: "photo",
       align: "center",
       render: (url: string) => (
-        <div className="w-14 h-10">
+        <div className="w-14 h-10 mx-auto">
           <Image src={url} alt="car photo" className="w-full h-full object-contain" />
         </div>
       ),
