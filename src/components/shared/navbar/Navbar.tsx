@@ -1,150 +1,134 @@
-import { useState } from "react";
-import { Layout, Menu, Button, Drawer, Row, Col, MenuProps, Image } from "antd";
-import { HomeOutlined, UserOutlined, MenuOutlined, ContainerOutlined, CalendarOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { Layout, Menu, Button, Drawer } from "antd";
+import { NavLink, useLocation } from "react-router-dom";
+import { CalendarOutlined, ContainerOutlined, HomeOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
+
 import logo from "../../../assets/images/logo.png";
-import { NavLink } from "react-router-dom";
 import MyButton from "../../common/MyButton";
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { selectCurrentToken, signOut } from "../../../redux/feature/auth/authSlice";
 import { verifyToken } from "../../../utils/verifyToken";
 import { IUserToken } from "../../../types/auth.type";
+import { GoArrowUpRight } from "react-icons/go";
 import { MdSpaceDashboard } from "react-icons/md";
 
 const { Header } = Layout;
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
+  const [visible, setVisible] = useState(false);
   const token = useAppSelector(selectCurrentToken);
   const user = token && verifyToken(token as string);
-  const [visible, setVisible] = useState(false);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
-  const items: MenuProps["items"] = [
+  const menuItems = [
     {
-      key: 1,
-      icon: <HomeOutlined className="text-white" />,
-      label: (
-        <NavLink to="/">
-          <span className="text-white">Home</span>
-        </NavLink>
-      ),
+      key: "/",
+      icon: <HomeOutlined />,
+      label: <span className="text-gray-500">Home</span>,
     },
     {
-      key: 2,
-      label: (
-        <NavLink to="/about">
-          <span className="text-white">About Us</span>
-        </NavLink>
-      ),
-      icon: <UserOutlined className="text-white" />,
+      key: "/about",
+      icon: <UserOutlined />,
+      label: <span className="text-gray-500">About Us</span>,
     },
     {
-      key: 3,
-      label: (
-        <NavLink to="/cars/booking">
-          <span className="text-white">Booking</span>
-        </NavLink>
-      ),
-      icon: <CalendarOutlined className="text-white" />,
+      key: "/cars/booking",
+      icon: <CalendarOutlined />,
+      label: <span className="text-gray-500">Booking</span>,
     },
     {
-      key: 4,
-      label: (
-        <NavLink to="/contact">
-          <span className="text-white">Contact</span>
-        </NavLink>
-      ),
-      icon: <ContainerOutlined className="text-white" />,
+      key: "/contact",
+      icon: <ContainerOutlined />,
+      label: <span className="text-gray-500">Contact</span>,
     },
 
-    {
-      key: 5,
-      label:
-        (user as IUserToken)?.role === "user" ? (
-          <NavLink to={`/${(user as IUserToken)?.role}/dashboard`}>
-            <span className="text-white">Dashboard</span>
-          </NavLink>
-        ) : (
-          (user as IUserToken)?.role === "admin" && (
-            <NavLink to={`/${(user as IUserToken)?.role}/dashboard`}>
-              <span className="text-white">Dashboard</span>
-            </NavLink>
-          )
-        ),
-      icon: (user as IUserToken)?.role ? <MdSpaceDashboard className="text-center" /> : null,
-    },
+    ...((user as IUserToken)?.role
+      ? [
+          {
+            key: `/${(user as IUserToken).role}/dashboard`,
+            icon: <MdSpaceDashboard />,
+            label: <span className="text-gray-500">Dashboard</span>,
+          },
+        ]
+      : []),
   ];
 
-  const menuItem: MenuProps["items"] = [
-    {
-      key: "6",
-      label: !(user as IUserToken)?.userId ? (
-        <NavLink to="/login">
-          <MyButton text="Log In" extraStyle="bg-[#0f1a22ce]" />
-        </NavLink>
-      ) : (
-        <MyButton text="Log Out" onClick={() => dispatch(signOut())} extraStyle="bg-[#0f1a22ce]" />
-      ),
-      style: {
-        background: "transparent",
-      },
-    },
-  ];
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
-
+  const authButton = (
+    <MyButton
+      text={!(user as IUserToken)?.userId ? "Log In" : "Log Out"}
+      onClick={() => ((user as IUserToken)?.userId ? dispatch(signOut()) : null)}
+      extraStyle="bg-[#0f1a22ce]"
+      icon={!(user as IUserToken)?.userId ? <GoArrowUpRight /> : null}
+    />
+  );
+  console.log(location.pathname);
   return (
-    <Layout className="bg-[#2A5979] px-4 max-h-16 ">
-      <Header className="p-0 bg-[#2A5979] w-full max-w-screen-xl mx-auto ">
-        {/* visible for desktop */}
-        <Row justify="space-between" align="top">
-          <Col xs={20} sm={20} md={2}>
-            <div className="size-16">
-              <Image src={logo} alt="logo" className="object-fill" preview={false} />
-            </div>
-          </Col>
-          <Col xs={0} sm={0} md={19}>
-            <Menu mode="horizontal" className="bg-[#2A5979] text-white flex items-center justify-center w-full" theme="dark" items={items} />
-          </Col>
-          <Col xs={0} sm={0} md={3}>
-            <Menu className="bg-[#2A5979] text-white" mode="horizontal" theme="dark" items={menuItem} />
-          </Col>
-          <Col xs={4} sm={4} md={0}>
-            <Button type="primary" className="text-white bg-[#0f1a22ce]" onClick={showDrawer}>
-              <MenuOutlined />
-            </Button>
-          </Col>
-        </Row>
+    <Header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-md p-0">
+      <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-16">
+        <div className="h-14 w-12 flex items-center">
+          <img src={logo} alt="logo" className="object-contain w-full h-full" />
+        </div>
 
-        {/* visible for mobile */}
-        <Drawer
-          styles={{
-            header: {
-              backgroundColor: "#2A5979",
-              color: "white",
-            },
-            body: {
-              backgroundColor: "#2A5979",
-              color: "white",
-            },
-          }}
-          width={300}
-          title="Menu"
-          placement="right"
-          onClick={onClose}
-          onClose={onClose}
-          open={visible}
-        >
-          <Menu mode="vertical" className="bg-[#2A5979]" theme="dark" items={items} />
-          <Menu mode="horizontal" className="bg-[#2A5979]" theme="dark" items={menuItem} />
-        </Drawer>
-      </Header>
-    </Layout>
+        <Menu
+          mode="inline"
+          className="bg-transparent border-0 !border-r-0 outline-0 hidden md:flex items-center justify-center w-3/4 mx-auto"
+          items={menuItems.map((item) => ({
+            ...item,
+            label: (
+              <NavLink
+                to={item.key}
+                className={`hover:text-white transition-colors duration-300 ${location.pathname === item.key ? "text-red-500" : "text-white"}`}
+                style={{ backgroundColor: "transparent" }}
+              >
+                {item.label}
+              </NavLink>
+            ),
+          }))}
+          style={{ backgroundColor: "transparent" }}
+        />
+        <div className="hidden md:block">{!(user as IUserToken)?.userId ? <NavLink to="/login">{authButton}</NavLink> : authButton}</div>
+
+        <Button type="text" icon={<MenuOutlined />} onClick={() => setVisible(true)} className="md:hidden" />
+      </div>
+
+      <Drawer
+        title="Menu"
+        placement="right"
+        onClose={() => setVisible(false)}
+        open={visible}
+        className="md:hidden !bg-transparent !backdrop-blur-md !text-slate-100"
+        width={280}
+      >
+        <Menu
+          mode="vertical"
+          selectedKeys={[location.pathname]}
+          items={menuItems.map((item) => ({
+            ...item,
+            label: (
+              <NavLink
+                to={item.key}
+                className={`hover:text-primary transition-colors duration-300 ${location.pathname === item.key ? "text-red-500" : "text-slate-100"}`}
+                style={{ backgroundColor: "transparent" }}
+              >
+                {item.label}
+              </NavLink>
+            ),
+          }))}
+          onClick={() => setVisible(false)}
+          style={{ border: "none", backgroundColor: "transparent" }}
+        />
+        <div className="mt-4">
+          {!(user as IUserToken)?.userId ? (
+            <NavLink to="/login" onClick={() => setVisible(false)}>
+              {authButton}
+            </NavLink>
+          ) : (
+            authButton
+          )}
+        </div>
+      </Drawer>
+    </Header>
   );
 };
 

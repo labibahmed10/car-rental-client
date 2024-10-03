@@ -4,8 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -16,4 +14,9 @@ body {
   background-color: #f2f3e6;
   font-family: "Plus Jakarta Sans";
   font-weight: 600;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-light > .ant-menu .ant-menu-item-selected {
+  @apply bg-orange-100 text-orange-400 !important;
 }
