@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Image } from "antd";
 import MyDataTable from "../../../../components/table/MyDataTable";
@@ -15,7 +16,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 const ManageCars = () => {
   const { data: carData, isLoading, isFetching, error, refetch } = useGetAllCarsQuery(undefined);
-  const [deleteCarMutation, { isLoading: isDeleting }] = useDeleteCarMutation();
+  const [deleteCarMutation, { isLoading: isDeleting, isError: isDeletingError, error: deleteError }] = useDeleteCarMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns: ColumnsType<ICarData> = [
@@ -87,10 +88,14 @@ const ManageCars = () => {
   ];
 
   useEffect(() => {
-    if (error?.statusCode === 404) {
-      toast.error(error?.data.message);
+    if ((error as any)?.statusCode === 404) {
+      toast.error((error as any)?.data.message);
     }
-  }, [error]);
+
+    if ((deleteError as any).statusCode === 404) {
+      toast.error((deleteError as any)?.data.message);
+    }
+  }, [error, deleteError]);
 
   return (
     <div>

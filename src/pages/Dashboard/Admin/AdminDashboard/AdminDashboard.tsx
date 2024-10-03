@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Card, Statistic, Row, Col } from "antd";
 import { FaCar, FaMoneyBill, FaCalendar } from "react-icons/fa";
 import { Chart, registerables } from "chart.js";
@@ -12,11 +12,13 @@ interface DashboardStats {
 }
 
 const AdminDashboard: React.FC = () => {
-  const stats: DashboardStats = {
-    totalBookings: 4000, // Replace with actual data
-    availableCars: 700, // Replace with actual data
-    revenue: 15000, // Replace with actual data
-  };
+  const stats: DashboardStats = useMemo(() => {
+    return {
+      totalBookings: 4000,
+      availableCars: 700,
+      revenue: 15000,
+    };
+  }, []);
 
   const chartRef = useRef<HTMLCanvasElement>(null);
 
