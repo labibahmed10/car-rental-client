@@ -5,6 +5,7 @@ import MyButton from "../../../components/common/MyButton";
 
 const CarBookingForm: React.FC = () => {
   const onFinish = (values: FormInstance) => {
+    console.log(values);
     message.success({
       content: "Thank you! Form submitted successfully.",
       icon: <CheckCircleOutlined style={{ color: "#4CAF50" }} />,
@@ -19,34 +20,26 @@ const CarBookingForm: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#2a5979] rounded-xl text-white w-11/12 mx-auto sm:max-w-screen-md sm:mx-auto px-0 sm:px-10 my-10 sm:my-16">
+    <section className="rounded-full mx-auto px-4">
       <Form
         layout={"vertical"}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        className="grid grid-cols-1 sm:grid-cols-3 place-items-center place-content-center gap-2 sm:gap-5 p-4"
+        className="flex sm:flex-row flex-col items-center justify-between sm:gap-5 mt-10 bg-[#221B05] p-10 rounded-lg sm:rounded-full"
       >
-        <Form.Item
-          label={<span className="text-base font-semibold text-slate-50">Pick up Location</span>}
-          name="location"
-          rules={[{ required: true, message: "This field is required" }]}
-          className="w-full text-white"
-          style={{ color: "white" }}
-        >
-          <Input placeholder="Location" className="w-full rounded-md h-12 text-lg" />
+        <Form.Item name="name" rules={[{ required: true, message: "This field is required" }]} className="w-full mb-0">
+          <Input placeholder="Car Name" className="w-full rounded-full h-12 text-lg" />
+        </Form.Item>
+        <Form.Item name="location" rules={[{ required: true, message: "This field is required" }]} className="w-full mb-0">
+          <Input placeholder="Location" className="w-full rounded-full h-12 text-lg" />
         </Form.Item>
 
-        <Form.Item
-          label={<span className="text-base font-semibold text-slate-50">Date</span>}
-          name="date"
-          rules={[{ required: true, message: "This field is required" }]}
-          className="w-full"
-        >
-          <DatePicker format="DD-MM-YYYY" className="w-full rounded-md h-12" />
+        <Form.Item name="date" rules={[{ required: true, message: "This field is required" }]} className="w-full mb-0">
+          <DatePicker format="DD-MM-YYYY" className="w-full rounded-full h-12" />
         </Form.Item>
 
-        <Form.Item>
-          <MyButton text="Check" extraStyle="text-white w-36 sm:w-40 h-10 sm:h-12 mt-0 sm:mt-8" />
+        <Form.Item className="mb-0">
+          <MyButton text="Check" extraStyle="text-white w-36 sm:w-40 h-10 sm:h-12" />
         </Form.Item>
       </Form>
     </section>

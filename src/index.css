@@ -11,12 +11,22 @@
 }
 
 body {
-  background-color: #f2f3e6;
+  background-color: #221b12;
   font-family: "Plus Jakarta Sans";
   font-weight: 600;
 }
 
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-light .ant-menu-item-selected,
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-light > .ant-menu .ant-menu-item-selected {
-  @apply bg-orange-100 text-orange-400 !important;
+  @apply bg-transparent text-[#F5B754] !important;
+}
+.ant-menu .ant-menu-item-active {
+  @apply bg-transparent  !important;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-item,
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-vertical .ant-menu-item,
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-5wsri9).ant-menu-vertical .ant-menu-submenu-title {
+  @apply w-[8rem];
 }

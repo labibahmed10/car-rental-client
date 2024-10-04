@@ -25,22 +25,22 @@ const Navbar: React.FC = () => {
     {
       key: "/",
       icon: <HomeOutlined />,
-      label: <span className="text-gray-500">Home</span>,
+      label: <span>Home</span>,
     },
     {
       key: "/about",
       icon: <UserOutlined />,
-      label: <span className="text-gray-500">About Us</span>,
+      label: <span>About Us</span>,
     },
     {
       key: "/cars/booking",
       icon: <CalendarOutlined />,
-      label: <span className="text-gray-500">Booking</span>,
+      label: <span>Booking</span>,
     },
     {
       key: "/contact",
       icon: <ContainerOutlined />,
-      label: <span className="text-gray-500">Contact</span>,
+      label: <span>Contact</span>,
     },
 
     ...((user as IUserToken)?.role
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
           {
             key: `/${(user as IUserToken).role}/dashboard`,
             icon: <MdSpaceDashboard />,
-            label: <span className="text-gray-500">Dashboard</span>,
+            label: <span>Dashboard</span>,
           },
         ]
       : []),
@@ -62,9 +62,9 @@ const Navbar: React.FC = () => {
       icon={!(user as IUserToken)?.userId ? <GoArrowUpRight /> : null}
     />
   );
-  console.log(location.pathname);
+
   return (
-    <Header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-md p-0">
+    <Header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-sm p-0 h-[calc(100%-92vh)]">
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-16">
         <div className="h-14 w-12 flex items-center">
           <img src={logo} alt="logo" className="object-contain w-full h-full" />
@@ -75,10 +75,22 @@ const Navbar: React.FC = () => {
           className="bg-transparent border-0 !border-r-0 outline-0 hidden md:flex items-center justify-center w-3/4 mx-auto"
           items={menuItems.map((item) => ({
             ...item,
+            icon: (
+              <span
+                className={`hover:!text-[#F5B754] transition-colors duration-300 ${
+                  location.pathname === item.key ? "!text-[#F5B754]" : "!text-slate-100"
+                }
+            `}
+              >
+                {item.icon}
+              </span>
+            ),
             label: (
               <NavLink
                 to={item.key}
-                className={`hover:text-white transition-colors duration-300 ${location.pathname === item.key ? "text-red-500" : "text-white"}`}
+                className={`hover:!text-[#F5B754] transition-colors duration-300 ${
+                  location.pathname === item.key ? "!text-[#F5B754]" : "!text-slate-100"
+                }`}
                 style={{ backgroundColor: "transparent" }}
               >
                 {item.label}
@@ -108,7 +120,7 @@ const Navbar: React.FC = () => {
             label: (
               <NavLink
                 to={item.key}
-                className={`hover:text-primary transition-colors duration-300 ${location.pathname === item.key ? "text-red-500" : "text-slate-100"}`}
+                className={`transition-colors duration-300 ${location.pathname === item.key ? "text-red-500" : "text-slate-100"}`}
                 style={{ backgroundColor: "transparent" }}
               >
                 {item.label}
