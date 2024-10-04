@@ -11,7 +11,7 @@
 }
 
 body {
-  background-color: #221b12;
+  background-color: #1b1b1b;
   font-family: "Plus Jakarta Sans";
   font-weight: 600;
 }
@@ -29,4 +29,8 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-submenu-title,
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-vertical .ant-menu-submenu-title {
   @apply w-[8rem];
+}
+
+.slick-list {
+  @apply h-72;
 }

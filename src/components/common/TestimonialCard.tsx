@@ -1,7 +1,7 @@
 export default function TestimonialCard() {
   return (
     <div className="flex justify-center my-8 mx-4">
-      <div className="bg-[#F2F7E8] shadow-md rounded-lg p-6 max-w-md space-y-3">
+      <div className="bg-[#222222] shadow-md rounded-lg p-6 max-w-md space-y-3">
         <h3 className="text-xl font-semibold text-center">John Doe</h3>
         <p className="text-gray-600 text-center">"This service has transformed my business! Highly recommend to anyone looking to grow."</p>
         <div className="flex justify-center mb-4">

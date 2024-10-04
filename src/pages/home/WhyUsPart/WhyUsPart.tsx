@@ -8,7 +8,7 @@ export default function WhyUsPart() {
       <div className="flex justify-between items-center flex-col sm:flex-row gap-5 sm:gap-10 sm:h-[600px] text-center sm:text-left">
         <div className="w-full sm:w-1/2 h-fit">
           <div className="space-y-2 sm:space-y-4">
-            <h1 className="text-lg sm:text-xl font-semibold text-[#223E51]">Why Choose Us</h1>
+            <h1 className="text-lg sm:text-xl font-semibold text-[#e6a131]">Why Choose Us</h1>
             <h2 className="text-4xl sm:text-5xl font-bold">
               Trusted by Thousands, <br /> Preferred by You
             </h2>

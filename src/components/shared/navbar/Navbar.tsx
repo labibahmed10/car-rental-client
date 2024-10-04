@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { selectCurrentToken, signOut } from "../../../redux/feature/auth/authSlice";
 import { verifyToken } from "../../../utils/verifyToken";
 import { IUserToken } from "../../../types/auth.type";
-import { GoArrowUpRight } from "react-icons/go";
+import { GoArrowUpLeft, GoArrowUpRight } from "react-icons/go";
 import { MdSpaceDashboard } from "react-icons/md";
 
 const { Header } = Layout;
@@ -58,8 +58,8 @@ const Navbar: React.FC = () => {
     <MyButton
       text={!(user as IUserToken)?.userId ? "Log In" : "Log Out"}
       onClick={() => ((user as IUserToken)?.userId ? dispatch(signOut()) : null)}
-      extraStyle="bg-[#0f1a22ce]"
-      icon={!(user as IUserToken)?.userId ? <GoArrowUpRight /> : null}
+      extraStyle="bg-[#F5B754] hover:!bg-white hover:!text-black"
+      icon={!(user as IUserToken)?.userId ? <GoArrowUpRight /> : <GoArrowUpLeft />}
     />
   );
 

@@ -11,17 +11,18 @@ const settings = {
   dots: false,
   infinite: true,
   autoplay: true,
-  autoplaySpeed: 2000,
-  speed: 500,
-  slidesToShow: 3,
+  autoplaySpeed: 3000,
+  speed: 1000,
+  slidesToShow: 2,
   slidesToScroll: 1,
   initialSlide: 0,
+  gap: 10,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 2,
+        slidesToScroll: 1,
         infinite: true,
         dots: false,
       },
@@ -67,7 +68,7 @@ export default function FeaturedCars() {
       {/* top part */}
       <div className="flex justify-between items-start sm:items-center flex-col sm:flex-row gap-5">
         <div>
-          <h1 className="text-lg sm:text-xl font-semibold text-slate-600mc">Featured Cars</h1>
+          <h1 className="text-lg sm:text-xl font-semibold text-[#e6a131]">Featured Cars</h1>
           <h2 className="text-3xl sm:text-6xl font-semibold">Our Featured Cars</h2>
         </div>
 
@@ -77,7 +78,7 @@ export default function FeaturedCars() {
       </div>
 
       {/* bottom part */}
-      <div className="mt-10">{render}</div>
+      <div className="mt-20">{render}</div>
     </section>
   );
 }

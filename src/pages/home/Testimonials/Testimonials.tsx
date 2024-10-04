@@ -45,7 +45,7 @@ export default function Testimonials() {
   return (
     <section className="sm:max-w-screen-xl sm:mx-auto my-10 sm:my-16 px-4 sm:px-0 ">
       <div className="text-center space-y-3">
-        <h2 className="text-lg font-semibold">Our Testimonials</h2>
+        <h2 className="text-lg font-semibold text-[#e6a131]">Our Testimonials</h2>
         <p className="text-2xl sm:text-5xl font-bold">What Client’s Says</p>
         <p className="text-lg">
           The proper business solution for your developing business the proper <br /> business solution for your developing business

@@ -25,7 +25,7 @@ const CarBookingForm: React.FC = () => {
         layout={"vertical"}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        className="flex sm:flex-row flex-col items-center justify-between sm:gap-5 mt-10 bg-[#221B05] p-10 rounded-lg sm:rounded-full"
+        className="flex sm:flex-row flex-col items-center justify-between sm:gap-5 mt-10 bg-[#221b05b9] p-10 rounded-lg sm:rounded-full"
       >
         <Form.Item name="name" rules={[{ required: true, message: "This field is required" }]} className="w-full mb-0">
           <Input placeholder="Car Name" className="w-full rounded-full h-12 text-lg" />

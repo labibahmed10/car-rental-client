@@ -13,18 +13,16 @@ export default function CarCards({ handleCarSelect, car }: ISelectCarFunc) {
     }
   };
 
-  const { name, pricePerHour, description, image, _id } = car as ICarData;
+  const { name, image, _id } = car as ICarData;
 
   return (
-    <div className="bg-[#f2f7e8] rounded-xl shadow-md mx-2 sm:mx-4 text-white">
-      <img src={image} alt="Car" className="w-full h-64 object-fill rounded-md p-1" />
+    <div className="rounded-xl shadow-md sm:mx-auto sm:w-[30rem] w-full h-60 relative bg-red-200">
+      <img src={image as string} alt="Car" className="w-full h-full object-fill rounded-md p-1" />
 
-      <div className="bg-[#245372] rounded-b-xl p-4 sm:p-4">
-        <h3 className="text-2xl font-semibold">{name}</h3>
+      <div className="bg-[#222222] flex flex-col sm:flex-row gap-2 items-center justify-between p-2 sm:p-4 w-2/3 absolute -bottom-[20%] left-1/2 -translate-x-1/2 rounded-full text-white">
+        <h3 className="sm:text-xl font-semibold">{name}</h3>
 
-        <p className="text-lg font-semibold text-slate-600mc">${pricePerHour} / day</p>
-        <p className="text-slate-100 text-sm mt-2">{description?.split(" ")?.slice(0, 12)?.join(" ") + "..."}</p>
-        <div className="flex justify-end items-center mt-5">
+        <div className="flex justify-end items-center">
           {isBookingPage ? (
             <MyButton text="Book Now" onClick={handleCar} />
           ) : (
