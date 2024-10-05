@@ -16,7 +16,6 @@ const settings = {
   slidesToShow: 2,
   slidesToScroll: 1,
   initialSlide: 0,
-  gap: 10,
   responsive: [
     {
       breakpoint: 1024,
