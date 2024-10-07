@@ -1,5 +1,4 @@
 import { Spin } from "antd";
-import CarCards from "../../components/common/CarCards";
 import CarSearchForm from "../../components/common/CarSearchForm";
 import { useGetAllCarsQuery } from "../../redux/feature/car/carApi";
 import CarSecondaryCard from "../../components/common/CarSecondaryCard.";
@@ -24,7 +23,7 @@ export default function AllCars() {
   return (
     <section className="sm:max-w-screen-xl mx-auto px-4 sm:px-0 my-10 sm:my-16">
       {/* filters */}
-      <CarSearchForm />
+      <CarSearchForm  />
 
       {/* all cars */}
       {render}

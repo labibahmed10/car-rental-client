@@ -10,7 +10,7 @@ export default function ShowSelectedCar({ selectedCar }: { selectedCar: ICarData
     <Card title="Selected Car Details" className="mb-8">
       <Row gutter={16}>
         <Col xs={24} md={12}>
-          <img src={selectedCar.image} alt={selectedCar.name} className="w-full  sm:h-[22rem] object-fill" />
+          <img src={selectedCar.image as string} alt={selectedCar.name} className="w-full  sm:h-[22rem] object-fill" />
         </Col>
 
         <Col xs={24} md={12}>

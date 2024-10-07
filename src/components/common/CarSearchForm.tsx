@@ -11,7 +11,7 @@ const carTypes = ["Sedan", "SUV", "Hatchback", "Luxury"];
 const locations = ["New York", "Los Angeles", "Chicago", "Houston"];
 const features = ["Sunroof", " Leather Seats", "Navigation", "Bluetooth"];
 
-export default function CarSearchForm({ setSkip }: { setSkip: (val: boolean) => void }) {
+export default function CarSearchForm({ setSkip }: { setSkip?: (val: boolean) => void }) {
   const { pathname } = useLocation();
   const isBookingPage = pathname.split("/").includes("booking");
   const [form] = Form.useForm();
@@ -21,7 +21,7 @@ export default function CarSearchForm({ setSkip }: { setSkip: (val: boolean) => 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     dispatch(setSearchValues(values));
-    setSkip(false);
+    setSkip?.(false);
   };
 
   return (

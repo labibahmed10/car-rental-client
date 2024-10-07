@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Table, Button, Modal, Form, Input, message, Card } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Title from "antd/es/typography/Title";
@@ -39,7 +39,7 @@ export default function PaymentManagement() {
     {
       title: "Action",
       key: "action",
-      render: (text: string, record: Payment) => <Button onClick={() => handlePay(record)}>Pay</Button>,
+      render: (_: string, record: Payment) => <Button onClick={() => handlePay(record)}>Pay</Button>,
     },
   ];
 
@@ -65,7 +65,6 @@ export default function PaymentManagement() {
 
   return (
     <div>
-      
       <Card style={{ marginTop: 16 }}>
         <Title level={4}>Payment Management</Title>
         <Table columns={columns} dataSource={payments} rowKey="id" scroll={{ x: 500 }} />

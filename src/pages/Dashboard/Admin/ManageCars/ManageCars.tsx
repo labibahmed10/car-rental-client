@@ -16,7 +16,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 const ManageCars = () => {
   const { data: carData, isLoading, isFetching, error, refetch } = useGetAllCarsQuery(undefined);
-  const [deleteCarMutation, { isLoading: isDeleting, isError: isDeletingError, error: deleteError }] = useDeleteCarMutation();
+  const [deleteCarMutation, { isLoading: isDeleting, /* isError: isDeletingError, */ error: deleteError }] = useDeleteCarMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns: ColumnsType<ICarData> = [

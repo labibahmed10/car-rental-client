@@ -1,7 +1,7 @@
 import PageHeader from "../../../../components/table/PageHeader";
 import { useGetAllUsersQuery, useUpdateUserStatusMutation, useUpdateUserToAdminMutation } from "../../../../redux/feature/auth/authApi";
 import MyDataTable from "../../../../components/table/MyDataTable";
-import { Image, Tag } from "antd";
+import { Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IUserInfo } from "../../../../types/auth.type";
 import { SecurityScanOutlined, UserOutlined } from "@ant-design/icons";
@@ -10,7 +10,7 @@ import { FaUserCheck, FaUserClock, FaUserSlash } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 
 export default function ManageUsers() {
-  const { data: manageAllUsers, isLoading, isFetching, isError, error, refetch } = useGetAllUsersQuery();
+  const { data: manageAllUsers, isLoading, isFetching, /* isError, error, */ refetch } = useGetAllUsersQuery();
 
   const [updateUserStatus, { isLoading: isUpdating }] = useUpdateUserStatusMutation();
   const [updateUserToAdmin, { isLoading: isCreating }] = useUpdateUserToAdminMutation();
