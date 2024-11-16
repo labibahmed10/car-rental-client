@@ -107,7 +107,6 @@ export default function ManageUsers() {
     },
   ];
 
-  console.log(manageAllUsers);
   return (
     <>
       <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />

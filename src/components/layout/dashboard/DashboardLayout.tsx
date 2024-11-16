@@ -67,7 +67,7 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
         />
 
         <Content className="">
-          <div className="max-h-[calc(100vh-45px)] h-screen p-4 sm:p-10 bg-zinc-100 rounded-md">
+          <div className=" p-4 sm:p-10 bg-zinc-100 rounded-md">
             <Outlet />
           </div>
         </Content>

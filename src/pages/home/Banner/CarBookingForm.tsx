@@ -5,7 +5,6 @@ import MyButton from "../../../components/common/MyButton";
 
 const CarBookingForm: React.FC = () => {
   const onFinish = (values: FormInstance) => {
-    console.log(values);
     message.success({
       content: "Thank you! Form submitted successfully.",
       icon: <CheckCircleOutlined style={{ color: "#4CAF50" }} />,

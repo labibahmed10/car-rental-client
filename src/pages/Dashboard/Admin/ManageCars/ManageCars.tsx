@@ -23,6 +23,13 @@ const ManageCars = () => {
 
   const columns: ColumnsType<ICarData> = [
     {
+      title: "SN",
+      dataIndex: "_id",
+      key: "id",
+      render: (text, record, index) => index + 1,
+      align: "center",
+    },
+    {
       title: "Name",
       dataIndex: "name",
       key: "name",

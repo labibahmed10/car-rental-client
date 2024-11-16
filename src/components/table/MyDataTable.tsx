@@ -20,6 +20,9 @@ const MyDataTable: FC<TProps<any, any>> = ({ columns, data, loading }) => {
         dataSource={data || []}
         scroll={{ x: "calc(700px + 30%)" }}
         bordered
+        pagination={{
+          pageSize: 10,
+        }}
       />
     </Fragment>
   );
