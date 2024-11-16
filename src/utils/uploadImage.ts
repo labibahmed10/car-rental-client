@@ -4,21 +4,23 @@ import { toast } from "sonner";
 
 const uploadImage = async (file: UploadFile[]): Promise<string | undefined> => {
   const formData = new FormData();
-  formData.append("image", file[0].originFileObj as RcFile);
+
+  formData.append("file", file[0].originFileObj as RcFile);
+  formData.append("upload_preset", import.meta.env.VITE_APP_CLOUDINARY_PRESET_NAME);
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_IMAGE_URL}?key=${import.meta.env.VITE_APP_IMAGE_API}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_IMAGE_URL}`, {
       method: "POST",
       body: formData,
     });
-
+    
     if (!response.ok) {
       throw new Error("Failed to upload image");
     }
-
     const data = await response.json();
-    return await data?.data?.url;
-  } catch (err) {
+    return data?.secure_url;
+  } 
+  catch (err) {
     if (err instanceof Error) {
       toast.error(err.message);
     }

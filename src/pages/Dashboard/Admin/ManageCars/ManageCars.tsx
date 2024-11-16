@@ -16,7 +16,9 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 const ManageCars = () => {
   const { data: carData, isLoading, isFetching, error, refetch } = useGetAllCarsQuery(undefined);
-  const [deleteCarMutation, { isLoading: isDeleting, /* isError: isDeletingError, */ error: deleteError }] = useDeleteCarMutation();
+  const [deleteCarMutation, { isLoading: isDeleting, /* isError: isDeletingError, */ error: deleteError, data: deletedData }] =
+    useDeleteCarMutation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns: ColumnsType<ICarData> = [
@@ -92,10 +94,14 @@ const ManageCars = () => {
       toast.error((error as any)?.data.message);
     }
 
-    if ((deleteError as any).statusCode === 404) {
+    if ((deleteError as any)?.statusCode === 404) {
       toast.error((deleteError as any)?.data.message);
     }
-  }, [error, deleteError]);
+
+    if (deletedData?.statusCode === 200) {
+      toast.success(deletedData?.message);
+    }
+  }, [error, deleteError, deletedData]);
 
   return (
     <div>

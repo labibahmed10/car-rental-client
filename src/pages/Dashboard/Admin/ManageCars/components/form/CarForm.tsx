@@ -47,6 +47,8 @@ export default function CarForm({ fileList, setFileList, onFinish, form, record,
       {/* image handle part */}
       <Form.Item label="Upload Image" name="image">
         <ImageUpload fileList={fileList} setFileList={setFileList} imageUrl={record?.image as string} />
+
+        
       </Form.Item>
 
       <Form.Item label="Model" name="model" rules={[{ required: true, message: "Please enter car model" }]}>

@@ -11,19 +11,21 @@ import CarCommonModal from "../../../../../../components/modal/CarCommonModal";
 
 const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   const [addCar, { isLoading, isSuccess, isError, error }] = useCreateCarMutation();
+  const [imgUpLoading, setImgUpLoading] = useState(false);
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onFinish = async (values: ICarData) => {
-    const imgUrl = await uploadImage(fileList);
+    setImgUpLoading(true);
+    const imgData = await uploadImage(fileList);
 
-    if (imgUrl) {
+    if (imgData) {
       const data = {
         ...values,
-        image: imgUrl,
+        image: imgData,
         pricePerHour: Number(values.pricePerHour),
       };
-
+      setImgUpLoading(false);
       await addCar(data);
     }
   };
@@ -45,7 +47,7 @@ const CarAddModal: React.FC<IModalProps> = ({ isModalOpen, setIsModalOpen }) => 
 
   return (
     <CarCommonModal title="Add a New Car" isModalOpen={isModalOpen} onCancel={() => setIsModalOpen(false)}>
-      <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading} form={form} />
+      <CarForm fileList={fileList} setFileList={setFileList} onFinish={onFinish} loading={isLoading || imgUpLoading} form={form} />
     </CarCommonModal>
   );
 };
