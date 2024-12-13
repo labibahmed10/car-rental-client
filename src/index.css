@@ -24,13 +24,13 @@ body {
   @apply bg-transparent  !important;
 }
 
-:where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-item,
+/* :where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-item,
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-vertical .ant-menu-item,
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-inline .ant-menu-submenu-title,
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-vertical .ant-menu-submenu-title {
   @apply w-[8rem];
-}
+} */
 
 .slick-list {
-  @apply h-72;
+  @apply h-[23rem];
 }

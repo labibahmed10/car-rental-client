@@ -43,7 +43,7 @@ export const adminSidebarRoutes: MenuProps["items"] = [
   {
     key: "Dashboard",
     label: <NavLink to="/admin/dashboard">Dashboard</NavLink>,
-    icon: <MdSpaceDashboard />,
+    icon: <MdSpaceDashboard className="mr-2" />,
   },
   {
     key: "Manage Cars",

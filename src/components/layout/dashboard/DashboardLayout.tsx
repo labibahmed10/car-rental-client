@@ -18,19 +18,20 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
       <Sider
         breakpoint="md"
         collapsedWidth="0"
-        width={280}
+        width={275}
         style={{
           backgroundColor: "#2A5979",
         }}
         trigger={null}
         collapsible
         collapsed={collapsed}
+        className="h-screen"
       >
-        <section className="flex flex-col justify-between h-full p-3">
-          <div className="space-y-5">
+        <section className="flex flex-col justify-between h-full p-3 w-full">
+          <div className="space-y-5 w-full">
             <Image preview={false} src={img} alt="" className="w-full" />
             <Divider variant="dashed" className="text-white bg-white/30" />
-            <Menu theme="dark" mode="vertical" defaultSelectedKeys={["1"]} items={items} className="bg-[#2A5979] space-y-4 text-lg" />
+            <Menu theme="dark" mode="vertical" defaultSelectedKeys={["Dashboard"]} items={items} className="bg-[#2A5979] space-y-4 text-lg w-full" />
           </div>
 
           <aside className="flex flex-col gap-4">
@@ -66,8 +67,8 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
           }}
         />
 
-        <Content className="">
-          <div className=" p-4 sm:p-10 bg-zinc-100 rounded-md">
+        <Content>
+          <div className="p-4 sm:p-10 bg-zinc-100 rounded-md">
             <Outlet />
           </div>
         </Content>

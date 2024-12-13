@@ -26,7 +26,7 @@ const ManageCars = () => {
       title: "SN",
       dataIndex: "_id",
       key: "id",
-      render: (text, record, index) => index + 1,
+      render: (_, __, index) => index + 1,
       align: "center",
     },
     {
@@ -116,7 +116,7 @@ const ManageCars = () => {
         title="Manage Cars"
         refetch={refetch}
         loading={isLoading || isFetching}
-        extra={<MyButton type="button" text="Add Car" size="middle" icon={<GrFormAdd />} onClick={() => setIsModalOpen(true)} />}
+        extra={<MyButton type="button" text="Add Car" size="large" icon={<GrFormAdd />} onClick={() => setIsModalOpen(true)} />}
       />
 
       {isModalOpen && <CarAddModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
