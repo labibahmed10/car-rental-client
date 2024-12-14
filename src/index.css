@@ -34,3 +34,20 @@ body {
 .slick-list {
   @apply h-[23rem];
 }
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-slider .ant-slider-rail {
+  background-color: #fff; /* override default color */
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-slider .ant-slider-track {
+  background-color: #f5b754;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-slider .ant-slider-step {
+  position: static;
+  background: #fff;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-spin .ant-spin-dot-item {
+  background-color: #f5b754;
+}

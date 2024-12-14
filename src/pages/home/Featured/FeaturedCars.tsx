@@ -47,7 +47,7 @@ const settings = {
 };
 
 export default function FeaturedCars() {
-  const { data: allCars, isLoading } = useGetAllCarsQuery(undefined);
+  const { data: allCars, isLoading } = useGetAllCarsQuery({ isFeatured: true });
   let render;
 
   if (isLoading) {

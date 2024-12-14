@@ -41,6 +41,9 @@ export const carApi = baseApi.injectEndpoints({
         if (query?.isElectric) {
           params.append("isElectric", query.isElectric);
         }
+        if (query?.isFeatured) {
+          params.append("isFeatured", query.isFeatured);
+        }
         if (query?.features) {
           params.append("features", query.features);
         }

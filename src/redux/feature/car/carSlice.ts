@@ -36,6 +36,7 @@ const carSlice = createSlice({
 export const { selectCar, setSearchValues } = carSlice.actions;
 export const selectBookingCar = (state: RootState) => state.car.selectedCar;
 export const selectSearchValue = (state: RootState) => state.car.carSearchValue;
+
 // export const selectAdditionalFeatures = (state: RootState) => state.car.additionalFeatures;
 // export const selectAddInsurances = (state: RootState) => state.car.addInsurances;
 
