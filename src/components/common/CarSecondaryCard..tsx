@@ -4,61 +4,61 @@ import { GiCarDoor } from "react-icons/gi";
 import { MdOutlineElectricCar } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { ICarData } from "../../types/car.types";
-import { Button } from "antd";
+import MyButton from "./MyButton";
 
 const CarSecondaryCard: FC<{ car: ICarData }> = ({ car }) => {
+  const { image, name, _id, isElectric, pricePerHour } = car;
+
+  const carDetails = [
+    {
+      icon: <GiCarDoor />,
+      label: "Doors",
+      value: 2,
+    },
+    {
+      icon: <BsFillPersonFill />,
+      label: "Passengers",
+      value: 3,
+    },
+    {
+      icon: <MdOutlineElectricCar />,
+      label: "Electric",
+      value: isElectric ? "Yes" : "No",
+    },
+  ];
+
   return (
-    <div className="group relative mb-[50px]">
-      <div className="rounded-[20px] rounded-b-none overflow-hidden">
+    <div className="group relative mb-12 ">
+      <div className="rounded-t-lg overflow-hidden">
         <img
-          src={car.image as string}
-          alt=""
-          className="group-hover:brightness-[0.8] group-hover:scale-110 transition duration-500 ease-in-out h-[200px] w-full  object-cover"
+          src={image as string}
+          alt={name}
+          className="group-hover:brightness-75 group-hover:scale-110 transition duration-500 ease-in-out h-52 w-full aspect-[16/9] object-fill"
         />
       </div>
-      <div className="rounded-[20px] rounded-t-none bg-gray-100 dark:bg-[#222222] p-[30px]">
-        <Link to={`/cars/${car._id}`}>
-          <h3 className="text-[21px] font-bold">{car.name}</h3>
+
+      <div className="rounded-b-lg bg-gray-100 dark:bg-[#222222] p-8">
+        <Link to={`/cars/${_id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <h3 className="text-2xl text-yellow-500 font-bold">{name}</h3>
         </Link>
         <div className="space-y-3 my-4">
-          <div className="flex items-center justify-between gap-3 text-primaryColorLight dark:text-primaryColor text-sm ">
-            <div className="flex items-center justify-between gap-3">
-              <GiCarDoor />
-              <span className="text-slate-500 dark:text-Grayish font-light">Doors</span>
+          {carDetails.map(({ icon, label, value }, index) => (
+            <div key={index} className="flex items-center justify-between text-sm text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-3">
+                {icon}
+                <span className="font-light text-gray-500 dark:text-gray-400">{label}</span>
+              </div>
+              <span>{value}</span>
             </div>
-            <span className="text-slate-700 dark:text-slate-100"> {2}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3 text-primaryColorLight dark:text-primaryColor text-sm ">
-            <div className="flex items-center justify-between gap-3">
-              <BsFillPersonFill />
-              <span className="text-slate-500 dark:text-Grayish font-light">Passengers</span>
-            </div>
-            <span className="text-slate-700 dark:text-slate-100"> {3}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3 text-primaryColorLight dark:text-primaryColor text-sm ">
-            <div className="flex items-center justify-between gap-3">
-              <MdOutlineElectricCar />
-              <span className="text-slate-500 dark:text-Grayish font-light">Electric</span>
-            </div>
-            <span className="text-slate-700 dark:text-slate-100"> {car.isElectric ? "Yes" : "No"}</span>
-          </div>
+          ))}
         </div>
-
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h2 className="text-primaryColorLight dark:text-primaryColor font-bold text-[21px]">
-              ${car.pricePerHour}
-              <span className="text-sm text-slate-800 dark:text-slate-200 font-thin ml-1">/hour</span>
-            </h2>
-          </div>
-          <Link to={`/cars/${car._id}`}>
-            <Button
-              className="bg-primaryColorLight hover:bg-slate-800 hover:text-white dark:bg-primaryColor dark:hover:bg-slate-100 dark:hover:text-black"
-              variant={"outlined"}
-              //   isArrowIcon={false}
-            >
-              Details
-            </Button>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-primaryColorLight dark:text-primaryColor">
+            ${pricePerHour}
+            <span className="text-sm text-gray-800 dark:text-gray-200 font-thin ml-1">/hour</span>
+          </h2>
+          <Link to={`/cars/${_id}`}>
+            <MyButton text="Details"></MyButton>
           </Link>
         </div>
       </div>

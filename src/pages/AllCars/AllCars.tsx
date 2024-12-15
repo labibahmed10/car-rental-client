@@ -45,7 +45,7 @@ export default function AllCars() {
   return (
     <section className="sm:max-w-screen-xl w-full mx-auto grid grid-cols-12 gap-0 md:gap-10 px-4 sm:px-0 my-20 sm:my-24">
       {/* filters */}
-      <div className="col-span-12 md:col-span-4 static md:sticky md:top-10 md:h-screen overflow-y-auto">
+      <div className="col-span-12 md:col-span-4 static md:sticky md:top-16 md:h-screen overflow-y-auto">
         <CarSearchForm />
       </div>
 
