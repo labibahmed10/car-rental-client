@@ -4,12 +4,12 @@ import MyButton from "../../../components/common/MyButton";
 
 export default function CarReviewForm() {
   return (
-    <div className="text-gray-700 shadow-md p-2 rounded-lg mt-6">
+    <div className="text-slate-100  shadow-md p-2 rounded-lg mt-6">
       <div className="">
-        <p className="font-bold text-xl">LEAVE A REVIEW:</p>
-        <Form layout="vertical">
+        <p className="font-bold text-xl my-2">LEAVE A REVIEW:</p>
+        <Form layout="vertical" className="text-slate-100">
           <Form.Item
-            label="Your Email"
+            label={<span className="text-slate-100">Your Email</span>}
             name="email"
             rules={[
               { required: true, message: "Please input your email!" },
@@ -19,7 +19,11 @@ export default function CarReviewForm() {
             <Input placeholder="Your Email" />
           </Form.Item>
 
-          <Form.Item label="Your Review" name="review" rules={[{ required: true, message: "Please input your review!" }]}>
+          <Form.Item
+            label={<span className="text-slate-100">Your Review</span>}
+            name="review"
+            rules={[{ required: true, message: "Please input your review!" }]}
+          >
             <TextArea rows={4} placeholder="Your Review" />
           </Form.Item>
           <Form.Item label="Your Rating" name="rating">

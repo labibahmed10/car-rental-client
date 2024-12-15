@@ -7,12 +7,12 @@ export default function CarDescription({ description }: { description: string })
       <Collapse
         bordered={false}
         defaultActiveKey={["1"]}
-        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+        expandIcon={({ isActive }) => <CaretRightOutlined className="text-slate-100" rotate={isActive ? 90 : 0} />}
         items={[
           {
             key: "1",
-            label: "DESCRIPTION",
-            children: <p className="text-gray-700 ">{description + description}</p>,
+            label: <span className="text-slate-100">DESCRIPTION</span>,
+            children: <p className="text-slate-100 ">{description + description}</p>,
           },
         ]}
       />

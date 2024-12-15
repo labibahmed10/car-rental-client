@@ -44,3 +44,6 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-spin .ant-spin-dot-item {
   background-color: #f5b754;
 }
+:where(.css-dev-only-do-not-override-5wsri9).ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  color: #fff;
+}
