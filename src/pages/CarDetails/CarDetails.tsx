@@ -22,12 +22,8 @@ export default function CarDetails() {
     <section className="sm:my-16 my-10 max-w-screen-xl mx-auto px-4 sm:px-0">
       <div className="grid grid-cols-1 sm:grid-cols-2 place-items-start gap-10 my-20">
         {/* left part image and description part */}
-        <div className="">
-          <img
-            src={image as string}
-            alt={name}
-            className="min-w-full w-full h-full p-10 bg-[#F2F7E8] rounded-lg border-2 border-gray-500 border-solid"
-          />
+        <div className="w-full h-full">
+          <img src={image as string} alt={name} className="w-full aspect-video object-fill rounded-lg border border-[#f5b754] border-solid" />
           <CarDescription description={description} />
 
           {/* review form */}
@@ -36,7 +32,7 @@ export default function CarDetails() {
 
         {/*  all rest of the details */}
         <div className="">
-          <h2 className="text-3xl font-semibold">{name}</h2>
+          <h2 className="text-3xl font-semibold text-[#f5b754]">{name}</h2>
           <p className="text-lg font-semibold text-slate-100 mt-2">{model}</p>
           <p className="text-lg font-semibold text-slate-100 mt-2">${pricePerHour} / hour</p>
           <div className="text-slate-100 mt-2 flex items-center gap-2">

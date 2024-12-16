@@ -25,7 +25,7 @@ export default function CarSearchForm({ setSkip }: { setSkip?: (val: boolean) =>
   };
 
   return (
-    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="mb-5 text-[#f5b754] w-full p-2">
+    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="mb-5 text-[#f5b754] p-2">
       <section>
         <Form.Item name="carType" label={<span className="text-slate-100">Car Type</span>} className="text-slate-100">
           <Select placeholder="Select car type">
@@ -50,7 +50,7 @@ export default function CarSearchForm({ setSkip }: { setSkip?: (val: boolean) =>
         ) : (
           <Form.Item name="priceRange" label={<span className="text-slate-100">Price Range</span>}>
             <Slider
-              className="w-full "
+              className=""
               onChange={(value) => {
                 form.setFieldsValue({ priceRange: value });
               }}
@@ -64,7 +64,7 @@ export default function CarSearchForm({ setSkip }: { setSkip?: (val: boolean) =>
 
         {isBookingPage ? (
           <Form.Item name="dates" label={<span className="text-slate-100">Pick-up and Drop-off Dates</span>}>
-            <RangePicker style={{ width: "100%" }} />
+            <RangePicker />
           </Form.Item>
         ) : (
           <Form.Item name="features" label={<span className="text-slate-100">Select Features</span>}>

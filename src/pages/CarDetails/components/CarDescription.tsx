@@ -3,7 +3,7 @@ import { Collapse } from "antd";
 
 export default function CarDescription({ description }: { description: string }) {
   return (
-    <div className="mt-4 w-full">
+    <div className="mt-4 text-justify text-ellipsis overflow-clip">
       <Collapse
         bordered={false}
         defaultActiveKey={["1"]}
