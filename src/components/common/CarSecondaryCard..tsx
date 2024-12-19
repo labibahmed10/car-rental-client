@@ -1,13 +1,22 @@
-import { FC } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { GiCarDoor } from "react-icons/gi";
 import { MdOutlineElectricCar } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ICarData } from "../../types/car.types";
 import MyButton from "./MyButton";
+import { ISelectCarFunc } from "../../types/booking.type";
 
-const CarSecondaryCard: FC<{ car: ICarData }> = ({ car }) => {
-  const { image, name, _id, isElectric, pricePerHour } = car;
+const CarSecondaryCard = ({ car, handleCarSelect }: ISelectCarFunc) => {
+  const { pathname } = useLocation();
+  const isBookingPage = pathname.split("/").includes("booking");
+
+  const { image, name, _id, isElectric, pricePerHour } = car as ICarData;
+
+  const handleCar = () => {
+    if (handleCarSelect) {
+      handleCarSelect(car);
+    }
+  };
 
   const carDetails = [
     {
@@ -28,7 +37,7 @@ const CarSecondaryCard: FC<{ car: ICarData }> = ({ car }) => {
   ];
 
   return (
-    <div className="group relative mb-12 ">
+    <div className="group relative mb-12 shadow-lg bg-white dark:bg-[#222222] dark:text-white rounded-lg">
       <div className="rounded-t-lg overflow-hidden">
         <img
           src={image as string}
@@ -57,9 +66,17 @@ const CarSecondaryCard: FC<{ car: ICarData }> = ({ car }) => {
             ${pricePerHour}
             <span className="text-sm text-gray-800 dark:text-gray-200 font-thin ml-1">/hour</span>
           </h2>
-          <Link to={`/cars/${_id}`}>
+
+          {isBookingPage ? (
+            <MyButton text="Book Now" onClick={handleCar} />
+          ) : (
+            <NavLink to={`/cars/${_id}`}>
+              <MyButton text="See Details" />
+            </NavLink>
+          )}
+          {/* <Link to={`/cars/${_id}`}>
             <MyButton text="Details"></MyButton>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

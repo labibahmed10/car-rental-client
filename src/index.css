@@ -20,12 +20,13 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-menu-light > .ant-menu .ant-menu-item-selected {
   @apply bg-transparent text-[#F5B754] !important;
 }
+
 .ant-menu .ant-menu-item-active {
   @apply bg-transparent  !important;
 }
 
 .slick-list {
-  @apply h-[23rem];
+  @apply md:h-[23rem] h-[18rem];
 }
 
 :where(.css-dev-only-do-not-override-5wsri9).ant-slider .ant-slider-rail {

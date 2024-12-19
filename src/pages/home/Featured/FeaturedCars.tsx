@@ -54,7 +54,7 @@ export default function FeaturedCars() {
     render = <Spin tip="Loading..." size="large" className="h-96 flex justify-center items-center"></Spin>;
   } else {
     render = (
-      <Slider {...settings}>
+      <Slider {...settings} className="space-x-5">
         {allCars?.data.map((car) => (
           <CarCards key={car?._id} car={car} />
         ))}
@@ -77,7 +77,7 @@ export default function FeaturedCars() {
       </div>
 
       {/* bottom part */}
-      <div className="mt-20">{render}</div>
+      <div className="mt-20 px-4">{render}</div>
     </section>
   );
 }

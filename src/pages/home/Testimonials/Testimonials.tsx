@@ -43,7 +43,7 @@ const settings = {
 
 export default function Testimonials() {
   return (
-    <section className="sm:max-w-screen-xl sm:mx-auto my-10 sm:my-16 px-4 sm:px-0 ">
+    <section className="sm:max-w-screen-xl sm:mx-auto my-10 sm:my-16 px-8 sm:px-0">
       <div className="text-center space-y-3">
         <h2 className="text-lg font-semibold text-[#e6a131]">Our Testimonials</h2>
         <p className="text-2xl sm:text-5xl font-bold">What Client’s Says</p>

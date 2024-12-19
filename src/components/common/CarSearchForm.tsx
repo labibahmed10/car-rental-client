@@ -25,8 +25,8 @@ export default function CarSearchForm({ setSkip }: { setSkip?: (val: boolean) =>
   };
 
   return (
-    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="mb-5 text-[#f5b754] p-2">
-      <section>
+    <Form form={form} layout="vertical" name="carSearch" onFinish={onFinish} className="mb-5 text-[#f5b754] p-2 ">
+      <section className={`grid gap-10 ${isBookingPage ? "grid-cols-3" : "grid-cols-1"}`}>
         <Form.Item name="carType" label={<span className="text-slate-100">Car Type</span>} className="text-slate-100">
           <Select placeholder="Select car type">
             {carTypes.map((type) => (
