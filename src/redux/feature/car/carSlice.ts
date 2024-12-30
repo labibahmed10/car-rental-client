@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 const initialState: ISelectCar = {
   selectedCar: null,
   carSearchValue: undefined,
-  // additionalFeatures: undefined,
+  additionalFeatures: undefined,
   // addInsurances: undefined,
 };
 
@@ -23,9 +23,9 @@ const carSlice = createSlice({
 
     // will extend these features later
 
-    // setAdditionalFeatures: (state, action) => {
-    //   state.additionalFeatures = action.payload;
-    // },
+    setAdditionalFeatures: (state, action) => {
+      state.additionalFeatures = action.payload;
+    },
 
     // setAddInsurances: (state, action) => {
     //   state.addInsurances = action.payload;
@@ -33,7 +33,7 @@ const carSlice = createSlice({
   },
 });
 
-export const { selectCar, setSearchValues } = carSlice.actions;
+export const { selectCar, setSearchValues, setAdditionalFeatures } = carSlice.actions;
 export const selectBookingCar = (state: RootState) => state.car.selectedCar;
 export const selectSearchValue = (state: RootState) => state.car.carSearchValue;
 
