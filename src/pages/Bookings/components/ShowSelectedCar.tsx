@@ -5,6 +5,7 @@ import CarExtra from "../../CarDetails/components/CarExtra";
 import { additionalOpt, insuranceOpt } from "../../CarDetails/carConstValues";
 import PersonalInfo from "./PersonalInfo";
 import MyButton from "../../../components/common/MyButton";
+import CarAdditionalFeat from "../../CarDetails/components/CarAdditionalFeatSelect";
 
 const { Text } = Typography;
 
@@ -38,7 +39,7 @@ export default function ShowSelectedCar({ selectedCar, form, onfinish }: IShowSe
       </ul>
 
       <p className="text-slate-100 text-base sm:text-lg md:text-xl mt-4 font-bold">ADDITIONAL FEATURES:</p>
-      <CarExtra options={additionalOpt} />
+      <CarAdditionalFeat options={additionalOpt} />
 
       <p className="text-slate-100 text-base sm:text-lg md:text-xl mt-4 font-bold">INSURANCE OPTIONS:</p>
       <CarExtra options={insuranceOpt} />

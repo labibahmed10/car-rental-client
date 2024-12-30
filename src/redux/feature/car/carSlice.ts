@@ -5,8 +5,8 @@ import { RootState } from "../../store/store";
 const initialState: ISelectCar = {
   selectedCar: null,
   carSearchValue: undefined,
-  additionalFeatures: undefined,
-  // addInsurances: undefined,
+  additionalFeatures: [],
+  addInsurances: undefined,
 };
 
 const carSlice = createSlice({
@@ -24,20 +24,26 @@ const carSlice = createSlice({
     // will extend these features later
 
     setAdditionalFeatures: (state, action) => {
-      state.additionalFeatures = action.payload;
+      const feature = action.payload;
+
+      // Check if the feature is already in the additionalFeatures array
+      if (state.additionalFeatures.includes(feature)) {
+        state.additionalFeatures = state.additionalFeatures.filter((f) => f !== feature);
+      } else {
+        state.additionalFeatures.push(feature);
+      }
     },
 
-    // setAddInsurances: (state, action) => {
-    //   state.addInsurances = action.payload;
-    // },
+    setAddInsurances: (state, action) => {
+      state.addInsurances = action.payload;
+    },
   },
 });
 
-export const { selectCar, setSearchValues, setAdditionalFeatures } = carSlice.actions;
+export const { selectCar, setSearchValues, setAdditionalFeatures, setAddInsurances } = carSlice.actions;
 export const selectBookingCar = (state: RootState) => state.car.selectedCar;
 export const selectSearchValue = (state: RootState) => state.car.carSearchValue;
-
-// export const selectAdditionalFeatures = (state: RootState) => state.car.additionalFeatures;
-// export const selectAddInsurances = (state: RootState) => state.car.addInsurances;
+export const selectAdditionalFeatures = (state: RootState) => state.car.additionalFeatures;
+export const selectAddInsurances = (state: RootState) => state.car.addInsurances;
 
 export default carSlice.reducer;
