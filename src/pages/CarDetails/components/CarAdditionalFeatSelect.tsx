@@ -15,7 +15,7 @@ export default function CarAdditionalFeat({ options }: { options: CarExtraProps[
     <div className="mt-2 flex flex-col gap-2">
       {options.map((option) => (
         <Checkbox
-          className="text-gray-700"
+          className="text-slate-100"
           key={option.value}
           value={option.value}
           checked={additionalOptions.includes(option.value as string)}

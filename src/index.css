@@ -48,3 +48,18 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
   color: #fff;
 }
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-modal .ant-modal-content {
+  background-color: #1b1b1b;
+  color: #fff !important;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-modal .ant-modal-header {
+  background-color: #1b1b1b;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-modal .ant-modal-content h3,
+:where(.css-dev-only-do-not-override-5wsri9).ant-modal .ant-modal-content h4,
+:where(.css-dev-only-do-not-override-5wsri9).ant-modal .ant-modal-content span {
+  color: rgb(241 245 249) !important; /* Equivalent to text-slate-100 in Tailwind CSS */
+}

@@ -45,7 +45,7 @@ export default function ShowSelectedCar({ selectedCar, form, onfinish }: IShowSe
       <CarExtra options={insuranceOpt} />
 
       <Form layout="vertical" name="confirmBooking" form={form} onFinish={onfinish} className="space-y-6 w-full rounded-lg shadow-md mt-5">
-        <PersonalInfo />
+        <PersonalInfo form={form} />
         <Form.Item>
           <MyButton text="Book Now" type="submit" disable={!selectedCar} />
         </Form.Item>

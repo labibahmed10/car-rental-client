@@ -8,6 +8,7 @@ import { NavLink, useParams } from "react-router-dom";
 import MyButton from "../../components/common/MyButton";
 import { useGetCarQuery } from "../../redux/feature/car/carApi";
 import { ICarData } from "../../types/car.types";
+import CarAdditionalFeat from "./components/CarAdditionalFeatSelect";
 
 export default function CarDetails() {
   const { id } = useParams();
@@ -58,7 +59,7 @@ export default function CarDetails() {
           </div>
 
           <p className="text-slate-100 mt-4 font-bold">ADDITIONAL FEATURES:</p>
-          <CarExtra options={additionalOpt} />
+          <CarAdditionalFeat options={additionalOpt} />
 
           <p className="text-slate-100 mt-4 font-bold">INSURANCE OPTIONS:</p>
           <CarExtra options={insuranceOpt} />

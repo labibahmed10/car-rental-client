@@ -1,15 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IdcardOutlined, UserOutlined } from "@ant-design/icons";
 import { DatePicker, Form, Input } from "antd";
 import { RangePickerProps } from "antd/es/date-picker";
+import { FormInstance } from "antd/lib";
 import dayjs from "dayjs";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { TiLocationOutline } from "react-icons/ti";
 
-export default function PersonalInfo() {
+export default function PersonalInfo({ form }: { form: FormInstance<any> }) {
   const disabledDate: RangePickerProps["disabledDate"] = (current) => {
-    // Can not select days before today and today
-    return current && current < dayjs().endOf("day");
+    return current && current < dayjs().startOf("day");
   };
+
+  const validateEndDate = (_: any, value: dayjs.Dayjs) => {
+    const startDate = form.getFieldValue("startDate");
+    if (startDate && value) {
+      const start = dayjs(startDate);
+      const end = dayjs(value);
+      if (end.isBefore(start.add(1, "day"))) {
+        return Promise.reject(new Error("End date must be at least one day after the start date!"));
+      }
+    }
+    return Promise.resolve();
+  };
+
   return (
     <>
       <Form.Item
@@ -29,9 +43,17 @@ export default function PersonalInfo() {
       </Form.Item>
 
       <Form.Item
-        name="date"
+        name="startDate"
         label={<span className="text-slate-100">Booking Start Date and Time</span>}
         rules={[{ required: true, type: "date", message: "Please select a Booking Start Date and Time!" }]}
+      >
+        <DatePicker showHour showMinute showTime format="YYYY-MM-DD HH:mm:ss" disabledDate={disabledDate} className="w-full" />
+      </Form.Item>
+
+      <Form.Item
+        name="endDate"
+        label={<span className="text-slate-100">Booking End Date and Time</span>}
+        rules={[{ required: true, type: "date", message: "Please select a Booking End Date and Time!" }, { validator: validateEndDate }]}
       >
         <DatePicker showHour showMinute showTime format="YYYY-MM-DD HH:mm:ss" disabledDate={disabledDate} className="w-full" />
       </Form.Item>

@@ -30,7 +30,7 @@ const Bookings: React.FC = () => {
   const handleCarSelect = (car: any) => {
     setSelectedCar(car);
   };
-  console.log(bookingDetails)
+  // console.log(bookingDetails)
   return (
     <div className="sm:max-w-[1280px] mx-auto px-4 sm:px-0 my-20 md:my-24">
       <h1 className="text-center font-semibold text-3xl sm:text-5xl mb-10">Book Your Car</h1>

@@ -16,7 +16,7 @@ export interface ISelectCarFunc {
 }
 
 export interface IBookingCar {
-  id: string;
+  carId: string;
   date: Date;
   startTime: string;
 }
@@ -38,7 +38,8 @@ export interface IBookingResponse {
 }
 
 export interface IBookingDetails {
-  date: string;
+  startDate: string;
+  endDate: string;
   drivingLicense: string;
   location: string;
   email: string;

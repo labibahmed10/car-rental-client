@@ -1,96 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Modal, Row, Col, Divider, Typography, Tag } from "antd";
-import { IBookingCar, IBookingConfirmModal, IBookingDetails } from "../../types/booking.type";
-import { ICarData } from "../../types/car.types";
+import { Modal, Row, Col, Typography } from "antd";
+import { IBookingCar, IBookingConfirmModal } from "../../types/booking.type";
 import { useCreateBookingMutation } from "../../redux/feature/booking/bookingApi";
 import { toast } from "sonner";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../../redux/store/hooks";
+import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
+import MyButton from "../common/MyButton";
+import { useEffect } from "react";
 const { Title, Text } = Typography;
 
 export default function BookingConfirmationModal({ isModalVisible, setIsModalVisible, bookingDetails, selectedCar }: IBookingConfirmModal) {
   const [bookCar, { isSuccess, isError, error, isLoading, data, reset }] = useCreateBookingMutation();
+  const additonalBookingInfo = useAppSelector((state) => state.car);
 
   const onConfirmation = () => {
     const confirmationData: IBookingCar = {
-      id: selectedCar?._id as string,
-      date: (bookingDetails.date as any)?.format("YYYY-MM-DD"),
-      startTime: (bookingDetails.date as any)?.format("HH:MM"),
+      carId: selectedCar?._id as string,
+      date: (bookingDetails.startDate as any)?.format("YYYY-MM-DD"),
+      startTime: (bookingDetails.startDate as any)?.format("HH:MM"),
     };
+    console.log(confirmationData);
     bookCar(confirmationData);
   };
 
-  console.log({ bookingDetails, selectedCar });
+  useEffect(() => {
+    if (isSuccess) {
+      setIsModalVisible(false);
+      toast.success(data?.message);
+      reset();
+    }
 
-  if (isSuccess) {
-    setIsModalVisible(false);
-    toast.success(data?.message);
-    reset();
-  }
-
-  if (isError) {
-    toast.error((error as any)?.data?.message);
-    reset();
-  }
+    if (isError) {
+      toast.error((error as any)?.data?.message);
+      reset();
+    }
+  }, [isSuccess, isError, setIsModalVisible]);
 
   return (
-    // <Modal
-    //   title="Booking Confirmation"
-    //   open={isModalVisible}
-    //   onOk={onConfirmation}
-    //   onCancel={() => setIsModalVisible(false)}
-    //   width={700}
-    //   loading={isLoading}
-    // >
-    //   {bookingDetails && (
-    //     <div>
-    //       <Title level={4}>Booking Details</Title>
-    //       <Row gutter={[16, 16]}>
-    //         <Col span={12}>
-    //           <Text strong>Car:</Text> {selectedCar?.name}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Type:</Text> {selectedCar?.type}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Pick-up Date:</Text> {(bookingDetails.date as any)?.format("YYYY-MM-DD")}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Pick-up Time:</Text> {(bookingDetails.date as any)?.format("HH:MM")}
-    //         </Col>
-
-    //         <Col span={12}>
-    //           <Text strong>Location:</Text> {bookingDetails.location}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Full Name:</Text> {bookingDetails.fullName}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Email:</Text> {bookingDetails.email}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>NID/Passport:</Text> {bookingDetails.nidPassport}
-    //         </Col>
-    //         <Col span={12}>
-    //           <Text strong>Card Number:</Text> {bookingDetails.cardNumber}
-    //         </Col>
-    //         {/* <Col span={24}>
-    //           <Text strong>Additional Options:</Text>
-    //           <ul>
-    //             {bookingDetails.gps && <li>GPS Navigation</li>}
-    //             {bookingDetails.childSeat && <li>Child Seat</li>}
-    //             {bookingDetails.insurance && <li>Comprehensive Insurance</li>}
-    //           </ul>
-    //         </Col> */}
-    //       </Row>
-    //       <Divider />
-    //       <Row>
-    //         <Col span={24}>
-    //           <Text strong>Total Price:</Text> ${calculateTotalPrice(selectedCar, bookingDetails)}
-    //         </Col>
-    //       </Row>
-    //     </div>
-    //   )}
-    // </Modal>
     <Modal
       title={
         <Title level={3} style={{ textAlign: "center" }}>
@@ -98,73 +44,133 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
         </Title>
       }
       open={isModalVisible}
-      onOk={onConfirmation}
+      // onOk={onConfirmation}
       onCancel={() => setIsModalVisible(false)}
-      width={800}
+      width={600}
       confirmLoading={isLoading}
       centered
-      style={{ padding: "20px" }}
+      style={{ padding: "10px" }}
+      footer={
+        <Row gutter={16} className="justify-end gap-4">
+          <MyButton text="Cancel" onClick={() => setIsModalVisible(false)} />
+          <MyButton text="Ok" onClick={onConfirmation} />
+        </Row>
+      }
     >
       {bookingDetails && (
-        <div style={{ padding: "20px", backgroundColor: "#f9f9f9", borderRadius: "8px" }}>
-         
-          <Row gutter={[16, 16]} style={{ marginBottom: "20px" }}>
-            <Col span={12}>
-              <Text strong>Car:</Text> <Tag color="blue">{selectedCar?.name}</Tag>
-            </Col>
-            <Col span={12}>
-              <Text strong>Type:</Text> <Tag color="green">{selectedCar?.type}</Tag>
-            </Col>
-            <Col span={12}>
-              <Text strong>Pick-up Date:</Text> <Text>{(bookingDetails.date as any)?.format("YYYY-MM-DD")}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>Pick-up Time:</Text> <Text>{(bookingDetails.date as any)?.format("HH:mm")}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>Location:</Text> <Text>{bookingDetails.location}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>Full Name:</Text> <Text>{bookingDetails.fullName}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>Email:</Text> <Text>{bookingDetails?.email}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>NID/Passport:</Text> <Text>{bookingDetails?.nidPassport}</Text>
-            </Col>
-            <Col span={12}>
-              <Text strong>Card Number:</Text> <Text>{bookingDetails?.cardNumber || bookingDetails?.drivingLicense}</Text>
-            </Col>
-          </Row>
-          <Divider />
-          <Row justify="space-between" align="middle">
-            <Col>
-              <Text strong>Total Price:</Text>{" "}
-              <Text style={{ fontSize: "1.5em", color: "#ff4d4f" }}>${calculateTotalPrice(selectedCar, bookingDetails)}</Text>
-            </Col>
-            <Col>
-              <CheckCircleOutlined style={{ fontSize: "24px", color: "#52c41a" }} />
-            </Col>
-          </Row>
-          <Divider />
-          <Text type="secondary" style={{ textAlign: "center", display: "block" }}>
-            Thank you for choosing us! If you have any questions, feel free to contact us.
-          </Text>
+        <div className="space-y-1 text-slate-100">
+          {/* Booking Summary Section */}
+          <div className="rounded-lg p-6">
+            <Title level={4} className="mb-4">
+              Booking Summary
+            </Title>
+            <Row gutter={[24, 16]}>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary" className="text-slate-100">
+                    Pick-up Date
+                  </Text>
+                  <Text strong>{(bookingDetails.startDate as any)?.format("YYYY-MM-DD")}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Pick-up Time</Text>
+                  <Text strong>{(bookingDetails.startDate as any)?.format("HH:mm")}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Pick-down Date</Text>
+                  <Text strong>{(bookingDetails.endDate as any)?.format("YYYY-MM-DD")}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Pick-down Time</Text>
+                  <Text strong>{(bookingDetails.endDate as any)?.format("HH:mm")}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Location</Text>
+                  <Text strong>{bookingDetails.location}</Text>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          {/* Customer Details Section */}
+          <div className=" rounded-lg p-6">
+            <Title level={4} className="mb-4">
+              Customer Information
+            </Title>
+            <Row gutter={[24, 16]}>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Full Name</Text>
+                  <Text strong>{bookingDetails.fullName}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Email</Text>
+                  <Text strong>{bookingDetails?.email}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">NID/Passport</Text>
+                  <Text strong>{bookingDetails?.nidPassport}</Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Card Number</Text>
+                  <Text strong>{bookingDetails?.cardNumber || bookingDetails?.drivingLicense}</Text>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          {/* Additional Services Section */}
+          <div className=" rounded-lg p-6">
+            <Title level={4} className="mb-4">
+              Additional Services
+            </Title>
+            <Row gutter={[24, 16]}>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Insurance Cost</Text>
+                  <Text strong className="text-green-600">
+                    ${additonalBookingInfo?.addInsurances || 0}
+                  </Text>
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="flex flex-col space-y-2">
+                  <Text type="secondary">Additional Features</Text>
+                  <Text strong className="capitalize">
+                    {additonalBookingInfo?.additionalFeatures.map((val) => val.split("_").join(" ")).join(", ") || "None selected"}
+                  </Text>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          {/* Total Price Section */}
+          <div className="rounded-lg p-6">
+            <Row justify="space-between" align="middle">
+              <Col>
+                <Text className="text-lg">Total Price</Text>
+              </Col>
+              <Col>
+                <Text className="text-2xl font-bold text-[#ff4d4f]">${calculateTotalPrice(selectedCar, bookingDetails, additonalBookingInfo)}</Text>
+              </Col>
+            </Row>
+          </div>
         </div>
       )}
     </Modal>
   );
 }
-
-const calculateTotalPrice = (car: ICarData | undefined, details: IBookingDetails) => {
-  if (!car || !details) return 0;
-  const day = 1;
-  const total = car.pricePerHour * day;
-
-  //! will enhance this later
-  // if (details.gps) total += 5 * day;
-  // if (details.childSeat) total += 3 * day;
-  // if (details.insurance) total += 15 * day;
-  return total;
-};
