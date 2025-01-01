@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Card, Avatar, Button, Row, Col, Typography, Table, Modal, Form, Input, Tag, Image } from "antd";
+import { Card, Avatar, Button, Row, Col, Typography, Modal, Form, Input, Tag, Image } from "antd";
 import { UserOutlined, EditOutlined } from "@ant-design/icons";
 import { useAppSelector } from "../../../../redux/store/hooks";
 import { selectCurrentUser } from "../../../../redux/feature/auth/authSlice";
 import { ColumnsType } from "antd/es/table";
 import { IBookingResponse } from "../../../../types/booking.type";
 import { useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
+import PageHeader from "../../../../components/table/PageHeader";
+import MyDataTable from "../../../../components/table/MyDataTable";
 
 const { Title, Text } = Typography;
 
@@ -13,7 +15,7 @@ const UserDashboard = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data: bookingData, isLoading } = useGetIndividualBookingQuery(undefined);
+  const { data: bookingData, isLoading, refetch, isFetching } = useGetIndividualBookingQuery(undefined);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -33,51 +35,65 @@ const UserDashboard = () => {
       title: "Booking ID",
       dataIndex: "_id",
       key: "_id",
+      align: "center",
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
     },
     {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
+      align: "center",
     },
     {
       title: "End Time",
       dataIndex: "endTime",
       key: "endTime",
+      align: "center",
       render: (value) => (value ? value : "N/A"),
     },
     {
       title: "Car",
       dataIndex: ["car", "name"],
       key: "carName",
+      align: "center",
     },
     {
       title: "Image",
       dataIndex: ["car", "image"],
       key: "image",
-      render: (image) => <Image src={image} alt="Image of the Car" />,
+      align: "center",
+      render: (image) => (
+        <div className="w-14 h-10 mx-auto">
+          <Image src={image} alt="car photo" className="w-full h-full object-contain" />
+        </div>
+      ),
     },
     {
       title: "Status",
       dataIndex: ["car", "status"],
       key: "status",
+      align: "center",
       render: (status: string) => <Tag color={status === "unavailable" ? "red" : "green"}>{status.toUpperCase()}</Tag>,
     },
     {
       title: "Total Cost",
       dataIndex: "totalCost",
       key: "totalCost",
+      align: "center",
       render: (cost: number) => `$${cost.toFixed(2)}`,
     },
   ];
 
   return (
     <div>
-      <Card>
+      <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />
+
+      <Card className="mb-5">
         <Row gutter={[16, 16]} align="middle">
           <Col>
             <Avatar size={64} icon={<UserOutlined />} src={currentUser?.name} />
@@ -94,12 +110,9 @@ const UserDashboard = () => {
         </Row>
       </Card>
 
-      <Card style={{ marginTop: 16 }}>
-        <Title level={4}>Booking History</Title>
-        <Table scroll={{ x: 1000 }} size="middle" columns={columns} dataSource={bookingData?.data} loading={isLoading} />
-      </Card>
+      <MyDataTable columns={columns} data={bookingData?.data} loading={isLoading} />
 
-      <Modal title="Update Profile" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Update Profile" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form layout="vertical">
           <Form.Item label="Name" name="name">
             <Input />

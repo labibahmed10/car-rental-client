@@ -26,6 +26,11 @@ const carSlice = createSlice({
     setAdditionalFeatures: (state, action) => {
       const feature = action.payload;
 
+      if (action.payload === undefined) {
+        state.additionalFeatures = [];
+        return;
+      }
+
       // Check if the feature is already in the additionalFeatures array
       if (state.additionalFeatures.includes(feature)) {
         state.additionalFeatures = state.additionalFeatures.filter((f) => f !== feature);

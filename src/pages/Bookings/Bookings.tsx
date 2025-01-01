@@ -13,13 +13,16 @@ import { useAppSelector } from "../../redux/store/hooks";
 import { selectSearchValue } from "../../redux/feature/car/carSlice";
 
 const Bookings: React.FC = () => {
+  console.log("Bookings");
+  const searchValues = useAppSelector(selectSearchValue);
+
   const [form] = Form.useForm();
+  const location = useLocation();
   const [skip, setSkip] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [bookingDetails, setBookingDetails] = useState<any>(null);
-  const location = useLocation();
   const [selectedCar, setSelectedCar] = useState<ICarData | undefined>(location.state);
-  const searchValues = useAppSelector(selectSearchValue);
+
   const { data: availableCars } = useGetAllCarsQuery(searchValues, { skip: skip });
 
   const onFinish = (values: any) => {
@@ -59,6 +62,7 @@ const Bookings: React.FC = () => {
         isModalVisible={isModalVisible}
         selectedCar={selectedCar}
         setIsModalVisible={setIsModalVisible}
+        form={form}
       />
     </div>
   );

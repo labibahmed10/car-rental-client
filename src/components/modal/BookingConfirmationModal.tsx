@@ -3,15 +3,18 @@ import { Modal, Row, Col, Typography } from "antd";
 import { IBookingCar, IBookingConfirmModal } from "../../types/booking.type";
 import { useCreateBookingMutation } from "../../redux/feature/booking/bookingApi";
 import { toast } from "sonner";
-import { useAppSelector } from "../../redux/store/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/store/hooks";
 import { calculateTotalPrice } from "../../utils/calculateTotalPrice";
 import MyButton from "../common/MyButton";
 import { useEffect } from "react";
+import { setAddInsurances, setAdditionalFeatures } from "../../redux/feature/car/carSlice";
+
 const { Title, Text } = Typography;
 
-export default function BookingConfirmationModal({ isModalVisible, setIsModalVisible, bookingDetails, selectedCar }: IBookingConfirmModal) {
+export default function BookingConfirmationModal({ isModalVisible, setIsModalVisible, bookingDetails, selectedCar, form }: IBookingConfirmModal) {
   const [bookCar, { isSuccess, isError, error, isLoading, data, reset }] = useCreateBookingMutation();
   const additonalBookingInfo = useAppSelector((state) => state.car);
+  const dispatch = useAppDispatch();
 
   const onConfirmation = () => {
     const confirmationData: IBookingCar = {
@@ -19,7 +22,6 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
       date: (bookingDetails.startDate as any)?.format("YYYY-MM-DD"),
       startTime: (bookingDetails.startDate as any)?.format("HH:MM"),
     };
-    console.log(confirmationData);
     bookCar(confirmationData);
   };
 
@@ -27,14 +29,19 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
     if (isSuccess) {
       setIsModalVisible(false);
       toast.success(data?.message);
+      dispatch(setAdditionalFeatures(undefined));
+      dispatch(setAddInsurances(undefined));
       reset();
+      form.resetFields();
     }
 
     if (isError) {
       toast.error((error as any)?.data?.message);
       reset();
     }
-  }, [isSuccess, isError, setIsModalVisible]);
+  }, [isSuccess, isError, setIsModalVisible, dispatch, reset]);
+
+  console.log(additonalBookingInfo?.additionalFeatures);
 
   return (
     <Modal
@@ -151,7 +158,9 @@ export default function BookingConfirmationModal({ isModalVisible, setIsModalVis
                 <div className="flex flex-col space-y-2">
                   <Text type="secondary">Additional Features</Text>
                   <Text strong className="capitalize">
-                    {additonalBookingInfo?.additionalFeatures.map((val) => val.split("_").join(" ")).join(", ") || "None selected"}
+                    {additonalBookingInfo?.additionalFeatures?.length > 0
+                      ? additonalBookingInfo?.additionalFeatures?.map((val) => val?.split("_")?.join(" "))?.join(", ")
+                      : "None selected"}
                   </Text>
                 </div>
               </Col>

@@ -1,63 +1,90 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Table, Button, Modal, Form, Input, DatePicker, Select, Popconfirm, Image, Tag, Card } from "antd";
+import { Button, Modal, Form, Input, DatePicker, Select, Popconfirm, Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
 import { IBookingResponse } from "../../../../types/booking.type";
-import Title from "antd/es/typography/Title";
+import PageHeader from "../../../../components/table/PageHeader";
+import MyDataTable from "../../../../components/table/MyDataTable";
 
 export default function BookingManagement() {
-  const { data: bookingData, isLoading } = useGetIndividualBookingQuery(undefined);
+  const { data: bookingData, isLoading, isFetching, refetch } = useGetIndividualBookingQuery(undefined);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<IBookingResponse | undefined>();
-
+  console.log(bookingData);
   const columns: ColumnsType<IBookingResponse> = [
     {
       title: "Booking ID",
       dataIndex: "_id",
       key: "_id",
       fixed: "left",
+      align: "center",
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateA - dateB;
+      },
     },
     {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
       defaultSortOrder: "descend",
-      sorter: (a: any, b: any) => a.startTime - b.startTime,
+      align: "center",
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const timeA = new Date(`1970-01-01T${a.startTime}`).getTime();
+        const timeB = new Date(`1970-01-01T${b.startTime}`).getTime();
+        return timeA - timeB;
+      },
     },
     {
       title: "End Time",
       dataIndex: "endTime",
       key: "endTime",
+      align: "center",
       render: (value) => (value ? value : "N/A"),
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const timeA = new Date(`1970-01-01T${a.endTime}`).getTime();
+        const timeB = new Date(`1970-01-01T${b.endTime}`).getTime();
+        return timeA - timeB;
+      },
     },
     {
       title: "Car",
       dataIndex: ["car", "name"],
       key: "carName",
+      align: "center",
     },
     {
       title: "Image",
       dataIndex: ["car", "image"],
       key: "image",
-      render: (image) => <Image src={image} alt="Image of the Car" />,
+      render: (image) => (
+        <div className="w-14 h-10 mx-auto">
+          <Image src={image} alt="car photo" className="w-full h-full object-contain" />
+        </div>
+      ),
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: ["car", "status"],
       key: "status",
       render: (status: string) => <Tag color={status === "unavailable" ? "red" : "green"}>{status.toUpperCase()}</Tag>,
+      align: "center",
     },
     {
       title: "Total Cost",
       dataIndex: "totalCost",
       key: "totalCost",
       render: (cost: number) => `$${cost.toFixed(2)}`,
+      align: "center",
     },
     {
       title: "Actions",
@@ -91,10 +118,8 @@ export default function BookingManagement() {
 
   return (
     <div>
-      <Card style={{ marginTop: 16 }}>
-        <Title level={4}>Booking Management</Title>
-        <Table columns={columns} dataSource={bookingData?.data} loading={isLoading} scroll={{ x: "auto" }} />
-      </Card>
+      <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />
+      <MyDataTable columns={columns} data={bookingData?.data} loading={isLoading} />
 
       <Modal title="Modify Booking" open={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         {selectedBooking && (

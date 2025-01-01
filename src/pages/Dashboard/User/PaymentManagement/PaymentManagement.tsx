@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Table, Button, Modal, Form, Input, message, Card } from "antd";
+import { Button, Modal, Form, Input, message } from "antd";
 import { ColumnsType } from "antd/es/table";
-import Title from "antd/es/typography/Title";
+import PageHeader from "../../../../components/table/PageHeader";
+import MyDataTable from "../../../../components/table/MyDataTable";
 
 interface Payment {
   id: string;
@@ -16,6 +17,7 @@ export default function PaymentManagement() {
     { id: "2", carName: "Honda", amount: 200, status: "pending" },
     { id: "3", carName: "Ford", amount: 300, status: "pending" },
   ]); // Replace with actual data fetching
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
 
@@ -65,10 +67,9 @@ export default function PaymentManagement() {
 
   return (
     <div>
-      <Card style={{ marginTop: 16 }}>
-        <Title level={4}>Payment Management</Title>
-        <Table columns={columns} dataSource={payments} rowKey="id" scroll={{ x: 500 }} />
-      </Card>
+      <PageHeader title="Manage Users" refetch={() => false} loading={/*isLoading || isFetching */ false} />
+      <MyDataTable columns={columns} data={payments} loading={/*isLoading*/ false} />
+
       <Modal title="Make Payment" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
         {selectedPayment && (
           <>

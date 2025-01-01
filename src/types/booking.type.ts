@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormInstance } from "antd/lib";
 import { IUserInfo } from "./auth.type";
 import { ICarData } from "./car.types";
 import { IResponseType } from "./index.type";
@@ -7,6 +9,7 @@ export interface IBookingConfirmModal {
   setIsModalVisible: (val: boolean) => void;
   bookingDetails: IBookingDetails;
   selectedCar: ICarData | undefined;
+  form: FormInstance<any>;
 }
 
 export interface ISelectCarFunc {
