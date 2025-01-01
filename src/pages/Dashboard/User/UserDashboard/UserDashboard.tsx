@@ -42,12 +42,23 @@ const UserDashboard = () => {
       dataIndex: "date",
       key: "date",
       align: "center",
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateA - dateB;
+      },
     },
     {
       title: "Start Time",
       dataIndex: "startTime",
       key: "startTime",
+      defaultSortOrder: "descend",
       align: "center",
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const timeA = new Date(`1970-01-01T${a.startTime}`).getTime();
+        const timeB = new Date(`1970-01-01T${b.startTime}`).getTime();
+        return timeA - timeB;
+      },
     },
     {
       title: "End Time",
@@ -55,6 +66,11 @@ const UserDashboard = () => {
       key: "endTime",
       align: "center",
       render: (value) => (value ? value : "N/A"),
+      sorter: (a: IBookingResponse, b: IBookingResponse) => {
+        const timeA = new Date(`1970-01-01T${a.endTime}`).getTime();
+        const timeB = new Date(`1970-01-01T${b.endTime}`).getTime();
+        return timeA - timeB;
+      },
     },
     {
       title: "Car",
