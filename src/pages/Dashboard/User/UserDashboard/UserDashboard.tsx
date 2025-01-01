@@ -112,11 +112,18 @@ const UserDashboard = () => {
       <Card className="mb-5">
         <Row gutter={[16, 16]} align="middle">
           <Col>
-            <Avatar size={64} icon={<UserOutlined />} src={currentUser?.name} />
+            <Avatar size={64} icon={<UserOutlined />} src={currentUser?.name} className="text-slate-100" />
           </Col>
           <Col flex={1}>
-            <Title level={4}>{currentUser?.name}</Title>
-            <Text>{currentUser?.email}</Text>
+            <Title
+              level={4}
+              style={{
+                color: "var(--slate-100)",
+              }}
+            >
+              {currentUser?.name}
+            </Title>
+            <Text className="text-slate-100">{currentUser?.email}</Text>
           </Col>
           <Col>
             <Button type="primary" icon={<EditOutlined />} onClick={showModal}>
