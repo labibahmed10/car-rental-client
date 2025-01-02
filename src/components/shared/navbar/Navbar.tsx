@@ -13,6 +13,7 @@ import MenuIcon from "./MenuIcon";
 import MenuLink from "./MenuLink";
 import getMenuItems from "../../../router/navigationItems";
 import DesktopMenu from "./DesktopMenu";
+import baseApi from "../../../redux/api/baseApi";
 
 const { Header } = Layout;
 
@@ -25,10 +26,16 @@ const Navbar: React.FC = () => {
 
   const menuItems = getMenuItems(user);
 
+  // Sign out user and also clear all the cache it had
+  const handleSignOut = () => {
+    dispatch(baseApi.util.resetApiState());
+    dispatch(signOut());
+  };
+
   const authButton = (
     <MyButton
       text={!(user as IUserToken)?.userId ? "Log In" : "Log Out"}
-      onClick={() => ((user as IUserToken)?.userId ? dispatch(signOut()) : null)}
+      onClick={() => ((user as IUserToken)?.userId ? handleSignOut() : null)}
       extraStyle="bg-[#F5B754] hover:!bg-white hover:!text-black transition-all duration-500"
       icon={!(user as IUserToken)?.userId ? <GoArrowUpRight /> : <GoArrowUpLeft />}
     />

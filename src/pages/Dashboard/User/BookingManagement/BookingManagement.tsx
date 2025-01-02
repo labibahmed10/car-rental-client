@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
+import { useCancelBookingMutation, useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
 import { IBookingResponse } from "../../../../types/booking.type";
 import PageHeader from "../../../../components/table/PageHeader";
 import MyDataTable from "../../../../components/table/MyDataTable";
 import { Space } from "antd/lib";
 import CarBookingModal from "./components/modal/CarBookingModal";
 import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
-
+import { toast } from "sonner";
 export default function BookingManagement() {
   const { data: bookingData, isLoading, isFetching, refetch } = useGetIndividualBookingQuery(undefined);
+  const [cancelBooking, { isSuccess, isError, error, isLoading: isCancelBookingLoading }] = useCancelBookingMutation();
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<IBookingResponse | undefined>();
-  console.log(bookingData);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Booking canceled successfully!");
+    }
+    if (isError) {
+      toast.error(error?.data?.message || "Failed to cancel booking. Please try again.");
+    }
+  }, [isSuccess, isError]);
+
   const columns: ColumnsType<IBookingResponse> = [
     {
       title: "Booking ID",
@@ -102,7 +113,6 @@ export default function BookingManagement() {
             handleModalOk={handleModalOk}
             isModalVisible={isModalVisible}
             onClick={() => handleModify(record)}
-            
           />
 
           <ConfirmationMutationModal
@@ -110,7 +120,8 @@ export default function BookingManagement() {
             title="Cancel Booking"
             content="Are you sure you want to cancel this booking?"
             extraStyle="!bg-red-700  hover:!bg-red-800 text-white"
-            mutationFunction={() => console.log("Cancel booking")}
+            isLoading={isCancelBookingLoading}
+            mutationFunction={() => cancelBooking({ id: record._id })}
           />
         </Space>
       ),
