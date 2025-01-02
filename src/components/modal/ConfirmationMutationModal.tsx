@@ -13,6 +13,7 @@ interface IconfirmationModal {
   disabled?: boolean;
   extraStyle?: string;
 }
+
 export default function ConfirmationMutationModal({
   mutationFunction,
   isLoading,
@@ -31,13 +32,13 @@ export default function ConfirmationMutationModal({
       icon: Icon,
       content,
       okText: <div onClick={mutationFunction}>{isLoading ? "Loading..." : "Confirm"}</div>,
-      cancelText: <div>No</div>,
+      cancelText: <MyButton text="Cancel" size="middle" extraStyle="custom-cancel-style" />,
     });
   };
 
   return (
     <div>
-      <MyButton disable={disabled} text={text} size="middle" extraStyle={extraStyle} onClick={confirm} icon={Icon} />
+      <MyButton disable={disabled} text={text} size="large" extraStyle={extraStyle} onClick={confirm} icon={Icon} />
       {contextHolder}
     </div>
   );

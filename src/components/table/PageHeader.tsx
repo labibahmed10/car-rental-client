@@ -11,7 +11,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, isRefetch = true, refetch, loading, extra }) => {
   return (
-    <Card className="mb-5 ">
+    <Card className="mb-5 border-1 border-[#3f3f3f]">
       <div className="flex justify-between items-center gap-12">
         <div className="uppercase flex items-center gap-2">
           <p>{title}</p>

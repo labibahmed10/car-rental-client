@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Button, Modal, Form, Input, DatePicker, Select, Popconfirm, Image, Tag } from "antd";
+import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useGetIndividualBookingQuery } from "../../../../redux/feature/booking/bookingApi";
 import { IBookingResponse } from "../../../../types/booking.type";
 import PageHeader from "../../../../components/table/PageHeader";
 import MyDataTable from "../../../../components/table/MyDataTable";
+import { Space } from "antd/lib";
+import CarBookingModal from "./components/modal/CarBookingModal";
+import ConfirmationMutationModal from "../../../../components/modal/ConfirmationMutationModal";
 
 export default function BookingManagement() {
   const { data: bookingData, isLoading, isFetching, refetch } = useGetIndividualBookingQuery(undefined);
@@ -19,6 +21,7 @@ export default function BookingManagement() {
       key: "_id",
       fixed: "left",
       align: "center",
+      // width: 260,
     },
     {
       title: "Date",
@@ -92,12 +95,24 @@ export default function BookingManagement() {
       key: "actions",
       align: "center",
       render: (_: string, record: IBookingResponse) => (
-        <div className="gap-3 flex sm:flex-row flex-col justify-center items-center">
-          <Button onClick={() => handleModify(record)}>Update</Button>
-          <Popconfirm title="Are you sure you want to cancel this booking?" okText="Yes" cancelText="No">
-            <Button danger>Cancel</Button>
-          </Popconfirm>
-        </div>
+        <Space size="middle">
+          <CarBookingModal
+            handleModalCancel={handleModalCancel}
+            selectedBooking={selectedBooking}
+            handleModalOk={handleModalOk}
+            isModalVisible={isModalVisible}
+            onClick={() => handleModify(record)}
+            
+          />
+
+          <ConfirmationMutationModal
+            text="Cancel"
+            title="Cancel Booking"
+            content="Are you sure you want to cancel this booking?"
+            extraStyle="!bg-red-700  hover:!bg-red-800 text-white"
+            mutationFunction={() => console.log("Cancel booking")}
+          />
+        </Space>
       ),
     },
   ];
@@ -117,32 +132,9 @@ export default function BookingManagement() {
   };
 
   return (
-    <div>
+    <>
       <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />
       <MyDataTable columns={columns} data={bookingData?.data} loading={isLoading} />
-
-      <Modal title="Modify Booking" open={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
-        {selectedBooking && (
-          <Form layout="vertical">
-            <Form.Item label="Car Name">
-              <Input value={selectedBooking.car.name} disabled />
-            </Form.Item>
-            <Form.Item label="Start Date">
-              <DatePicker format="YYYY-MM-DD" />
-            </Form.Item>
-            <Form.Item label="End Date">
-              <DatePicker format="YYYY-MM-DD" />
-            </Form.Item>
-            <Form.Item label="Status">
-              <Select>
-                <Select.Option value="upcoming">Upcoming</Select.Option>
-                <Select.Option value="past">Past</Select.Option>
-                <Select.Option value="approved">Approved</Select.Option>
-              </Select>
-            </Form.Item>
-          </Form>
-        )}
-      </Modal>
-    </div>
+    </>
   );
 }

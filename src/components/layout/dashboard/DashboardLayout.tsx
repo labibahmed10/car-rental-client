@@ -20,12 +20,12 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
         collapsedWidth="0"
         width={275}
         style={{
-          backgroundColor: "#2A5979",
+          backgroundColor: "#222222",
         }}
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="h-screen"
+        className="h-screen sticky top-0 z-50"
       >
         <section className="flex flex-col justify-between h-full p-3 w-full">
           <div className="space-y-5 w-full">
@@ -64,11 +64,12 @@ const DashboardLayout = ({ items }: IDashboardLayout) => {
           style={{
             width: 45,
             height: 45,
+            color: "rgb(241 245 249)",
           }}
         />
 
         <Content>
-          <div className="p-4 sm:p-10 dark:bg-[#222222] rounded-md">
+          <div className="p-4 sm:p-10 dark:bg-[#222222] rounded-md m-5">
             <Outlet />
           </div>
         </Content>

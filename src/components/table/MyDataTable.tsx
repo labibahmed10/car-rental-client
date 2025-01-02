@@ -18,7 +18,7 @@ const MyDataTable: FC<TProps<any, any>> = ({ columns, data, loading }) => {
         columns={columns}
         rowKey={(record) => record?._id}
         dataSource={data || []}
-        scroll={{ x: "calc(700px + 30%)" }}
+        scroll={{ x: "max-content" }}
         bordered
         pagination={{
           pageSize: 10,

@@ -82,6 +82,11 @@ body {
   color: rgb(241 245 249);
 }
 
+:where(.css-dev-only-do-not-override-5wsri9).ant-table-wrapper .ant-table-thead th.ant-table-column-has-sorters:hover {
+  background: #3b3b3b;
+  color: rgb(241 245 249);
+}
+
 .ant-table-cell {
   background: #222222;
   color: rgb(241 245 249);
@@ -97,6 +102,16 @@ body {
   color: #f5b754;
 }
 
+:where(.css-dev-only-do-not-override-5wsri9).ant-btn-variant-solid {
+  background-color: #f5b754;
+  color: rgb(241 245 249);
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: #f5b754;
+  color: rgb(241 245 249);
+}
+
 :where(.css-dev-only-do-not-override-5wsri9).ant-layout {
   background-color: #1b1b1b;
 }
@@ -109,4 +124,24 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-card .ant-card-body {
   background-color: #222222;
   color: rgb(241 245 249);
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > tbody
+  > tr
+  > td,
+:where(.css-dev-only-do-not-override-5wsri9).ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-5wsri9).ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container {
+  border: 1px solid #3f3f3f;
 }

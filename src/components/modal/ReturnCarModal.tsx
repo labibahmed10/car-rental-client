@@ -45,7 +45,7 @@ export default function ReturnCarModal({ mutationFunction, isLoading, record, di
         loading={isLoading}
         icon={<GiReturnArrow />}
         disable={disabled}
-        extraStyle="bg-indigo-700  hover:!bg-indigo-800 text-white"
+        extraStyle="!bg-indigo-700  hover:!bg-indigo-800 text-white"
       />
       {contextHolder}
     </div>

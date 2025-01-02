@@ -88,7 +88,7 @@ const ManageCars = () => {
             content="Are you sure to delete this item?"
             mutationFunction={() => deleteCarMutation({ id: record._id })}
             isLoading={isDeleting}
-            extraStyle="bg-red-600  hover:!bg-red-800 text-white"
+            extraStyle="!bg-red-600  hover:!bg-red-800 text-white"
             Icon={<DeleteOutlined />}
           />
         </span>

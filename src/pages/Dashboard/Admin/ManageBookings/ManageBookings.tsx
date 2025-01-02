@@ -113,7 +113,7 @@ export default function ManageBookings() {
               isLoading={isApproving}
               disabled={record.status === "approved" || record.totalCost > 0}
               Icon={<TiTickOutline />}
-              extraStyle="bg-emerald-700  hover:!bg-emerald-800 text-white"
+              extraStyle="!bg-emerald-700  hover:!bg-emerald-800 text-white"
             />
 
             <ConfirmationMutationModal
@@ -127,7 +127,7 @@ export default function ManageBookings() {
               }
               isLoading={isCanceling}
               Icon={<MdCancel />}
-              extraStyle="bg-red-700  hover:!bg-red-800 text-white"
+              extraStyle="!bg-red-700  hover:!bg-red-800 text-white"
             />
           </Space>
         );

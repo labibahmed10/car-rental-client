@@ -109,7 +109,7 @@ const UserDashboard = () => {
     <div>
       <PageHeader title="Manage Users" refetch={refetch} loading={isLoading || isFetching} />
 
-      <Card className="mb-5">
+      <Card className="mb-5 border-[#3f3f3f]">
         <Row gutter={[16, 16]} align="middle">
           <Col>
             <Avatar size={64} icon={<UserOutlined />} src={currentUser?.name} className="text-slate-100" />

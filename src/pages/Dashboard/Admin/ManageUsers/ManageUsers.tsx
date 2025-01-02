@@ -90,7 +90,7 @@ export default function ManageUsers() {
             mutationFunction={() => updateUserStatus({ id: record._id, status: record.status === "active" ? "block" : "active" })}
             isLoading={isUpdating}
             Icon={<FaUserCheck />}
-            extraStyle="bg-indigo-700  hover:!bg-indigo-800 text-white"
+            extraStyle="!bg-indigo-700  hover:!bg-indigo-800 text-white"
           />
 
           <ConfirmationMutationModal
@@ -100,7 +100,7 @@ export default function ManageUsers() {
             mutationFunction={() => updateUserToAdmin({ id: record._id })}
             isLoading={isCreating}
             Icon={<RiAdminFill />}
-            extraStyle="bg-cyan-700  hover:!bg-cyan-800 text-white"
+            extraStyle="!bg-cyan-700  hover:!bg-cyan-800 text-white"
           />
         </span>
       ),
