@@ -145,3 +145,17 @@ body {
 :where(.css-dev-only-do-not-override-5wsri9).ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container {
   border: 1px solid #3f3f3f;
 }
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-btn-variant-outlined {
+  background: inherit;
+  width: fit-content;
+}
+
+:where(.css-dev-only-do-not-override-5wsri9).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover {
+  background: inherit;
+  border: 1px solid #f5b754;
+}
+
+.ant-modal-confirm-content {
+  color: rgb(241 245 249) !important;
+}

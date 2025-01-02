@@ -30,9 +30,9 @@ export default function ConfirmationMutationModal({
     modal.confirm({
       title,
       icon: Icon,
-      content,
+      content: <span className="text-slate-100">{content}</span>,
       okText: <div onClick={mutationFunction}>{isLoading ? "Loading..." : "Confirm"}</div>,
-      cancelText: <MyButton text="Cancel" size="middle" extraStyle="custom-cancel-style" />,
+      cancelText: <span className="">Cancel</span>,
     });
   };
 

@@ -21,7 +21,8 @@ export default function BookingManagement() {
       toast.success("Booking canceled successfully!");
     }
     if (isError) {
-      toast.error(error?.data?.message || "Failed to cancel booking. Please try again.");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      toast.error((error as any)?.data?.message || "Failed to cancel booking. Please try again.");
     }
   }, [isSuccess, isError]);
 
@@ -32,7 +33,6 @@ export default function BookingManagement() {
       key: "_id",
       fixed: "left",
       align: "center",
-      // width: 260,
     },
     {
       title: "Date",
@@ -134,7 +134,6 @@ export default function BookingManagement() {
   };
 
   const handleModalOk = () => {
-    // Implement modification logic
     setIsModalVisible(false);
   };
 
